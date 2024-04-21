@@ -30,7 +30,7 @@
 
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm p-4 rounded-md shadow-indigo-500 shadow-[0px_0px_10px_-2px_rgba(0,0,0,0.3)] ">
-      <form class="space-y-6" action="/home" method="POST" @submit.prevent="validarCampos">
+      <form class="space-y-6" action="/home" method="POST" @submit.prevent="auth">
         <div>
           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Usuario</label>
           <div class="mt-2">
@@ -119,7 +119,7 @@ export default{
       }
       return ok;
     },
-    auth: async () => {
+    auth: async function() {
       const auth = new AuthService()
       const success = await auth.login(this.username, this.password)
       if(success && this.validarCampos()){

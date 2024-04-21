@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { useAuthStore } from '@/stores/auth';
 // eslint-disable-next-line no-unused-vars
 export default class AuthService {
 
@@ -24,14 +25,15 @@ export default class AuthService {
                 password: password
             })
            })
+           const store = useAuthStore();
+           const response = await res.text();
 
-           const response = await res.json()
-
-           if('error' in response){
+           if(response === 'username or password is incorrect'){
             this.error = 'Login Failed'
             return false;
            } else {
-            this.jwt = response.data.access_token
+            this.jwt = response;
+            store.token = response;
             return true
            }
         } catch(error){
