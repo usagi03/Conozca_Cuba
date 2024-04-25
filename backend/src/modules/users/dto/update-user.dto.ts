@@ -1,10 +1,13 @@
-import { IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdateUserDto {
     @IsString()
-    readonly name: string;
-    @IsString()
-    readonly password: string;
-    @IsString()
-    readonly role: string;
+    @IsOptional()
+    readonly user_name?: string;
+    @IsOptional()
+    @IsNotEmpty()
+    readonly user_password?: string;
+    @IsNumber()
+    @IsOptional()
+    readonly user_role?: number;
 }

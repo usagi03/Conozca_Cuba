@@ -1,16 +1,53 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './modules/users/users.module';
-import { AccommodationModule } from './modules/accommodation/accommodation.module';
-import { TransportationModule } from './modules/transportation/transportation.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AcommodationsModule } from './modules/acommodations/acommodations.module';
 import { ActivitiesModule } from './modules/activities/activities.module';
 import { ContractsModule } from './modules/contracts/contracts.module';
+import { HotelsModule } from './modules/hotels/hotels.module';
+import { KmCostsModule } from './modules/km_costs/km_costs.module';
+import { KmHourCostsModule } from './modules/km_hour_costs/km_hour_costs.module';
+import { MealPlansModule } from './modules/meal_plans/meal_plans.module';
 import { PackagesModule } from './modules/packages/packages.module';
 import { ReportsModule } from './modules/reports/reports.module';
+import { RolesModule } from './modules/roles/roles.module';
+import { RoomsModule } from './modules/rooms/rooms.module';
+import { RoutesModule } from './modules/routes/routes.module';
+import { TransportationModelsModule } from './modules/transportation_models/transportation_models.module';
+import { TransportationsModule } from './modules/transportations/transportations.module';
+import { UsersModule } from './modules/users/users.module';
+import { VehiclesModule } from './modules/vehicles/vehicles.module';
 
 @Module({
-  imports: [UsersModule, AccommodationModule, TransportationModule, ActivitiesModule, ContractsModule, PackagesModule, ReportsModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'CamilaBD',
+      database: 'Conozca_Cuba',
+      entities: [],
+      autoLoadEntities: true,
+      synchronize: true
+    }),
+    AcommodationsModule,
+    ActivitiesModule,
+    ContractsModule,
+    HotelsModule,
+    KmCostsModule,
+    KmHourCostsModule,
+    MealPlansModule,   
+    PackagesModule, 
+    ReportsModule,
+    RolesModule,
+    RoomsModule,
+    RoutesModule,
+    TransportationModelsModule,
+    TransportationsModule,
+    UsersModule,
+    VehiclesModule],
   controllers: [AppController],
   providers: [AppService],
 })
