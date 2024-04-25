@@ -18,19 +18,20 @@ import { TransportationModelsModule } from './modules/transportation_models/tran
 import { TransportationsModule } from './modules/transportations/transportations.module';
 import { UsersModule } from './modules/users/users.module';
 import { VehiclesModule } from './modules/vehicles/vehicles.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5432,
+      port: 5434,
       username: 'postgres',
       password: 'CamilaBD',
       database: 'Conozca_Cuba',
       entities: [],
       autoLoadEntities: true,
-      synchronize: true
+      synchronize: false
     }),
     AcommodationsModule,
     ActivitiesModule,
@@ -47,7 +48,8 @@ import { VehiclesModule } from './modules/vehicles/vehicles.module';
     TransportationModelsModule,
     TransportationsModule,
     UsersModule,
-    VehiclesModule],
+    VehiclesModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
