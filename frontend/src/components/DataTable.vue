@@ -1,16 +1,16 @@
 <template>
     
 <div class="relative overflow-x-auto sm:rounded-b-xl">
-    <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+    <div class="px-1 py-1 flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
         <label for="table-search" class="sr-only">Search</label>
         <div class="relative mt-1">
             <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                 <SearchIcon/>
             </div>
-            <input type="text" id="table-search" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search for items">
+            <input type="text" v-model="searchQuery" id="table-search" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search for items">
         </div>
         <div class="relative" >
-            <button  class="inline-flex items-center text-gray-500 bg-white border border-green-300 focus:outline-none hover:bg-green-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 " 
+            <button @click="showModal = true" class="w-full inline-flex items-center text-white bg-green-600 border border-transparent shadow-sm focus:outline-none hover:bg-green-700 font-medium rounded-md text-base px-3 py-1.5 focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm " 
             type="button"> 
             <AddIcon/>
             Añadir nuevo</button>
@@ -25,17 +25,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="bg-white border-b  hover:bg-indigo-100" v-for="items in data" :key="items">
+            <tr class="bg-white border-b  hover:bg-indigo-100" v-for="(items, index) in filteredData" :key="items">
                 <td v-for="item in items" :key="item" class="px-6 py-4">
                     {{ item }}
                 </td>
                 <td class="px-6 py-4">
                     <div class="relative flex">
                         <div class="px-3">
-                           <EditIcon/>  
+                           <EditIcon @click="editObject(index)"/>  
                         </div>
                         <div>
-                           <DeleteIcon/> 
+                           <DeleteIcon @click="openConfirm(index)"/> 
                         </div>
                       
                         
@@ -46,6 +46,38 @@
         </tbody>
     </table>
     </div>
+
+
+<!-- Modal -->
+<div v-if="showModal" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+ <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="showModal = false"></div>
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="sm:flex sm:items-start">
+          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+              Añadir nuevo objeto
+            </h3>
+            <div class="mt-2">
+              <slot name="formComponent"></slot>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+        <button @click="closeAddEdit" type="button" class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-black hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+          Cerrar
+        </button>
+        <button @click="addNewObject" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+          Guardar
+        </button>
+      </div>
+    </div>
+ </div>
+</div>
+<ConfirmDelete :isOpen="showConfirmDelete" @confirm="confirmDelete" @close="closeConfirm"/>
     
 </div>
 
@@ -55,21 +87,78 @@ import AddIcon from './icons/AddIcon.vue';
 import SearchIcon from '@/components/icons/SearchIcon.vue';
 import EditIcon from './icons/EditIcon.vue';
 import DeleteIcon from './icons/DeleteIcon.vue';
+import {useFormsStore} from '@/stores/forms.js';
+import ConfirmDelete from '@/components/ConfirmDelete.vue';
     export default {
         components:{
         SearchIcon,
         AddIcon,
         EditIcon,
         DeleteIcon,
+        ConfirmDelete,
         },
+        setup(){
+       const store = useFormsStore();
+       return{
+         store,
+        }
+      },
         props:{
             headers: Array,
             data: Array,
         },
         data(){
             return{
-                
+                searchQuery: '',
+                showModal: false,
+                showConfirmDelete: false,
+                newObject: {},
             }
+        },
+        computed:{
+            filteredData() {
+              return !this.searchQuery ? this.data : this.data.filter(item => 
+              Object.values(item).some(value => value.toString().toLowerCase().includes(this.searchQuery.toLowerCase()))
+             );
+            },
+        },
+        methods:{
+            addNewObject() {
+             this.$emit('add-new-object', this.newObject);
+             this.showModal = false;
+             this.store.isUpdate(-1)
+           },
+           editObject(item){
+            this.store.isUpdate(item);
+            console.log(item);
+            this.showModal = true;
+            console.log(this.data[this.store.position]);
+            this.newObject = Object.assign({}, this.data[this.store.position]);
+            this.$emit('valueEdit', this.newObject);
+           },
+           openConfirm(index){
+            this.showConfirmDelete = true;
+            this.newObject = this.data[index];
+            console.log(this.newObject);
+           },
+           confirmDelete(){
+            this.$emit('confirm', this.newObject)
+            this.showConfirmDelete = false;
+           },
+           closeConfirm(){
+            this.showConfirmDelete = false;
+           },
+           closeAddEdit(){
+            this.showModal = false;
+            if(this.store.position != -1){
+              this.store.isUpdate(-1);  
+            }
+           },
+           obtener(newObject){
+           console.log(newObject)
+           this.newObject = newObject;
+           console.log(this.newObject)
+          }
         }
     }
 </script>
