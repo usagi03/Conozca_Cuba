@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from '../user.entity';
-import { CreateUserDto, UpdateUserDto, /*UpdateUserDto*/ } from '../dto';
+import { CreateUserDto, UpdateUserDto } from '../dto';
 import { Repository } from 'typeorm';
 import { FindOneOptions } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -66,26 +66,9 @@ export class UsersService {
         await this.userRepository.remove(user);
         return ok;
     }   
-    
-    /*async updateUser(id_user: number, newUser: UpdateUserDto) {
-        const user: User = await this.userRepository.preload({
-            id_user, 
-            user_name: newUser.user_name,
-            user_password: newUser.user_password,
-            id_role: newUser.id_role
-        });
 
-        if (!user) {
-            throw new NotFoundException('Resource not found')
-        }
-
-        await this.userRepository.save(user);
-
+    async findOnebyUsernameWithPass(username: string): Promise<User> {
+        const user = await this.userRepository.findOne({ where: {user_name: username} })
         return user;
-    }  
-
-    async findOne(username: string, pass): Promise<User> {
-        const user = await this.userRepository.findOne({ where: {user_name: username, user_password: pass} })
-        return user;
-    }*/
+    }
 }

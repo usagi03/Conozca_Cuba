@@ -6,7 +6,7 @@ export class User {
     @PrimaryGeneratedColumn('increment')
     id_user: number;
 
-    @Column({ nullable: false })
+    @Column({ unique: true, nullable: false })
     user_name: string;
 
     @Column({ nullable: false })
