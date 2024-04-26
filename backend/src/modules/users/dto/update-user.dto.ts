@@ -1,10 +1,14 @@
-import { IsString } from "class-validator";
+import { IsNotEmpty, IsObject, IsOptional, IsString } from "class-validator";
+import { Role } from "src/modules/roles/roles.entity";
 
 export class UpdateUserDto {
     @IsString()
-    readonly name: string;
-    @IsString()
-    readonly password: string;
-    @IsString()
-    readonly role: string;
+    @IsOptional()
+    readonly user_name?: string;
+    @IsOptional()
+    @IsNotEmpty()
+    readonly user_password?: string;
+    @IsObject()
+    @IsOptional()
+    readonly role?: Partial<Role>;
 }

@@ -1,10 +1,16 @@
-import { IsString } from "class-validator";
+import { IsNotEmpty, IsObject, IsString } from "class-validator";
+import { Role } from "src/modules/roles/roles.entity";
 
 export class CreateUserDto {
     @IsString()
-    readonly name: string;
+    @IsNotEmpty()
+    readonly user_name: string;
+
     @IsString()
-    readonly password: string;
-    @IsString()
-    readonly role: string;
+    @IsNotEmpty()
+    readonly user_password: string;
+
+    @IsObject()
+    @IsNotEmpty()
+    readonly role: Partial<Role>;
 }

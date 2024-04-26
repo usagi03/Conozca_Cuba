@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+ myDB:
+    image: postgres:16.2
+    container_name: my-database
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=CamilaBD
+      - POSTGRES_DB=Conozca_Cuba
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+
+ pgAdmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    depends_on:
+      - myDB
+    ports:
+      - 8080:8080
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=camilamartingarrido@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=CamilaAdmin
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+      - ./pgadmin:/certs/server.cert
+      - ./pgadmin:/certs/server.key
+

@@ -1,60 +1,91 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from '../user.entity';
-import { CreateUserDto, UpdateUserDto } from '../dto';
+import { CreateUserDto, UpdateUserDto, /*UpdateUserDto*/ } from '../dto';
+import { Repository } from 'typeorm';
+import { FindOneOptions } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Role } from 'src/modules/roles/roles.entity';
 
 @Injectable()
 export class UsersService {
-    private users: User[] = [
-        {
-            id: 1,
-            name: 'Adrian',
-            password: '1234',
-            role: 'Administrador',
-        },
-        {
-            id: 2,
-            name: 'Camila',
-            password: '1234',
-            role: 'Gerente',
-        },
-        {
-            id: 3,
-            name: 'Jacqueline',
-            password: '1234',
-            role: 'Agente de ventas',
+    
+    constructor(
+        @InjectRepository(User) 
+        private readonly userRepository: Repository<User>,
+        @InjectRepository(Role)
+        private readonly roleRepository: Repository<Role>) {}
+
+    async getUsers(): Promise<User[]> {
+        return await this.userRepository.find({relations: ['role']});
+    }
+
+    async getUser(id: number): Promise<User> {
+        console.log(id);
+        const user = await this.userRepository.findOne({ relations: ['role'], where: { id_user: id } } as FindOneOptions<User>);
+        console.log(user);
+
+        if (!user) {
+            throw new NotFoundException('Resource not found');
         }
-    ];
 
-    getUsers(): User[] {
-        return this.users;
+        return user;
     }
 
-    getUser(id: number): User {
-        return this.users.find((item) => item.id === id);
+    async createUser(newUser: CreateUserDto): Promise<User> {
+        const user = this.userRepository.create(newUser);
+        user.role = { id_role: newUser.role.id_role } as Role; 
+        return this.userRepository.save(user);
     }
 
-    createUser(user: CreateUserDto) {
-        this.users.push({
-            id: (Math.floor(Math.random() * 2000) + 1),
-            name: user.name,
-            password: user.password,
-            role: user.role
+    async updateUser(id_user: number, newUser: UpdateUserDto) {
+        const user = await this.userRepository.preload({
+            id_user,
+            user_name: newUser.user_name,
+            user_password: newUser.user_password,
+            role: { id_role: newUser.role.id_role } 
         });
-    }
-
-    updateUser(id: number, user: UpdateUserDto) {
-        const u: User = this.getUser(id);
-        u.name = user.name;
-        u.password = user.password;
-        u.role = user.role;
-
-        return u;
-    }
-
-    removeUser(id: number) {
-        const index = this.users.findIndex((user) => user.id === id);
-        if (index >= 0) {
-            this.users.splice(index, 1);
+    
+        if (!user) {
+            throw new NotFoundException('Resource not found');
         }
+    
+        await this.userRepository.save(user);
+        return user;
     }
+
+    async removeUser(id: number): Promise<string> {
+        const user: User = await this.userRepository.findOne({ where: { id_user: id } } as FindOneOptions<User>);
+        let ok: string = 'NO ELIMINADO';
+
+        if (!user) {
+            throw new NotFoundException('Resource not found');
+        } else {
+            ok = 'ELIMINADO';
+        }
+    
+        await this.userRepository.remove(user);
+        return ok;
+    }   
+    
+    /*async updateUser(id_user: number, newUser: UpdateUserDto) {
+        const user: User = await this.userRepository.preload({
+            id_user, 
+            user_name: newUser.user_name,
+            user_password: newUser.user_password,
+            id_role: newUser.id_role
+        });
+
+        if (!user) {
+            throw new NotFoundException('Resource not found')
+        }
+
+        await this.userRepository.save(user);
+
+        return user;
+    }  
+
+    async findOne(username: string, pass): Promise<User> {
+        const user = await this.userRepository.findOne({ where: {user_name: username, user_password: pass} })
+        return user;
+    }*/
 }
