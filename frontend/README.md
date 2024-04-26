@@ -1,35 +1,44 @@
 # Conozca_Cuba
 
-This template should help get you started developing with Vue 3 in Vite.
+## Indice
 
-## Recommended IDE Setup
+1. [Requisitos](#requisitos)
+2. [Configuración](#configuración)
+3. [Componentes](#componentes)
+4. a
+5. [Integrantes](#integrantes)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Requisitos
 
-## Customize configuration
+* Instalar [Node.js](https://nodejs.org/) version 16.0 o superior
+* Para el IDE [Visual Studio Code](https://code.visualstudio.com/) tener la extension de Vue [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Configuración
 
-## Project Setup
+1. Clone el repositorio y abralo en el VSCode
+2. Toque click derecho en la carpeta del proyecto fronted/src la opción de abrir en terminal integrado
+3. En el terminal que se abrio ejecute el siguiente comando: {}
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+4. Luego el siguiente comando que se debe cada vez que abras el proyecto para poder ver la pagina mientras se programa:
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+## Componentes
 
-```sh
-npm run build
-```
+* DataTable
+* Formularios
+* Inputs
 
-### Lint with [ESLint](https://eslint.org/)
 
-```sh
-npm run lint
-```
+## Integrantes
+
+[Jacqueline] (<https://github.com/usagi03>)
+[Camila] (<https://github.com/CamilaMartinGarrido>)
+[Adrian] (<https://github.com/abREalNub>)
+[Alejandro Deyne] (<https://github.com/DanielDeyne>)
