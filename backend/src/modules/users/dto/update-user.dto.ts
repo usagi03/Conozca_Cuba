@@ -5,9 +5,11 @@ export class UpdateUserDto {
     @IsString()
     @IsOptional()
     readonly user_name?: string;
+
     @IsOptional()
     @IsNotEmpty()
     readonly user_password?: string;
+    
     @IsObject()
     @IsOptional()
     readonly role?: Partial<Role>;
