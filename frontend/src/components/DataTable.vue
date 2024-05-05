@@ -3,14 +3,15 @@
 <div class="relative overflow-x-auto sm:rounded-b-xl">
     <div class="px-1 py-1 flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
         <label for="table-search" class="sr-only">Search</label>
+         <!--Buscador separar componente-->
         <div class="relative mt-1">
             <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                 <SearchIcon/>
             </div>
-            <input type="text" v-model="searchQuery" id="table-search" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search for items">
+            <input type="text" v-model="searchQuery" id="table-search" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Busca elementos">
         </div>
         <div class="relative" >
-            <button @click="showModal = true" class="w-full inline-flex items-center text-white bg-green-600 border border-transparent shadow-sm focus:outline-none hover:bg-green-700 font-medium rounded-md text-base px-3 py-1.5 focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm " 
+            <button @click="openModalAdd" class="w-full inline-flex items-center text-white bg-green-600 border border-transparent shadow-sm focus:outline-none hover:bg-green-700 font-medium rounded-md text-base px-3 py-1.5 focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm " 
             type="button"> 
             <AddIcon/>
             Añadir nuevo</button>
@@ -36,29 +37,26 @@
                         </div>
                         <div>
                            <DeleteIcon @click="openConfirm(index)"/> 
-                        </div>
-                      
-                        
+                        </div>  
                     </div>
                 </td>
             </tr>
-            
         </tbody>
     </table>
     </div>
 
 
 <!-- Modal -->
-<div v-if="showModal" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div v-if="showModal" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" @click.self="preventClose" aria-modal="true">
  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="showModal = false"></div>
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="closeAddEdit"></div>
     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
     <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
         <div class="sm:flex sm:items-start">
           <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-              Añadir nuevo objeto
+              {{msg}} 
             </h3>
             <div class="mt-2">
               <slot name="formComponent"></slot>
@@ -113,6 +111,7 @@ import ConfirmDelete from '@/components/ConfirmDelete.vue';
                 showModal: false,
                 showConfirmDelete: false,
                 newObject: {},
+                msg: '',
             }
         },
         computed:{
@@ -123,6 +122,10 @@ import ConfirmDelete from '@/components/ConfirmDelete.vue';
             },
         },
         methods:{
+          openModalAdd(){
+            this.showModal = true
+            this.msg = 'Añadir'
+          },
             addNewObject() {
              this.$emit('add-new-object', this.newObject);
              this.showModal = false;
@@ -135,6 +138,7 @@ import ConfirmDelete from '@/components/ConfirmDelete.vue';
             console.log(this.data[this.store.position]);
             this.newObject = Object.assign({}, this.data[this.store.position]);
             this.$emit('valueEdit', this.newObject);
+            this.msg = 'Modifica'
            },
            openConfirm(index){
             this.showConfirmDelete = true;
@@ -158,6 +162,10 @@ import ConfirmDelete from '@/components/ConfirmDelete.vue';
            console.log(newObject)
            this.newObject = newObject;
            console.log(this.newObject)
+          },
+          // eslint-disable-next-line no-unused-vars
+          preventClose(event){
+            //
           }
         }
     }
