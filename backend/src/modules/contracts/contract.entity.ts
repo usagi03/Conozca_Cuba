@@ -1,4 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Transportation } from "../transportations/transportation.entity";
+import { Acommodation } from "../acommodations/acommodations.entity";
+import { Daily_activity } from "../activities/activities.entity";
 
 @Entity()
 export class Contract {
@@ -17,12 +20,21 @@ export class Contract {
   @Column()
   description: string;
 
-  @Column()
-  id_transportation: number;
+  @ManyToOne(() => Transportation, (transportation) => transportation.id_transportation, {
+      eager: true,
+    })
+    @JoinColumn({name: 'id_transportation'})
+    transportation: Transportation;
 
-  @Column()
-  id_hotel_room_season: number;
+  @ManyToOne(() => Acommodation, (acommodation) => acommodation.id_acommodation, {
+      eager: true, 
+    })
+    @JoinColumn({name: 'id_acommodation'})
+    acommodation: Acommodation;
 
-  @Column()
-  id_activity: number;
+  @ManyToOne(() => Daily_activity, (activity) => activity.id_activity, {
+      eager: true,
+    })
+    @JoinColumn({name: 'id_activity'})
+    activity: Daily_activity;
 }
