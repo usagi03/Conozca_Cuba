@@ -19,6 +19,7 @@ import { TransportationsModule } from "./modules/transportations/transportations
 import { UsersModule } from "./modules/users/users.module";
 import { VehiclesModule } from "./modules/vehicles/vehicles.module";
 import { AuthModule } from "./modules/auth/auth.module";
+import { AcommodationsController } from './modules/acommodations/controller/acommodations.controller';
 
 @Module({
   imports: [
@@ -51,7 +52,7 @@ import { AuthModule } from "./modules/auth/auth.module";
     VehiclesModule,
     AuthModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, AcommodationsController],
   providers: [AppService],
 })
 export class AppModule {}
