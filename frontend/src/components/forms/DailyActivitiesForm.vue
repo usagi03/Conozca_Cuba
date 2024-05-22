@@ -2,11 +2,11 @@
     <div class="mt-2">
      <form>
         <div class="mb-4">
-          <label for="newObjectType" class="block text-gray-700 text-sm font-bold mb-2">Tipo</label>
+          <label for="newObjectType" class="label">Tipo</label>
           <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectType" v-model="newObject.type" >
         </div>
         <div class="mb-4">
-          <label for="newObjectDay" class="block text-gray-700 text-sm font-bold mb-2">Día</label>
+          <label for="newObjectDay" class="label">Día</label>
           <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectDay" v-model="newObject.day" >
         </div>
         <div class="mb-4">

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LogIn from '@/components/LogIn.vue'
+import LogInView from '@/components/LoginNew.vue'
 import EjemploView from '@/views/EjemploView.vue'
 import PruebaInputs from '@/views/PruebaInputs.vue'
 import UsersView from '@/views/UsersView.vue'
@@ -10,17 +10,18 @@ import SeasonView from '@/views/SeasonView.vue'
 import VehiclesView from '@/views/VehiclesView.vue'
 import PackagesView from '@/views/PackagesView.vue'
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'Login',
-      component: LogIn  
+      component: LogInView
     },
     {
-      path: '/ejemploPantalla',
-      name: 'ejemploPantalla',
+      path: '/home',
+      name: 'home',
       component: EjemploView
     },
     {
@@ -29,8 +30,8 @@ const router = createRouter({
       component: PruebaInputs
     },
     {
-      path: '/usuario',
-      name: 'usuario',
+      path: '/usuarios',
+      name: 'usuarios',
       component: UsersView
     },
     {
@@ -46,7 +47,7 @@ const router = createRouter({
     {
       path: '/habitaciones',
       name: 'habitaciones',
-      component: RoomView
+      component: RoomView,
     },
     {
       path: '/temporadas',

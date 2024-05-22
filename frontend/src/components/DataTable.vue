@@ -14,7 +14,13 @@
             <button @click="openModalAdd" class="w-full inline-flex items-center text-white bg-green-600 border border-transparent shadow-sm focus:outline-none hover:bg-green-700 font-medium rounded-md text-base px-3 py-1.5 focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm " 
             type="button"> 
             <AddIcon/>
-            Añadir nuevo</button>
+            Añadir nuevo
+          </button>
+          <button @click="exportModal = true" class="w-full inline-flex items-center text-white bg-indigo-600 border border-transparent shadow-sm focus:outline-none hover:bg-indigo-700 font-medium rounded-md text-base px-3 py-1.5 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm " 
+            type="button"> 
+            <DownloadIcon/>
+            Exportar
+          </button>
         </div>
     </div>
     <div class="relative overflow-x-auto border sm:rounded-xl shadow-md">
@@ -76,7 +82,7 @@
  </div>
 </div>
 <ConfirmDelete :isOpen="showConfirmDelete" @confirm="confirmDelete" @close="closeConfirm"/>
-    
+<ExportModal :isOpen="exportModal" @export="exportData" @close="exportModal = false"/>    
 </div>
 
 </template>
@@ -87,14 +93,19 @@ import EditIcon from './icons/EditIcon.vue';
 import DeleteIcon from './icons/DeleteIcon.vue';
 import {useFormsStore} from '@/stores/forms.js';
 import ConfirmDelete from '@/components/ConfirmDelete.vue';
+import DownloadIcon from './icons/DownloadIcon.vue';
+import ExportModal from './ExportModal.vue';
+
     export default {
         components:{
-        SearchIcon,
-        AddIcon,
-        EditIcon,
-        DeleteIcon,
-        ConfirmDelete,
-        },
+    SearchIcon,
+    AddIcon,
+    EditIcon,
+    DeleteIcon,
+    ConfirmDelete,
+    DownloadIcon,
+    ExportModal
+},
         setup(){
        const store = useFormsStore();
        return{
@@ -112,6 +123,7 @@ import ConfirmDelete from '@/components/ConfirmDelete.vue';
                 showConfirmDelete: false,
                 newObject: {},
                 msg: '',
+                exportModal: false,
             }
         },
         computed:{
@@ -163,9 +175,8 @@ import ConfirmDelete from '@/components/ConfirmDelete.vue';
            this.newObject = newObject;
            console.log(this.newObject)
           },
-          // eslint-disable-next-line no-unused-vars
-          preventClose(event){
-            //
+          exportData(){
+            
           }
         }
     }
