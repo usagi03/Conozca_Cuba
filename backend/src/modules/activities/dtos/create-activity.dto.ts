@@ -22,7 +22,6 @@ export class CreateActivityDto {
     province_activity: string;
 
     @IsString()
-    @IsNotEmpty()
     description_activity: string;
 
     @IsNumber()

@@ -6,6 +6,5 @@ export class CreateModelDto {
   readonly type_transp_model: string;
 
   @IsString()
-  @IsNotEmpty()
   readonly description_tm: string;
 }

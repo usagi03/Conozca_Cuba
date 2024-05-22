@@ -22,6 +22,5 @@ export class CreateVehicleDto {
   readonly total_capacity: number;
 
   @IsNumber()
-  @IsNotEmpty()
   readonly year_built: number;
 }

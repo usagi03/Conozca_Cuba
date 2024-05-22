@@ -21,7 +21,6 @@ export class CreateContractDto {
   readonly resolution_contract: Date;
 
   @IsString()
-  @IsNotEmpty()
   readonly description: string;
 
   @IsObject()
