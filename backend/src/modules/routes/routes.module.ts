@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
-import { RouteCoController } from "./route_co/route_co.controller";
-import { RouteSService } from "./route_s/route_s.service";
+import { RouteCoController } from "./controller/routes.controller";
+import { RouteSService } from "./service/routes.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Route } from "./route.entity";
 

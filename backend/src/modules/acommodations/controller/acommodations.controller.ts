@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Param, Post, Patch, Delete} from '@nestjs/common';
-import { AcommodationsService } from '../service/acommodations./acommodations.service';
+import { AcommodationsService } from '../service/acommodations.service';
 import { Acommodation } from '../acommodations.entity';
 import { CreateAcommodationDto } from '../dtos/create-acommodation.dto';
 import { UpdateAcommodationDto } from '../dtos/update-acommodation.dto';
 
-@Controller('acommodations.')
+@Controller('acommodations')
 export class AcommodationsController {
   constructor(private readonly acommodationService: AcommodationsService){}
 

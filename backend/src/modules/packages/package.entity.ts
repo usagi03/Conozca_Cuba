@@ -1,4 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import { Contract } from "../contracts/contract.entity";
 
 @Entity("package")
 export class Package {

@@ -4,23 +4,23 @@ import { Double, Timestamp } from "typeorm";
 export class CreateHotelDto {
     @IsString()
     @IsNotEmpty()
-    readonly name_hotel?: string;
+    readonly name_hotel: string;
 
     @IsString()
     @IsNotEmpty()
-    readonly category_hotel?: string;
+    readonly category_hotel: string;
 
     @IsString()
     @IsNotEmpty()
-    address_hotel?: string;
+    address_hotel: string;
 
     @IsString()
     @IsNotEmpty()
-    province_hotel?: string;
+    province_hotel: string;
 
     @IsDate()
     @IsNotEmpty()
-    date_hotel?: Timestamp;
+    date_hotel: Timestamp;
 
     @IsString()
     @IsNotEmpty()
@@ -28,29 +28,29 @@ export class CreateHotelDto {
 
     @IsString()
     @IsNotEmpty()
-    fax?: string;
+    fax: string;
 
     @IsString()
     @IsNotEmpty()
-    email?: string;
+    email: string;
 
     @IsNumber()
     @IsNotEmpty()
-    distance_to_city?: Double;
+    distance_to_city: Double;
 
     @IsNumber()
     @IsNotEmpty()
-    distance_to_airport?: Double;
+    distance_to_airport: Double;
 
     @IsNumber()
     @IsNotEmpty()
-    floor_count?: number;
+    floor_count: number;
 
     @IsString()
     @IsNotEmpty()
-    business_model?: string;
+    business_model: string;
 
     @IsString()
     @IsNotEmpty()
-    location_hotel?: string;
+    location_hotel: string;
 }

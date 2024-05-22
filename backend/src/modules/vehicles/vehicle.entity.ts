@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 
-@Entity()
+@Entity("vehicle")
 export class Vehicle {
   @PrimaryGeneratedColumn("increment")
   id_vehicle: number;
@@ -22,4 +22,7 @@ export class Vehicle {
 
   @Column()
   year_built: number;
+
+  @OneToMany(() => Vehicle, (vehicle) => vehicle.id_vehicle)
+    vehicles: Vehicle[];
 }

@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsObject, IsString } from "class-validator";
+import { Contract } from "src/modules/contracts/contract.entity";
 
 export class CreatePackageDto {
     @IsString()

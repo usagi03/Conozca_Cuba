@@ -4,6 +4,7 @@ import { FindOneOptions, Repository } from 'typeorm';
 import { Package } from '../package.entity';
 import { CreatePackageDto } from '../dtos/create-package.dto';
 import { UpdatePackageDto } from '../dtos/update-package.dto';
+import { Contract } from 'src/modules/contracts/contract.entity';
 
 @Injectable()
 export class PackagesService {
