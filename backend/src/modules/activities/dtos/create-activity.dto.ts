@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, IsTimeZone} from "class-validator";
+import { IsNotEmpty, IsNumber, IsString} from "class-validator";
 
 export class CreateActivityDto {
     @IsString()
@@ -9,9 +9,9 @@ export class CreateActivityDto {
     @IsNotEmpty()
     day_activity: number;
 
-    @IsTimeZone()
+    @IsString()
     @IsNotEmpty()
-    time_activity: Time;
+    time_activity: string;
 
     @IsNumber()
     @IsNotEmpty()

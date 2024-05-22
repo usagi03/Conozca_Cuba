@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, IsString, IsTimeZone } from "class-validator";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdateActivityDto {
     @IsString()
@@ -9,9 +9,9 @@ export class UpdateActivityDto {
     @IsOptional()
     day_activity: number;
 
-    @IsTimeZone()
+    @IsString()
     @IsOptional()
-    time_activity: Time;
+    time_activity: string;
 
     @IsNumber()
     @IsOptional()

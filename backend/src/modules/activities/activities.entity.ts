@@ -12,8 +12,8 @@ export class Daily_activity {
     @Column({ nullable: false })
     day_activity: number;
 
-    @Column({ nullable: false })
-    time_activity: Time;
+    @Column('time without time zone', {name: 'time_activity', nullable: false })
+    time_activity: string;
 
     @Column({ nullable: false })
     cost_activity: number;
