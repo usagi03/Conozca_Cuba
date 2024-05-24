@@ -9,6 +9,10 @@ import RoomView from '@/views/RoomView.vue'
 import SeasonView from '@/views/SeasonView.vue'
 import VehiclesView from '@/views/VehiclesView.vue'
 import PackagesView from '@/views/PackagesView.vue'
+import KmView from '@/views/kmView.vue'
+import Km_hView from '@/views/km_hView.vue'
+import RutaView from '@/views/RouteView.vue'
+import ContractView from '@/views/ContractView.vue'
 
 
 const router = createRouter({
@@ -63,6 +67,26 @@ const router = createRouter({
       path: '/paquetes',
       name: 'paquetes',
       component: PackagesView
+    },
+    {
+      path: '/km_cost',
+      name: 'km',
+      component: KmView
+    },
+    {
+      path: '/hours_cost',
+      name: 'hours',
+      component: Km_hView
+    },
+    {
+      path: '/route_cost',
+      name: 'route',
+      component: RutaView
+    },
+    {
+      path: '/contratos',
+      name: 'contracts',
+      component: ContractView
     },
   ]
 })

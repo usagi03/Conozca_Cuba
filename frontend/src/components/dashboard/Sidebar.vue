@@ -124,21 +124,21 @@
                   <li
                     class="px-2 py-1 transition-colors duration-150"
                   >
-                    <a class="w-full" href="./login.html">
+                    <a class="w-full" href="/km_cost">
                       Costo por KM
                     </a>
                   </li>
                   <li
                     class="px-2 py-1 transition-colors duration-150"
                   >
-                    <a class="w-full" href="./login.html">
+                    <a class="w-full" href="/hours_cost">
                       Costo por KM/H
                     </a>
                   </li>
                   <li
                     class="px-2 py-1 transition-colors duration-150"
                   >
-                    <a class="w-full" href="./login.html">
+                    <a class="w-full" href="/route_cost">
                       Costo por Ruta
                     </a>
                   </li>
@@ -167,7 +167,7 @@
             <div class="hover:border-indigo-300 bg-transparent hover:border-2 rounded-3xl h-10">
              <a
               class="inline-flex items-center font-semibold leading-6 text-white hover:text-gray-300 text-lg py-1"
-              href="/home"
+              href="/contratos"
               ><i class="fas fa-tv opacity-75 mr-2 text-sm"></i>
               <ContractIcon/>
               <span class="ml-4">Contratos</span></a

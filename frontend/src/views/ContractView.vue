@@ -1,8 +1,7 @@
 <template>
     <div>
-     <h1 class="header">Modelos de Km/h</h1> 
+     <h1 class="header">Contratos</h1> 
     </div>
-    
     <DataTable 
     :data="data" 
     :headers="headers" 
@@ -11,7 +10,7 @@
     @valueEdit="obtenerEdit"
     >
     <template #formComponent>
-      <Km_hForm @value="obtener" :editObject="edit"/>
+      <ContractForm @value="obtener" :editObject="edit"/>
     </template>
         
      
@@ -20,11 +19,11 @@
   <script>
   import DataTable from '@/components/DataTable.vue';
   import { useFormsStore } from '@/stores/forms';
-import Km_hForm from '@/components/forms/km_hForm.vue';
+import ContractForm from '@/components/forms/ContractForm.vue';
   export default{
     components:{
     DataTable,
-    Km_hForm
+    ContractForm
 },
     setup(){
          const store = useFormsStore();
@@ -35,7 +34,7 @@ import Km_hForm from '@/components/forms/km_hForm.vue';
     data(){
       return{
         edit: {},
-        headers: ['Descripción', 'Costo del recorrido por km', 'Costo por horas', 'Costo por km extras', 'Costo por horas extra',''],
+        headers: ['Fecha de Inicio', 'Fecha de Fin', 'Fecha de Concilación', 'Descripción', 'No. Actividad', 'No. Alojamiento', 'No. Transportación'],
         data: [ {},
             {}
         ],
