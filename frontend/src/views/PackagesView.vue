@@ -2,7 +2,7 @@
     <div>
      <h1 class="header">Paquetes</h1> 
     </div>
-    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement"@valueEdit="obtenerEdit">
+    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
       <template #formComponent>
         <PackagesForm @value="obtener" :editObject="edit"/>
       </template>
@@ -26,10 +26,11 @@
     data(){
       return{
         edit: {},
-        headers: ['', '', ''],
+        headers: ['Nombre', '# de Días', '# de Noches', '# de Personas', '$ Total Hotel','$ Viaje Hotel - Aeropuerto', '$ Transporte', '$ Total Paquete', '% de Ganancia', ''],
         data: [ 
-            {},
-            {}
+            {'eeee' : 'grfdsagfd'} ,
+            {'eeee' : 'grfdsagfd'} ,
+            
         ],
       }
     },

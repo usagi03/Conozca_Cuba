@@ -1,7 +1,7 @@
 <template>
     <div class="mt-2">
-     <form>
-        <div class="mb-4">
+     <form class="grid grid-cols-3 gap-4">
+        <div class="mb-4 ">
           <label for="newObjectType" class="label">Tipo</label>
           <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectType" v-model="newObject.type" >
         </div>
@@ -25,7 +25,7 @@
           <label for="newObjectRecarg" class="block text-gray-700 text-sm font-bold mb-2">Recargo</label>
           <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectRecarg" v-model="newObject.recarg"> 
         </div> 
-        <div class="mb-4">
+        <div class="mb-4 col-span-3">
           <label for="newObjectDescription" class="block text-gray-700 text-sm font-bold mb-2">Descripción</label>
           <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectDescription" v-model="newObject.description"></textarea>
         </div> 

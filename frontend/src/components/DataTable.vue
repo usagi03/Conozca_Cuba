@@ -23,8 +23,8 @@
           </button>
         </div>
     </div>
-    <div class="relative overflow-x-auto border sm:rounded-xl shadow-md">
-    <table class="w-full text-sm text-left  rtl:text-right  text-gray-500">
+    <div class="relative overflow-x-auto max-h-100 border sm:rounded-xl shadow-md">
+    <table class="w-full text-sm text-left overflow-y-auto rtl:text-right text-gray-500 ">
         <thead class="text-xs text-white uppercase bg-indigo-500">
             <tr>
                 <th scope="col" class="px-6 py-3" v-for="head in headers" :key="head">{{ head }}</th>
@@ -57,7 +57,7 @@
  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="closeAddEdit"></div>
     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle ">
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
         <div class="sm:flex sm:items-start">
           <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
