@@ -19,19 +19,15 @@ export class CreateHotelDto {
     province_hotel: string;
 
     @IsDate()
-    @IsNotEmpty()
     date_hotel: Timestamp;
 
     @IsString()
-    @IsNotEmpty()
-    phone?: string;
+    phone: string;
 
     @IsString()
-    @IsNotEmpty()
     fax: string;
 
     @IsString()
-    @IsNotEmpty()
     email: string;
 
     @IsNumber()
@@ -47,10 +43,8 @@ export class CreateHotelDto {
     floor_count: number;
 
     @IsString()
-    @IsNotEmpty()
     business_model: string;
 
     @IsString()
-    @IsNotEmpty()
     location_hotel: string;
 }
