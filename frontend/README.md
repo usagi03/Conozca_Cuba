@@ -35,7 +35,6 @@ npm run dev
 * Formularios
 * Inputs
 
-
 ## Integrantes
 
 [Jacqueline] (<https://github.com/usagi03>)

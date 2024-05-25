@@ -8,7 +8,7 @@
     >
       <div class="items-center flex">
         <span
-          class="w-24 h-24 text-sm text-white  inline-flex items-center justify-center rounded-full"
+          class="w-12 h-12 text-sm text-white  inline-flex items-center justify-center rounded-full"
         >
           <img
             alt="..."
@@ -25,57 +25,46 @@
         hidden: !dropdownPopoverShow,
         block: dropdownPopoverShow
       }"
-      style="min-width: 12rem"
+      style="min-width: 8rem"
     >
+    <span class="text-sm py-2 px-10 font-normal block w-full whitespace-nowrap bg-transparent ">
+      username
+    </span>
+    <hr class="mx-4 " />
       <a
         href="#pablo"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+        class="text-sm py-2 px-4 font-normal flex w-full whitespace-nowrap bg-transparent text-blueGray-700"
       >
-        Action
-      </a>
-      <a
-        href="#pablo"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Another action
-      </a>
-      <a
-        href="#pablo"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Something else here
-      </a>
-      <div class="h-0 my-2 border border-solid border-blueGray-100" />
-      <a
-        href="#pablo"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Seprated link
+        Cerrar Sesión
+        <LogoutIcon/>
       </a>
     </div>
   </div>
 </template>
 <script>
 import { createPopper } from "@popperjs/core";
+import LogoutIcon from "../icons/LogoutIcon.vue";
 
 export default {
-  data() {
-    return {
-      dropdownPopoverShow: false
-    };
-  },
-  methods: {
-    toggleDropdown: function(event) {
-      event.preventDefault();
-      if (this.dropdownPopoverShow) {
-        this.dropdownPopoverShow = false;
-      } else {
-        this.dropdownPopoverShow = true;
-        createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
-          placement: "bottom-end"
-        });
-      }
-    }
-  }
+    data() {
+        return {
+            dropdownPopoverShow: false
+        };
+    },
+    methods: {
+        toggleDropdown: function (event) {
+            event.preventDefault();
+            if (this.dropdownPopoverShow) {
+                this.dropdownPopoverShow = false;
+            }
+            else {
+                this.dropdownPopoverShow = true;
+                createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
+                    placement: "bottom-end"
+                });
+            }
+        }
+    },
+    components: { LogoutIcon }
 };
 </script>

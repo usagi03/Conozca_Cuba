@@ -1,22 +1,31 @@
 <template>
     <div>
-     <h1 class="header">Paquetes</h1> 
+     <h1 class="header">Modelos de Ruta</h1> 
     </div>
-    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
-      <template #formComponent>
-        <PackagesForm @value="obtener" :editObject="edit"/>
-      </template>
+    
+    <DataTable 
+    :data="data" 
+    :headers="headers" 
+    @add-new-object="addNewObject" 
+    @confirm="deleteElement"
+    @valueEdit="obtenerEdit"
+    >
+    <template #formComponent>
+      <RutaForm @value="obtener" :editObject="edit"/>
+    </template>
+        
+     
     </DataTable>
   </template>
   <script>
   import DataTable from '@/components/DataTable.vue';
   import { useFormsStore } from '@/stores/forms';
-  import PackagesForm from '@/components/forms/PackagesForm.vue';
+import RutaForm from '@/components/forms/rutaForm.vue';
   export default{
     components:{
-      DataTable,
-      PackagesForm
-  },
+    DataTable,
+    RutaForm
+},
     setup(){
          const store = useFormsStore();
          return{
@@ -26,11 +35,9 @@
     data(){
       return{
         edit: {},
-        headers: ['Nombre', '# de Días', '# de Noches', '# de Personas', '$ Total Hotel','$ Viaje Hotel - Aeropuerto', '$ Transporte', '$ Total Paquete', '% de Ganancia', ''],
-        data: [ 
-            {'eeee' : 'grfdsagfd'} ,
-            {'eeee' : 'grfdsagfd'} ,
-            
+        headers: ['Descripción', 'Descripción del recorrido', 'Costo por recorrido', 'Costo por ida y vuelta'],
+        data: [ {},
+            {}
         ],
       }
     },
@@ -60,3 +67,4 @@
     },
   }
   </script>
+  
