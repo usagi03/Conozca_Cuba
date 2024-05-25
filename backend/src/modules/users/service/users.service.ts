@@ -12,8 +12,8 @@ export class UsersService {
     constructor(
         @InjectRepository(User) 
         private readonly userRepository: Repository<User>,
-        @InjectRepository(Role)
-        private readonly roleRepository: Repository<Role>) {}
+        /*@InjectRepository(Role)
+    private readonly roleRepository: Repository<Role>*/) {}
 
     async getUsers(): Promise<User[]> {
         return await this.userRepository.find({relations: ['role']});

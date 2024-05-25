@@ -35,8 +35,7 @@ export class TransportationModelsService {
     async updateModel(id_transp_model: number, newModel: UpdateModelDto) {
         const model = await this.modelRepository.preload({
             id_transp_model,
-            type_transp_model: newModel.type_transp_model,
-        description_tm: newModel.description_tm,
+            description_tm: newModel.description_tm,
         });
     
         if (!model) {

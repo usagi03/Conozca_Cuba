@@ -1,5 +1,4 @@
 import { IsDate, IsNumber, IsOptional, IsString } from "class-validator";
-import { Double, Timestamp } from "typeorm";
 
 export class UpdateHotelDto {
     @IsString()
@@ -20,7 +19,7 @@ export class UpdateHotelDto {
 
     @IsDate()
     @IsOptional()
-    date_hotel?: Timestamp;
+    date_hotel?: Date;
 
     @IsString()
     @IsOptional()
@@ -36,11 +35,11 @@ export class UpdateHotelDto {
 
     @IsNumber()
     @IsOptional()
-    distance_to_city?: Double;
+    distance_to_city?: number;
 
     @IsNumber()
     @IsOptional()
-    distance_to_airport?: Double;
+    distance_to_airport?: number;
 
     @IsNumber()
     @IsOptional()

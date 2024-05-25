@@ -11,8 +11,8 @@ export class PackagesService {
     constructor(
         @InjectRepository(Package) 
         private readonly packageRepository: Repository<Package>,
-        @InjectRepository(Contract)
-        private readonly contractRepository: Repository<Contract>) {}
+        /*@InjectRepository(Contract)
+        private readonly contractRepository: Repository<Contract>*/) {}
 
     async getPackages(): Promise<Package[]> {
         return await this.packageRepository.find({relations: ['contract']});

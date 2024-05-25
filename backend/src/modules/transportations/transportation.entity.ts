@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Vehicle } from "../vehicles/vehicle.entity";
 import { Transportation_model } from "../transportation_models/model.entity";
+import { Contract } from "../contracts/contract.entity";
 
 @Entity("transportation")
 export class Transportation {
@@ -14,11 +15,14 @@ export class Transportation {
   transportation_model: Transportation_model;
 
   @ManyToOne(() => Vehicle, (vehicle) => vehicle.id_vehicle, {
-    eager: true, // para que traiga los roles al hacer un findOne
+    eager: true, 
   })
   @JoinColumn({name: 'id_vehicle'})
   vehicle: Vehicle;
 
-  @Column()
+  @Column({ nullable: false })
   borrower: string;
+
+  @OneToMany(() => Contract, (contract) => contract.transportation)
+    contracts: Contract[];
 }

@@ -3,6 +3,7 @@ import { Route } from "../route.entity";
 import { CreateRouteDto } from "../dtos/create-route.dto";
 import { UpdateRouteDto } from "../dtos/update-route.dto";
 import { RoutesService } from "../service/routes.service";
+import { CreateModelDto, UpdateModelDto } from "src/modules/transportation_models/dtos";
 
 @Controller("routes")
 export class RoutesController {
@@ -19,13 +20,13 @@ export class RoutesController {
   }
 
   @Post()
-  async createRoute(@Body() route: CreateRouteDto): Promise<Route> {
-    return this.routeService.createRoute(route);
+  async createRoute(@Body() model: CreateModelDto, route: CreateRouteDto): Promise<Route> {
+    return this.routeService.createRoute(model, route);
   }
   
   @Patch(":id_route")
-  updateRoute(@Param('id_route') id: number, @Body() route: UpdateRouteDto): Promise<Route> {
-    return this.routeService.updateRoute(id, route);
+  updateRoute(@Param('id_route') id: number, @Body() model:UpdateModelDto, route: UpdateRouteDto): Promise<Route> {
+    return this.routeService.updateRoute(id, model, route);
   }
 
   @Delete(":id_route")

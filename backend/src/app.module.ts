@@ -19,7 +19,7 @@ import { TransportationsModule } from "./modules/transportations/transportations
 import { UsersModule } from "./modules/users/users.module";
 import { VehiclesModule } from "./modules/vehicles/vehicles.module";
 import { AuthModule } from "./modules/auth/auth.module";
-import { AcommodationsController } from './modules/acommodations/controller/acommodations.controller';
+import { SeasonsModule } from "./modules/seasons/seasons.module";
 
 @Module({
   imports: [
@@ -45,6 +45,7 @@ import { AcommodationsController } from './modules/acommodations/controller/acom
     ReportsModule,
     RolesModule,
     RoomsModule,
+    SeasonsModule,
     RoutesModule,
     TransportationModelsModule,
     TransportationsModule,
@@ -52,7 +53,7 @@ import { AcommodationsController } from './modules/acommodations/controller/acom
     VehiclesModule,
     AuthModule,
   ],
-  controllers: [AppController, AcommodationsController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

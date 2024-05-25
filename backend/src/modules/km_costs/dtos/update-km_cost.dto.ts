@@ -1,15 +1,6 @@
-import { IsNumber, IsOptional, IsString } from "class-validator";
-import { UpdateModelDto } from "src/modules/transportation_models/dtos/update-model.dto";
+import { IsNumber, IsOptional } from "class-validator";
 
-export class UpdateKm_costDto extends UpdateModelDto {
-  @IsString()
-  @IsOptional()
-  readonly type_trans_model?: string;
-
-  @IsString()
-  @IsOptional()
-  readonly description?: string;
-
+export class UpdateKm_costDto {
   @IsNumber()
   @IsOptional()
   readonly km_cost?: number;

@@ -1,7 +1,6 @@
 import { IsNumber, IsOptional, IsString } from "class-validator";
-import { UpdateModelDto } from "src/modules/transportation_models/dtos/update-model.dto";
 
-export class UpdateRouteDto extends UpdateModelDto {
+export class UpdateRouteDto {
   @IsString()
   @IsOptional()
   readonly description_route?: string;

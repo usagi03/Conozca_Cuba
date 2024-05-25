@@ -5,9 +5,9 @@ export class CreateActivityDto {
     @IsNotEmpty()
     type_activity: string;
 
-    @IsNumber()
+    @IsString()
     @IsNotEmpty()
-    day_activity: number;
+    day_activity: string;
 
     @IsString()
     @IsNotEmpty()
@@ -25,6 +25,5 @@ export class CreateActivityDto {
     description_activity: string;
 
     @IsNumber()
-    @IsNotEmpty()
     surcharge_activity: number;
 }
