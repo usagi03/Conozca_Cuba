@@ -14,9 +14,9 @@ export default class AuthService {
 
     async login(username, password){
         try{
-           const res = await fetch('https://fakestoreapi.com/users', {
+           const res = await fetch('https://fakestoreapi.com/auth/login', {
             method: 'POST',
-            header: {
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -25,9 +25,11 @@ export default class AuthService {
                 password: password
             })
            })
+           console.log(username)
+           console.log(password)
            const store = useAuthStore();
            const response = await res.text();
-
+           console.log(response)
            if(response === 'username or password is incorrect'){
             this.error = 'Login Failed'
             return false;

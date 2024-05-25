@@ -123,7 +123,7 @@ export default{
          this.$router.push({name: 'home'})
         alert('Exito') 
         } else {
-        alert('error')  
+        alert('Usuario o contraseña incorrectos')  
         } 
       } 
     }

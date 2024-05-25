@@ -27,7 +27,7 @@
         <!-- Navigation -->
         <ul class="md:flex-col md:min-w-full flex flex-col list-none ">
           <li class="items-center">
-            <div class="hover:border-indigo-300 bg-transparent hover:border rounded-3xl h-10">
+            <div class="hover:border-indigo-300 bg-transparent hover:border-2 rounded-3xl h-10">
              <a
               class="inline-flex items-center font-semibold leading-6 text-white hover:text-gray-300 text-lg py-1"
               href="/home"
