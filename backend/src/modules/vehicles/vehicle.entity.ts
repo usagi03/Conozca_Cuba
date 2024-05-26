@@ -1,21 +1,20 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Transportation } from "../transportations/transportation.entity";
 
 @Entity("vehicle")
 export class Vehicle {
   @PrimaryGeneratedColumn("increment")
   id_vehicle: number;
 
-  @Column({ nullable: false })
+  @Column()
   license_plate: string;
 
   @Column()
   brand: string;
 
-  @Column({ nullable: false })
+  @Column()
   luggage_capacity: number;
 
-  @Column({ nullable: false })
+  @Column()
   with_luggage: number;
 
   @Column()
@@ -24,6 +23,6 @@ export class Vehicle {
   @Column()
   year_built: number;
 
-  @OneToMany(() => Transportation, (transportation) => transportation.vehicle)
-    transportations: Transportation[];
+  @OneToMany(() => Vehicle, (vehicle) => vehicle.id_vehicle)
+    vehicles: Vehicle[];
 }

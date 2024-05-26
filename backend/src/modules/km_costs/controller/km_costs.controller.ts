@@ -1,8 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import { Km_costsService } from "../service/km_costs.service";
 import { Km_cost } from "../km_cost.entity";
-import { CreateKm_costDto, UpdateKm_costDto } from "../dtos";
-import { CreateModelDto, UpdateModelDto } from "src/modules/transportation_models/dtos";
+import { UpdateKm_costDto } from "../dtos";
 
 @Controller("km_costs")
 export class Km_costsController {
@@ -19,13 +18,13 @@ export class Km_costsController {
   }
 
   @Post()
-  async createKm(@Body() model: CreateModelDto, km_cost: CreateKm_costDto): Promise<Km_cost> {
-    return this.km_costService.createKm_cost(model, km_cost);
+  async createKm(@Body() km_cost: Km_cost): Promise<Km_cost> {
+    return this.km_costService.createKm_cost(km_cost);
   }
 
   @Patch(":id_km_cost")
-  updateKm_cost(@Param('id_km_cost') id: number, @Body() model:UpdateModelDto, km_cost: UpdateKm_costDto): Promise<Km_cost> {
-    return this.km_costService.updateKm_cost(id, model, km_cost);
+  updateKm_cost(@Param('id_km_cost') id: number, @Body() km_cost: UpdateKm_costDto): Promise<Km_cost> {
+    return this.km_costService.updateKm_cost(id, km_cost);
   }
 
   @Delete(":id_km_cost")

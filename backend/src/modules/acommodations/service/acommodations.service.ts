@@ -13,12 +13,12 @@ export class AcommodationsService {
     constructor(
         @InjectRepository(Acommodation) 
         private readonly acommodationRepository: Repository<Acommodation>,
-        /*@InjectRepository(Room)
+        @InjectRepository(Room)
         private readonly roomRepository: Repository<Room>,
         @InjectRepository(Season) 
         private readonly seasonRepository: Repository<Season>,
         @InjectRepository(Hotel)
-    private readonly hotelRepository: Repository<Hotel>*/) {}
+        private readonly hotelRepository: Repository<Hotel>) {}
 
     async getAcommodations(): Promise<Acommodation[]> {
         return await this.acommodationRepository.find({relations: ['room', 'season', 'hotel']});

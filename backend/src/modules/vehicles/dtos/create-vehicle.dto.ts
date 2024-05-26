@@ -6,6 +6,7 @@ export class CreateVehicleDto {
   readonly license_plate: string;
 
   @IsString()
+  @IsNotEmpty()
   readonly brand: string;
 
   @IsNumber()

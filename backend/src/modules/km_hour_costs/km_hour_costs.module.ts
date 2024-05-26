@@ -1,15 +1,12 @@
 import { Module } from "@nestjs/common";
+import { KmCostCoController } from "./controller/km_hours_costs.controller";
+import { KmCostSService } from "./service/km_hours_costs.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Km_hours_cost } from "./km_hours_cost.entity";
-import { Km_hours_costsController } from "./controller/km_hours_costs.controller";
-import { Km_hours_costsService } from "./service/km_hours_costs.service";
-import { Transportation_model } from "../transportation_models/model.entity";
-import { TransportationModelsModule } from "../transportation_models/transportation_models.module";
-import { TransportationModelsService } from "../transportation_models/service/transportation_models..service";
+import { KmHoursCost } from "./km_hours_cost.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Km_hours_cost, Transportation_model]), TransportationModelsModule],
-  controllers: [Km_hours_costsController],
-  providers: [Km_hours_costsService,  TransportationModelsService],
+  imports: [TypeOrmModule.forFeature([KmHoursCost])],
+  controllers: [KmCostCoController],
+  providers: [KmCostsService],
 })
 export class KmHourCostsModule {}

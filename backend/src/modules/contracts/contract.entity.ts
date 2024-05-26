@@ -1,21 +1,20 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Transportation } from "../transportations/transportation.entity";
 import { Acommodation } from "../acommodations/acommodations.entity";
 import { Daily_activity } from "../activities/activities.entity";
-import { Package } from "../packages/package.entity";
 
 @Entity()
 export class Contract {
   @PrimaryGeneratedColumn("increment")
   id_contract: number;
 
-  @Column('timestamp without time zone', {name: 'start_contract', nullable: false })
+  @Column()
   start_contract: Date;
 
-  @Column('timestamp without time zone', {name: 'end_contract', nullable: false })
+  @Column()
   end_contract: Date;
 
-  @Column('timestamp without time zone', {name: 'resolution_contract', nullable: false })
+  @Column()
   resolution_contract: Date;
 
   @Column()
@@ -38,7 +37,4 @@ export class Contract {
     })
     @JoinColumn({name: 'id_activity'})
     activity: Daily_activity;
-
-  @OneToMany(() => Package, (pack) => pack.contract)
-  packages: Package[];
 }

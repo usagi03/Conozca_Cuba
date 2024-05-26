@@ -1,13 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ActivitiesController } from './controller/activities.controller';
 import { ActivitiesService } from './service/activities.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Daily_activity } from './activities.entity';
-
+import { TransportationModelsController } from './controller/activities.transportation_models/controller/transportation_models/transportation_models.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Daily_activity])],
-  controllers: [ActivitiesController],
+  controllers: [ActivitiesController, TransportationModelsController],
   providers: [ActivitiesService]
 })
 export class ActivitiesModule {}
