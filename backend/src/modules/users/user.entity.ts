@@ -13,7 +13,7 @@ export class User {
     user_password: string;
 
     @ManyToOne(() => Role, (role) => role.id_role, {
-        eager: true, // para que traiga los roles al hacer un findOne
+        eager: true, 
       })
       @JoinColumn({name: 'id_role'})
       role: Role;

@@ -63,5 +63,5 @@ export class VehiclesService {
 
     await this.vehicleRepository.remove(vehicle);
     return ok;
-}
+  }
 }

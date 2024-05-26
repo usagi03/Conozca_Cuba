@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsObject, IsOptional, IsString } from "class-validator";
-import { Role } from "src/modules/roles/roles.entity";
+import { IsNotEmpty, /*IsObject,*/ IsOptional, IsString } from "class-validator";
+//import { Role } from "src/modules/roles/roles.entity";
 
 export class UpdateUserDto {
     @IsString()
@@ -10,7 +10,7 @@ export class UpdateUserDto {
     @IsNotEmpty()
     readonly user_password?: string;
     
-    @IsObject()
+    @IsString()
     @IsOptional()
-    readonly role?: Partial<Role>;
+    role?: string;
 }
