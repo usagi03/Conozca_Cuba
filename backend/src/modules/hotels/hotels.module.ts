@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
-import { SeasonsController } from '../seasons/controller/seasons.controller';
-import { SeasonsService } from '../seasons/service/seasons.service';
+import { HotelsController } from './controller/hotels.controller';
+import { HotelsService } from './service/hotels.service';
+import { Hotel } from './hotels.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  controllers: [SeasonsController],
-  providers: [SeasonsService]
+  imports: [TypeOrmModule.forFeature([Hotel])],
+  controllers: [HotelsController],
+  providers: [HotelsService],
+  exports: [HotelsService]
 })
 export class HotelsModule {}

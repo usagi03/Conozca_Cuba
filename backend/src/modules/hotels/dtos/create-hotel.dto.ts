@@ -1,5 +1,4 @@
 import { IsDate, IsNotEmpty, IsNumber, IsString} from "class-validator";
-import { Double, Timestamp } from "typeorm";
 
 export class CreateHotelDto {
     @IsString()
@@ -19,7 +18,7 @@ export class CreateHotelDto {
     province_hotel: string;
 
     @IsDate()
-    date_hotel: Timestamp;
+    date_hotel: Date;
 
     @IsString()
     phone: string;
@@ -32,14 +31,13 @@ export class CreateHotelDto {
 
     @IsNumber()
     @IsNotEmpty()
-    distance_to_city: Double;
+    distance_to_city: number;
 
     @IsNumber()
     @IsNotEmpty()
-    distance_to_airport: Double;
+    distance_to_airport: number;
 
     @IsNumber()
-    @IsNotEmpty()
     floor_count: number;
 
     @IsString()

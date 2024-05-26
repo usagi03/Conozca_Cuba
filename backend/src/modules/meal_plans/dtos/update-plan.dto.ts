@@ -7,5 +7,5 @@ export class UpdatePlanDto {
 
     @IsOptional()
     @IsNotEmpty()
-    readonly plan_cost?: string;
+    readonly plan_cost?: number;;
 }

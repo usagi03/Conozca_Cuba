@@ -1,7 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { CreateModelDto } from "src/modules/transportation_models/dtos/create-model.dto";
 
-export class CreateKm_hours_costDto extends CreateModelDto{
+export class CreateKm_hours_costDto{
   @IsString()
   @IsNotEmpty()
   readonly description_tm: string;

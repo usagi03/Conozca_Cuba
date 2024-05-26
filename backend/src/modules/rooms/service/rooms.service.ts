@@ -12,8 +12,8 @@ export class RoomsService {
     constructor(
         @InjectRepository(Room) 
         private readonly roomRepository: Repository<Room>,
-        @InjectRepository(Meal_plan)
-        private readonly planRepository: Repository<Meal_plan>) {}
+        /*@InjectRepository(Meal_plan)
+    private readonly planRepository: Repository<Meal_plan>*/) {}
 
     async getRooms(): Promise<Room[]> {
         return await this.roomRepository.find({relations: ['meal_plan']});

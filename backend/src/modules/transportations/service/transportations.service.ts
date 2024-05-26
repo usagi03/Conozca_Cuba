@@ -11,10 +11,10 @@ export class TransportationsService {
   constructor(
     @InjectRepository(Transportation)
     private readonly transportationRepository: Repository<Transportation>,
-    @InjectRepository(Transportation)
+    /*@InjectRepository(Transportation)
     private readonly modelRepository: Repository<Transportation_model>,
     @InjectRepository(Transportation)
-    private readonly vehicleRepository: Repository<Vehicle>) {}
+  private readonly vehicleRepository: Repository<Vehicle>*/) {}
 
   async getTransportations(): Promise<Transportation[]> {
     return await this.transportationRepository.find({relations: ['transportation_model', 'vehicle']});

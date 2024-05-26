@@ -1,5 +1,4 @@
 import { IsDate, IsOptional, IsString } from "class-validator";
-import { Timestamp } from "typeorm";
 
 export class UpdateSeasonDto {
     @IsString()
@@ -8,11 +7,11 @@ export class UpdateSeasonDto {
 
     @IsDate()
     @IsOptional()
-    readonly start_season?: Timestamp;
+    readonly start_season?: Date;
 
     @IsDate()
     @IsOptional()
-    readonly end_season?: Timestamp;
+    readonly end_season?: Date;
 
     @IsString()
     @IsOptional()
