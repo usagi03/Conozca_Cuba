@@ -2,7 +2,7 @@
     <div>
      <h1 class="header">Usuarios</h1> 
     </div>
-    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement"@valueEdit="obtenerEdit">
+    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
       <template #formComponent>
         <UsersForm @value="obtener" :editObject="edit"/>
       </template>
@@ -28,8 +28,8 @@
         edit: {},
         headers: ['Nombre', 'Contraseña', 'Rol'],
         data: [ 
-            {'name': 'Julio', 'Contraseña': 'julito1234', 'Rol':'Administrador'},
-            {'name': 'Camila','Contraseña': 'camila12345', 'Rol':'Gerente'}
+            {'name': 'Julio', 'password': 'julito1234', 'rol':'Administrador'},
+            {'name': 'Camila','password': 'camila12345', 'rol':'Gerente'}
         ],
       }
     },

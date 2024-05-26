@@ -1,6 +1,6 @@
 <template>
     <div class="mt-2">
-     <form>
+     <form class="grid grid-cols-3 gap-4">
         <div class="mb-4">
           <label for="newObjectName" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
           <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectName" v-model="newObject.name" >
@@ -19,7 +19,7 @@
              <option>5</option>
           </select>
         </div> 
-        <div class="mb-4">
+        <div class="mb-4 col-span-2">
           <label for="newObjectAddress" class="block text-gray-700 text-sm font-bold mb-2">Dirección</label>
           <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectAddress" v-model="newObject.address">
         </div> 

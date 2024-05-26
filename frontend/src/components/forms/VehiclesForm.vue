@@ -1,6 +1,6 @@
 <template>
     <div class="mt-2">
-     <form>
+     <form class="grid grid-cols-3 gap-5">
         <div class="mb-4">
           <label for="newObjectMat" class="block text-gray-700 text-sm font-bold mb-2">Matrícula</label>
           <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectMat" v-model="newObject.mat" >
