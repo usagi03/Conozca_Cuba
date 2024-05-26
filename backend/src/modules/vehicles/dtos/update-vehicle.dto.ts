@@ -3,29 +3,29 @@ import { IsNumber, IsOptional, IsString } from "class-validator";
 export class UpdateVehicleDto {
   @IsNumber()
   @IsOptional()
-  readonly id_vehicle?: number;
+  id_vehicle?: number;
 
   @IsString()
   @IsOptional()
-  readonly license_plate?: string;
+  license_plate?: string;
 
   @IsString()
   @IsOptional()
-  readonly brand?: string;
+  brand?: string;
 
   @IsNumber()
   @IsOptional()
-  readonly luggage_capacity?: number;
+  luggage_capacity?: number;
 
   @IsNumber()
   @IsOptional()
-  readonly with_luggage?: number;
+  with_luggage_capacity?: number;
 
   @IsNumber()
   @IsOptional()
-  readonly total_capacity?: number;
+  total_capacity?: number;
 
   @IsNumber()
   @IsOptional()
-  readonly year_built?: number;
+  year_build?: number;
 }

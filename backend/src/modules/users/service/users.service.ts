@@ -77,5 +77,5 @@ export class UsersService {
         }
       
         return roleEntity;
-      }
+    }
 }

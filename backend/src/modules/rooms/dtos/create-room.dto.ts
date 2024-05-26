@@ -1,25 +1,24 @@
-import { IsNotEmpty, IsNumber, IsObject, IsString } from "class-validator";
-import { Meal_plan } from "src/modules/meal_plans/plans.entity";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateRoomDto {
     @IsString()
     @IsNotEmpty()
-    readonly room_number: string;
+    room_number: string;
 
     @IsString()
     @IsNotEmpty()
-    readonly room_type: string;
+    room_type: string;
 
     @IsNumber()
     @IsNotEmpty()
-    readonly room_cost: number;
+    room_cost: number;
 
     @IsNumber()
     @IsNotEmpty()
-    readonly room_surcharge: number;
+    room_surcharge: number;
 
-    @IsObject()
+    @IsString()
     @IsNotEmpty()
-    readonly plan: Partial<Meal_plan>;
+    plan: string;
 }
 

@@ -24,7 +24,7 @@ export class Meal_plansController {
   }
 
   @Patch(':id_plan')
-  updatePlan(@Param('id_plan') id: number, @Body() plan: UpdatePlanDto): Promise<Meal_plan> {
+  updatePlan(@Param('id_plan') id: number, @Body() plan: UpdatePlanDto) {
     return this.planService.updatePlan(id, plan);
   }
 

@@ -28,40 +28,32 @@ export class VehiclesService {
   }
 
   async createVehicle(newVehicle: CreateVehicleDto): Promise<Vehicle> {
-    const vehicle = this.vehicleRepository.create(newVehicle);
-    return this.vehicleRepository.save(vehicle);
+    return await this.vehicleRepository.save({
+      ...newVehicle,
+  });
   }
 
   async updateVehicle(id_vehicle: number, newVehicle: UpdateVehicleDto) {
-    const vehicle = await this.vehicleRepository.preload({
-        id_vehicle,
-        license_plate: newVehicle.license_plate,
-        brand: newVehicle.brand,
-        luggage_capacity: newVehicle.luggage_capacity,
-        with_luggage: newVehicle.with_luggage,
-        total_capacity: newVehicle.total_capacity,
-        year_built: newVehicle.year_built
-    });
-
-    if (!vehicle) {
-        throw new NotFoundException('Resource not found');
-    }
-
-    await this.vehicleRepository.save(vehicle);
-    return vehicle;
+    let ok = "Vehicle could not be updated"
+        const affectedRows = await this.vehicleRepository.update(id_vehicle, {
+            ...newVehicle,
+         });
+     
+         if (affectedRows.affected > 0) {
+             ok = "Vehicle updated successfully";
+         } 
+         return ok;
   }
 
   async removeVehicle(id: number): Promise<string> {
+    let ok = "Vehicle deleted successfully"
     const vehicle: Vehicle = await this.vehicleRepository.findOne({ where: { id_vehicle: id } } as FindOneOptions<Vehicle>);
-    let ok: string = 'NO ELIMINADO';
-
+    
     if (!vehicle) {
-        throw new NotFoundException('Resource not found');
-    } else {
-        ok = 'ELIMINADO';
+        ok = "Vehicle could not be deleted";
     }
-
+         
     await this.vehicleRepository.remove(vehicle);
     return ok;
-}
+  }
 }

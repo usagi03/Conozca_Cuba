@@ -28,37 +28,32 @@ export class RolesService {
     }
 
     async createRole(newRole: CreateRoleDto): Promise<Role> {
-        const role = this.roleRepository.create(newRole);
-        return this.roleRepository.save(role);
+        return await this.roleRepository.save({
+            ...newRole,
+        });
     }
 
     async updateRole(id_role: number, newRole: UpdateRoleDto) {
-        const role = await this.roleRepository.preload({
-            id_role,
-            name_role: newRole.name_role,
-            description_role: newRole.description_role
-        });
-    
-        if (!role) {
-            throw new NotFoundException('Resource not found');
-        }
-    
-        await this.roleRepository.save(role);
-        return role
-        ;
+        let ok = "Role could not be updated"
+        const affectedRows = await this.roleRepository.update(id_role, {
+            ...newRole,
+         });
+     
+         if (affectedRows.affected > 0) {
+             ok = "Role updated successfully";
+         } 
+         return ok;
     }
 
     async removeRole(id: number): Promise<string> {
+        let ok = "Role deleted successfully"
         const role: Role = await this.roleRepository.findOne({ where: { id_role: id } } as FindOneOptions<Role>);
-        let ok: string = 'NO ELIMINADO';
-
-        if (!role) {
-            throw new NotFoundException('Resource not found');
-        } else {
-            ok = 'ELIMINADO';
-        }
     
-        await this.roleRepository.remove(role);
-        return ok;
+         if (!role) {
+             ok = "Role could not be deleted";
+         }
+         
+         await this.roleRepository.remove(role);
+         return ok;
     }
 }

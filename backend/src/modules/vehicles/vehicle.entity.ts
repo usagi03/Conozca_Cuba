@@ -16,14 +16,14 @@ export class Vehicle {
   luggage_capacity: number;
 
   @Column({ nullable: false })
-  with_luggage: number;
+  with_luggage_capacity: number;
 
   @Column()
   total_capacity: number;
 
   @Column()
-  year_built: number;
+  year_build: number;
 
-  @OneToMany(() => Transportation, (transportation) => transportation.vehicle)
+  @OneToMany(() => Transportation, (transportation) => transportation.id_transportation)
     transportations: Transportation[];
 }

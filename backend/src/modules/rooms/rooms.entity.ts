@@ -20,7 +20,7 @@ export class Room {
     room_surcharge: number;;
 
     @ManyToOne(() => Meal_plan, (plan) => plan.id_plan, {
-        eager: true, // para que traiga los planes al hacer un findOne
+        eager: true,
       })
       @JoinColumn({name: 'id_plan'})
       plan: Meal_plan;
