@@ -1,8 +1,8 @@
 <template>
     <div>
-     <h1 class="header">Paquetes</h1> 
+     <h1 class="header">{{this.$t('packages.title')}}</h1> 
     </div>
-    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
+    <DataTable :data="data" :headers="[this.$t('packages.table.name'), this.$t('packages.table.days'),this.$t('packages.table.nights'),this.$t('packages.table.persons'), this.$t('packages.table.hotel_cost'), this.$t('packages.table.hotel_travel'),this.$t('packages.table.transport'), this.$t('packages.table.package'), this.$t('packages.table.profit')]" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
       <template #formComponent>
         <PackagesForm @value="obtener" :editObject="edit"/>
       </template>
@@ -26,7 +26,7 @@
     data(){
       return{
         edit: {},
-        headers: ['Nombre', '# de Días', '# de Noches', '# de Personas', '$ Total Hotel','$ Viaje Hotel - Aeropuerto', '$ Transporte', '$ Total Paquete', '% de Ganancia', ''],
+        //headers: ['Nombre', '# de Días', '# de Noches', '# de Personas', '$ Total Hotel','$ Viaje Hotel - Aeropuerto', '$ Transporte', '$ Total Paquete', '% de Ganancia', ''],
         data: [ 
             {'eeee' : 'grfdsagfd'} ,
             {'eeee' : 'grfdsagfd'} ,

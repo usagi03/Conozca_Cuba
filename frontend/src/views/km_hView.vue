@@ -1,11 +1,11 @@
 <template>
     <div>
-     <h1 class="header">Modelos de Km/h</h1> 
+     <h1 class="header">{{this.$t('km/h.title')}}</h1> 
     </div>
     
     <DataTable 
     :data="data" 
-    :headers="headers" 
+    :headers="[this.$t('km/h.table.description'), this.$t('km/h.table.recorrido'), this.$t('km/h.table.hours_cos'), this.$t('km/h.table.km_extras'),this.$t('km/h.table.hours_extras')]" 
     @add-new-object="addNewObject" 
     @confirm="deleteElement"
     @valueEdit="obtenerEdit"
@@ -35,7 +35,7 @@ import Km_hForm from '@/components/forms/km_hForm.vue';
     data(){
       return{
         edit: {},
-        headers: ['Descripción', 'Costo del recorrido por km', 'Costo por horas', 'Costo por km extras', 'Costo por horas extra',''],
+        //headers: ['Descripción', 'Costo del recorrido por km', 'Costo por horas', 'Costo por km extras', 'Costo por horas extra',''],
         data: [ {},
             {}
         ],

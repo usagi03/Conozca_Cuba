@@ -1,8 +1,8 @@
 <template>
     <div>
-     <h1 class="header">Hoteles</h1> 
+     <h1 class="header">{{this.$t('hotels.title')}}</h1> 
     </div>
-    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
+    <DataTable :data="data" :headers="[this.$t('hotels.table.name'),this.$t('hotels.table.chain'),this.$t('hotels.table.category'),this.$t('hotels.table.direction'),this.$t('hotels.table.province')]" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
       <template #formComponent>
         <HotelForm @value="obtener" :editObject="edit"/>
       </template>
@@ -26,7 +26,7 @@
     data(){
       return{
         edit: {},
-        headers: ['Nombre', 'Cadena', 'Categoría', 'Dirección', 'Provincia'],
+        //headers: ['Nombre', 'Cadena', 'Categoría', 'Dirección', 'Provincia'],
         data: [ 
             {'name': 'Melia Habana', 'Cadena': 'Melia', 'Categoria':'5', 'Dirección':'Avenida 3ra', 'Provincia':'La Habana'},
             {'name': 'Jibacoa', 'Cadena': 'Memories', 'Categoria':'4', 'Dirección':'Santa Cruz del Norte', 'Provincia':'Mayabeque'}

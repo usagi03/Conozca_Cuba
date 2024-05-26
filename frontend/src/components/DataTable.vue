@@ -2,24 +2,24 @@
     
 <div class="relative overflow-x-auto sm:rounded-b-xl">
     <div class="px-1 py-1 flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
-        <label for="table-search" class="sr-only">Search</label>
-         <!--Buscador separar componente-->
+        <label for="table-search" class="sr-only">{{ $t('data_table.search') }}</label>
+         
         <div class="relative mt-1">
             <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                 <SearchIcon/>
             </div>
-            <input type="text" v-model="searchQuery" id="table-search" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Busca elementos">
+            <input type="text" v-model="searchQuery" id="table-search" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500" :placeholder="$t('data_table.search')">
         </div>
         <div class="relative" >
             <button @click="openModalAdd" class="w-full inline-flex items-center text-white bg-green-600 border border-transparent shadow-sm focus:outline-none hover:bg-green-700 font-medium rounded-md text-base px-3 py-1.5 focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm " 
             type="button"> 
             <AddIcon/>
-            Añadir nuevo
+            {{ $t('data_table.addNew') }}
           </button>
           <button @click="exportModal = true" class="w-full inline-flex items-center text-white bg-indigo-600 border border-transparent shadow-sm focus:outline-none hover:bg-indigo-700 font-medium rounded-md text-base px-3 py-1.5 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm " 
             type="button"> 
             <DownloadIcon/>
-            Exportar
+            {{ $t('data_table.export') }}
           </button>
         </div>
     </div>
@@ -72,10 +72,10 @@
       </div>
       <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
         <button @click="closeAddEdit" type="button" class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-black hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
-          Cerrar
+          {{ $t('modals.cancel') }}
         </button>
         <button @click="addNewObject" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
-          Guardar
+          {{ $t('modals.save') }}
         </button>
       </div>
     </div>

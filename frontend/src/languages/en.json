@@ -55,7 +55,7 @@
             "description": "Description"
         }
     },
-    "Hotels" : {
+    "hotels" : {
         "title": "Hotel",
          "table": {
              "name": "Name",
@@ -142,7 +142,7 @@
          }
     },
     "vehicles" : {
-        "title": "Users",
+        "title": "Vehicles",
          "table": {
              "plate": "License plate",
              "brand": "Brand",

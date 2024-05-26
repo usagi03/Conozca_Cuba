@@ -1,11 +1,11 @@
 <template>
     <div>
-     <h1 class="header">Modelos de Km</h1> 
+     <h1 class="header">{{this.$t('km.title')}}</h1> 
     </div>
     
     <DataTable 
     :data="data" 
-    :headers="headers" 
+    :headers="[this.$t('km.table.description'),this.$t('km.table.km_cost'),this.$t('km.table.km_idayvuelta'),this.$t('km.table.wait_cost')]" 
     @add-new-object="addNewObject" 
     @confirm="deleteElement"
     @valueEdit="obtenerEdit"
@@ -35,7 +35,7 @@ import KmForm from '@/components/forms/kmForm.vue';
     data(){
       return{
         edit: {},
-        headers: ['Descripción', 'Costo por KM', 'Costo por KM ida y vuelta', 'Costo por horas de espera',''],
+        //headers: ['Descripción', 'Costo por KM', 'Costo por KM ida y vuelta', 'Costo por horas de espera',''],
         data: [ {},
             {}
         ],

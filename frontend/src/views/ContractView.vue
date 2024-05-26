@@ -1,10 +1,10 @@
 <template>
     <div>
-     <h1 class="header">Contratos</h1> 
+     <h1 class="header">{{this.$t('contracts.title')}}</h1> 
     </div>
     <DataTable 
     :data="data" 
-    :headers="headers" 
+    :headers="[this.$t('contracts.table.dateStart'), this.$t('contracts.table.dateEnd'), this.$t('contracts.table.dateConc'), this.$t('contracts.table.description'), this.$t('contracts.table.activitie'), this.$t('contracts.table.housing'), this.$t('contracts.table.transport')]" 
     @add-new-object="addNewObject" 
     @confirm="deleteElement"
     @valueEdit="obtenerEdit"

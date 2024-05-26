@@ -1,8 +1,8 @@
 <template>
     <div>
-     <h1 class="header">Actividades Diarias</h1> 
+     <h1 class="header">{{this.$t('dailyActivities.title')}}</h1> 
     </div>
-    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
+    <DataTable :data="data" :headers="[this.$t('dailyActivities.table.type'), this.$t('dailyActivities.table.day'),this.$t('dailyActivities.table.time'),this.$t('dailyActivities.table.province'), this.$t('dailyActivities.table.cost'),this.$t('dailyActivities.table.recar'), this.$t('dailyActivities.table.description')]" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
       <template #formComponent>
         <DailyActivitiesForm @value="obtener" :editObject="edit"/>
       </template>

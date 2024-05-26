@@ -1,8 +1,8 @@
 <template>
     <div>
-     <h1 class="header">Vehículos</h1> 
+     <h1 class="header">{{this.$t('vehicles.title')}}</h1> 
     </div>
-    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
+    <DataTable :data="data" :headers="[this.$t('vehicles.table.plate'),this.$t('vehicles.table.brand'),this.$t('vehicles.table.year'),this.$t('vehicles.table.luggage_capacity'), this.$t('vehicles.table.luggage_without'),this.$t('vehicles.table.total')]" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
       <template #formComponent>
         <VehiclesForm @value="obtener" :editObject="edit"/>
       </template>

@@ -35,7 +35,7 @@
         href="#pablo"
         class="text-sm py-2 px-4 font-normal flex w-full whitespace-nowrap bg-transparent text-blueGray-700"
       >
-        Cerrar Sesión
+      {{ $t('dashboard.exit') }}
         <LogoutIcon/>
       </a>
     </div>

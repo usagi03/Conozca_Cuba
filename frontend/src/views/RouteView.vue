@@ -1,11 +1,11 @@
 <template>
     <div>
-     <h1 class="header">Modelos de Ruta</h1> 
+     <h1 class="header">{{this.$t('route.title')}}</h1> 
     </div>
     
     <DataTable 
     :data="data" 
-    :headers="headers" 
+    :headers="[this.$t('route.table.description'), this.$t('route.table.description_route'), this.$t('route.table.route_cost'),this.$t('route.table.idayvuelta_cost'),]" 
     @add-new-object="addNewObject" 
     @confirm="deleteElement"
     @valueEdit="obtenerEdit"
@@ -35,7 +35,7 @@ import RutaForm from '@/components/forms/rutaForm.vue';
     data(){
       return{
         edit: {},
-        headers: ['Descripción', 'Descripción del recorrido', 'Costo por recorrido', 'Costo por ida y vuelta'],
+        //headers: ['Descripción', 'Descripción del recorrido', 'Costo por recorrido', 'Costo por ida y vuelta'],
         data: [ {},
             {}
         ],

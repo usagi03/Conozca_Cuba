@@ -33,7 +33,7 @@
               href="/home"
               ><i class="fas fa-tv opacity-75 mr-2 text-sm"></i>
               <HomeIcon/>
-              <span class="ml-4">Inicio</span></a
+              <span class="ml-4">{{ $t('dashboard.start') }}</span></a
             > 
             </div>
           </li>
@@ -44,7 +44,7 @@
               href="/usuarios"
               ><i class="fas fa-tv opacity-75 mr-2 text-sm"></i>
               <UsersIcon/>
-              <span class="ml-4">Usuarios</span></a
+              <span class="ml-4">{{ $t('users.title') }}</span></a
             > 
             </div>
           </li>
@@ -55,9 +55,9 @@
                 aria-haspopup="true">
             <div class="inline-flex items-center font-semibold leading-6 text-white hover:text-gray-300 text-lg py-1 px-2">
               <HotelIcon/>
-              <span class="ml-4">Alojamiento</span> 
-              <DownIcon v-if="!housing" class="ml-6"/>
-              <TopIcon v-else class="ml-6"/>
+              <span class="ml-4">{{ $t('dashboard.housing') }}</span> 
+              <DownIcon v-if="!housing" class=""/>
+              <TopIcon v-else class=""/>
             </div>
             </button>
             </div>
@@ -84,14 +84,14 @@
                     class="px-2 py-1 transition-colors duration-150"
                   >
                     <a class="w-full" href="/temporadas">
-                      Temporadas
+                      {{ $t('seasons.title') }}
                     </a>
                   </li>
                   <li
                     class="px-2 py-1 transition-colors duration-150"
                   >
                     <a class="w-full" href="/habitaciones">
-                      Habitaciones
+                      {{ $t('rooms.title') }}
                     </a>
                   </li>
                 </ul>
@@ -104,7 +104,7 @@
                 aria-haspopup="true">
             <div class="inline-flex items-center font-semibold leading-6 text-white hover:text-gray-300 text-lg py-1 px-2">
               <CarIcon/>
-              <span class="ml-4">Transporte</span> 
+              <span class="ml-4">{{ $t('dashboard.transport') }}</span> 
               <DownIcon v-if="!transport" class="ml-9"/>
               <TopIcon v-else class="ml-8"/>
             </div>
@@ -125,28 +125,28 @@
                     class="px-2 py-1 transition-colors duration-150"
                   >
                     <a class="w-full" href="/km_cost">
-                      Costo por KM
+                      {{ $t('km.title') }}
                     </a>
                   </li>
                   <li
                     class="px-2 py-1 transition-colors duration-150"
                   >
                     <a class="w-full" href="/hours_cost">
-                      Costo por KM/H
+                      {{ $t('km/h.title') }}
                     </a>
                   </li>
                   <li
                     class="px-2 py-1 transition-colors duration-150"
                   >
                     <a class="w-full" href="/route_cost">
-                      Costo por Ruta
+                      {{ $t('route.title') }}
                     </a>
                   </li>
                   <li
                     class="px-2 py-1 transition-colors duration-150"
                   >
                     <a class="w-full" href="/vehiculos">
-                      Vehículos
+                      {{ $t('vehicles.title') }}
                     </a>
                   </li>
                 </ul>
@@ -159,7 +159,7 @@
               href="/actividades"
               ><i class="fas fa-tv opacity-75 mr-2 text-sm"></i>
               <ActivityIcon/>
-              <span class="ml-4">Actividades</span></a
+              <span class="ml-4"> {{ $t('dailyActivities.title') }}</span></a
             > 
             </div>
           </li>
@@ -170,7 +170,7 @@
               href="/contratos"
               ><i class="fas fa-tv opacity-75 mr-2 text-sm"></i>
               <ContractIcon/>
-              <span class="ml-4">Contratos</span></a
+              <span class="ml-4"> {{ $t('contracts.title') }}</span></a
             > 
             </div>
           </li>
@@ -181,7 +181,7 @@
               href="/paquetes"
               ><i class="fas fa-tv opacity-75 mr-2 text-sm"></i>
               <PkyIcon/>
-              <span class="ml-4">Paquetes</span></a
+              <span class="ml-4"> {{ $t('packages.title') }}</span></a
             > 
             </div>
           </li>

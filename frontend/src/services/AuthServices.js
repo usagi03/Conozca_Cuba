@@ -16,7 +16,7 @@ export default class AuthService {
         try{
            const res = await fetch('https://fakestoreapi.com/users', {
             method: 'POST',
-            header: {
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },

@@ -2,15 +2,28 @@
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import createI18n from './i18n'
 import App from './App.vue'
 import router from './router'
 import './style.css'
+import { createI18n } from "vue-i18n";
+import es from "@/languages/es.json";
+import en from "@/languages/en.json";
+import {useFormsStore} from './stores/forms';
 
 const app = createApp(App)
 
 app.use(createPinia())
-app.use(createI18n)
+const store = useFormsStore()
+
+const i18n = createI18n({
+    locale: store.lang,
+    fallbackLocale: 'en',
+    messages: {
+        es: es,
+        en: en
+    }
+})
+app.use(i18n)
 app.use(router)
 
 app.mount('#app')

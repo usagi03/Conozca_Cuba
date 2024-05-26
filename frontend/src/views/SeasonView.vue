@@ -1,8 +1,8 @@
 <template>
     <div>
-     <h1 class="header">Temporadas</h1> 
+     <h1 class="header">{{this.$t('seasons.title')}}</h1> 
     </div>
-    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
+    <DataTable :data="data" :headers="[this.$t('seasons.table.name'),this.$t('seasons.table.dateStart'), this.$t('seasons.table.dateEnd')]" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
       <template #formComponent>
         <SeasonForm @value="obtener" :editObject="edit"/>
       </template>
