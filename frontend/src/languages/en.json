@@ -110,46 +110,46 @@
          }
     },
     "packages" : {
-        "title": "Paquetes",
+        "title": "Packages",
         "table": {
-             "name":"Nombre",
-             "days": "# de Días",
-             "nigths": "# de Noches",
-             "persons": "# de Personas",
-             "hotel_cost": "$ Total Hotel",
-             "hotel_travel": "$ Viaje Hotel - Aeropuerto",
-             "transport": "$ Transporte",
-             "package": "$ Total Paquete",
-             "ganancia": "% de Ganancia"
+             "name":"Name",
+             "days": "# of Days",
+             "nights": "# of Nights",
+             "persons": "# of People",
+             "hotel_cost": "$Total Hotel",
+             "hotel_travel": "$ Trip Hotel - Airport",
+             "transport": "$Transport",
+             "package": "$ Total Package",
+             "profit": "% of Profit"
         }
     },
     "rooms" : {
-        "title": "Habitaciones",
-        "table": {
-            "number": "Numero",
-            "type":"Tipo",
-            "cost":"Costo",
-            "meal_plan": "Plan Alimenticio",
-            "plus": "Recargo"
-        }
+        "title": "Rooms",
+         "table": {
+             "number": "Number",
+             "type":"Type",
+             "cost":"Cost",
+             "meal_plan": "Meal Plan",
+             "plus": "Surcharge"
+         }
     },
     "seasons" : {
-        "title": "Temporadas",
-        "table": {
-            "name":"Nombre",
-            "dateStart":"Fecha de Inicio",
-            "dateEnd":"Fecha de Fin"
-        }
+        "title": "Seasons",
+         "table": {
+             "name":"Name",
+             "dateStart":"Start Date",
+             "dateEnd":"End Date"
+         }
     },
     "vehicles" : {
-        "title": "Usuarios",
-        "table": {
-            "plate": "Matrícula",
-            "brand": "Marca",
-            "year": "Año",
-            "luggage_capacity": "Capacidad Equipaje",
-            "luggage_without": "Capacidad Sin Equipaje",
-            "total": "Capacidad Total"
-        }
+        "title": "Users",
+         "table": {
+             "plate": "License plate",
+             "brand": "Brand",
+             "year": "Year",
+             "luggage_capacity": "Luggage Capacity",
+             "luggage_without": "Capacity Without Luggage",
+             "total": "Total Capacity"
+         }
     }
 }

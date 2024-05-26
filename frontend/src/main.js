@@ -10,7 +10,7 @@ import './style.css'
 const app = createApp(App)
 
 app.use(createPinia())
-app.use(createI18n())
+app.use(createI18n)
 app.use(router)
 
 app.mount('#app')

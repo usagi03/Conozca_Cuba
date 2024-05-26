@@ -120,7 +120,7 @@
              "hotel_travel": "$ Viaje Hotel - Aeropuerto",
              "transport": "$ Transporte",
              "package": "$ Total Paquete",
-             "ganancia": "% de Ganancia"
+             "profit": "% de Ganancia"
         }
     },
     "rooms" : {
