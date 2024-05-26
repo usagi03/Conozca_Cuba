@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { ReportsService } from "./reports/reports.service";
 import { ReportsController } from "./reports/reports.controller";
 import { HotelsService } from "../hotels/service/hotels.service";
+<<<<<<< HEAD
 import { PackagesService } from "../packages/service/packages.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Hotel } from "../hotels/hotels.entity";
@@ -25,6 +26,13 @@ import { Room } from "../rooms/rooms.entity";
     ]),
   ],
   providers: [ReportsService, HotelsService, PackagesService],
+=======
+import { HotelsModule } from "../hotels/hotels.module";
+
+@Module({
+  imports: [HotelsModule],
+  providers: [ReportsService, HotelsService],
+>>>>>>> 51bd6f69616ecb569ce01cbd37e1f63d77a47fe5
   controllers: [ReportsController],
 })
 export class ReportsModule {}
