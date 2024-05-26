@@ -1,11 +1,12 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
+import { Double } from "typeorm";
 
 export class CreatePlanDto {
     @IsString()
     @IsNotEmpty()
     readonly plan_type: string;
 
-    @IsNumber()
+    @IsString()
     @IsNotEmpty()
-    readonly plan_cost: number;
+    readonly plan_cost: Double;
 }

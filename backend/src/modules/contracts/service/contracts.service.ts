@@ -12,12 +12,12 @@ export class ContractsService {
   constructor(
     @InjectRepository(Contract)
     private readonly contractRepository: Repository<Contract>,
-    /*@InjectRepository(Transportation)
+    @InjectRepository(Transportation)
     private readonly transportationRepository: Repository<Transportation>,
     @InjectRepository(Acommodation) 
     private readonly acommodationRepository: Repository<Acommodation>,
     @InjectRepository(Daily_activity)
-    private readonly activityRepository: Repository<Daily_activity>*/) {}
+    private readonly activityRepository: Repository<Daily_activity>) {}
 
 
   async getContracts(): Promise<Contract[]> {

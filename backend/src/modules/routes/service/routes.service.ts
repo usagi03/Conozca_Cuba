@@ -4,14 +4,10 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { FindOneOptions, Repository } from "typeorm";
 import { CreateRouteDto } from "../dtos/create-route.dto";
 import { UpdateRouteDto } from "../dtos/update-route.dto";
-import { TransportationModelsService } from "src/modules/transportation_models/service/transportation_models..service";
-import { CreateModelDto, UpdateModelDto } from "src/modules/transportation_models/dtos";
 
 @Injectable()
 export class RoutesService {
   constructor(
-    private readonly modelService: TransportationModelsService,
-    
     @InjectRepository(Route)
     private readonly routeRepository: Repository<Route>
   ) {}
@@ -32,21 +28,16 @@ export class RoutesService {
     return route;
   }
 
-  async createRoute(newModel: CreateModelDto, newRoute: CreateRouteDto): Promise<Route> {
-    const model = this.modelService.createModel(newModel);
-    const r = new Route;
-    r.id_transp_model = (await model).id_transp_model;
-    r.description_route = newRoute.description_route;
-    r.route_cost = newRoute.route_cost;
-    r.full_ride_cost = newRoute.full_ride_cost;
-    const route = this.routeRepository.create(r);
+  async createRoute(newRoute: CreateRouteDto): Promise<Route> {
+    const route = this.routeRepository.create(newRoute);
     return this.routeRepository.save(route);
   }
 
-  async updateRoute(id_transp_model: number, newModel: UpdateModelDto, newRoute: UpdateRouteDto) {
-    await this.modelService.updateModel(id_transp_model, newModel);
+  async updateRoute(id_transp_model: number, newRoute: UpdateRouteDto) {
     const route = await this.routeRepository.preload({
         id_transp_model,
+        type_transp_model: newRoute.type_transp_model,
+        description_tm: newRoute.description_tm,
         description_route: newRoute.description_route,
         route_cost: newRoute.route_cost,
         full_ride_cost: newRoute.full_ride_cost
@@ -70,7 +61,6 @@ async removeRoute(id: number): Promise<string> {
         ok = 'ELIMINADO';
     }
 
-    await this.modelService.removeModel(id);
     await this.routeRepository.remove(route);
     return ok;
 }

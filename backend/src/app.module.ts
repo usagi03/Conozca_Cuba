@@ -10,7 +10,7 @@ import { KmCostsModule } from "./modules/km_costs/km_costs.module";
 import { KmHourCostsModule } from "./modules/km_hour_costs/km_hour_costs.module";
 import { MealPlansModule } from "./modules/meal_plans/meal_plans.module";
 import { PackagesModule } from "./modules/packages/packages.module";
-//import { ReportsModule } from "./modules/reports/reports.module";
+import { ReportsModule } from "./modules/reports/reports.module";
 import { RolesModule } from "./modules/roles/roles.module";
 import { RoomsModule } from "./modules/rooms/rooms.module";
 import { RoutesModule } from "./modules/routes/routes.module";
@@ -19,7 +19,7 @@ import { TransportationsModule } from "./modules/transportations/transportations
 import { UsersModule } from "./modules/users/users.module";
 import { VehiclesModule } from "./modules/vehicles/vehicles.module";
 import { AuthModule } from "./modules/auth/auth.module";
-import { SeasonsModule } from "./modules/seasons/seasons.module";
+import { AcommodationsController } from './modules/acommodations/controller/acommodations.controller';
 
 @Module({
   imports: [
@@ -42,10 +42,9 @@ import { SeasonsModule } from "./modules/seasons/seasons.module";
     KmHourCostsModule,
     MealPlansModule,
     PackagesModule,
-    //ReportsModule,
+    ReportsModule,
     RolesModule,
     RoomsModule,
-    SeasonsModule,
     RoutesModule,
     TransportationModelsModule,
     TransportationsModule,
@@ -53,7 +52,7 @@ import { SeasonsModule } from "./modules/seasons/seasons.module";
     VehiclesModule,
     AuthModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, AcommodationsController],
   providers: [AppService],
 })
 export class AppModule {}

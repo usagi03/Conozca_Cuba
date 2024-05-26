@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Timestamp} from "typeorm";
 import { Acommodation } from "../acommodations/acommodations.entity";
 
 @Entity("season")
@@ -9,15 +9,15 @@ export class Season {
     @Column({ nullable: false })
     name_season: string;
 
-    @Column('timestamp without time zone', {name: 'start_season', nullable: false })
-    start_season: Date;
+    @Column({ nullable: false })
+    start_season: Timestamp;
 
-    @Column('timestamp without time zone', {name: 'end_season', nullable: false })
-    end_season: Date;
+    @Column({ nullable: false })
+    end_season: Timestamp;
 
-    @Column()
-    description_season: string;
+    @Column({ nullable: false })
+    description_season: Timestamp;
 
     @OneToMany(() => Acommodation, (acommodation) => acommodation.season)
-    acommodations: Acommodation[];
+    seasons: Season[];
 }

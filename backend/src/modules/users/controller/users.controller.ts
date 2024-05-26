@@ -23,12 +23,12 @@ export class UsersController {
   }
 
   @Patch(':id_user')
-  updateUser(@Param('id_user') id: number, @Body() user: UpdateUserDto): Promise<User> {
+  updateUser(@Param('id_user') id: number, @Body() user: UpdateUserDto) {
     return this.userService.updateUser(id, user);
   }
 
   @Delete(':id_user')
-  deleteUser(@Param('id_user') id: number): Promise<string> {
+  deleteUser(@Param('id_user') id: number) {
     return this.userService.removeUser(id);
   }
 }

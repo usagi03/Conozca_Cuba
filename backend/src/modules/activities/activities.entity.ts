@@ -10,7 +10,7 @@ export class Daily_activity {
     type_activity: string;
 
     @Column({ nullable: false })
-    day_activity: string;
+    day_activity: number;
 
     @Column('time without time zone', {name: 'time_activity', nullable: false })
     time_activity: string;
@@ -28,5 +28,5 @@ export class Daily_activity {
     surcharge_activity: number;
 
     @OneToMany(() => Contract, (contract) => contract.activity)
-    contracts: Contract[];
+    activities: Daily_activity[];
 }

@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import { Column, Double, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import { Room } from "../rooms/rooms.entity";
 
 @Entity("meal_plan")
@@ -10,7 +10,7 @@ export class Meal_plan {
     plan_type: string;
 
     @Column({ nullable: false })
-    plan_cost: number;
+    plan_cost: Double;
 
     @OneToMany(() => Room, (room) => room.plan)
     rooms: Room[];

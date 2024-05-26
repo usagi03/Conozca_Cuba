@@ -1,2 +1,2 @@
-export { UpdateTransportationDto } from "./update-transportation.dto";
-export { CreateTransportationDto } from "./create-transportation.dto";
+export { update_TransportationDto } from "./update-transportation.dto";
+export { create_TransportationDto } from "./create-transportation.dto";

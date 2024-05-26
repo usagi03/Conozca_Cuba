@@ -1,6 +1,11 @@
-import { IsNotEmpty, IsNumber } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { CreateHotelDto } from "src/modules/hotels/dtos";
 
-export class CreateKm_costDto {
+export class CreateKm_costDto extends CreateHotelDto {
+  @IsString()
+  @IsNotEmpty()
+  readonly description: string;
+
   @IsNumber()
   @IsNotEmpty()
   readonly km_cost: number;
