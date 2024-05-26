@@ -1,0 +1,155 @@
+{
+    "users" : {
+        "title": "Users",
+        "table": {
+            "username": "Username", 
+            "password": "Password", 
+            "role": "Role"
+        }
+    },
+    "languages":{
+        "es": "Spanish",
+        "en": "English"
+    },
+    "data_table" : {
+        "addNew": "Add new",
+         "export": "Export",
+         "search": "Search for items"
+    },
+    "modals":{
+        "save": "Save",
+         "accept": "Accept",
+         "cancel": "Cancel",
+         "deleteMsg": "Are you sure you want to delete this item? This action cannot be undone.",
+         "confirm": "Confirm deletion",
+         "update": "Modify",
+         "add": "Add"
+    },
+    "dashboard": {
+        "exit": "Log out",
+         "start": "Start",
+         "housing": "Accommodation",
+         "transport": "Transport"
+    },
+    "contracts" : {
+        "title": "Contracts",
+        "table": {
+             "dateStart": "Start Date",
+              "dateEnd": "End Date",
+              "dateConc": "Conciliation Date",
+              "description": "Description",
+              "activitie": "No. Activity",
+              "housing": "No. Accommodation",
+              "transport": "No. Transportation"
+        }
+    },
+    "dailyActivities" : {
+        "title": "Daily Activities",
+        "table": {
+            "type": "Type",
+            "day": "Day",
+            "time": "Time",
+            "province": "Province",
+            "cost": "Cost",
+            "recar": "Recharge",
+            "description": "Description"
+        }
+    },
+    "Hotels" : {
+        "title": "Hotel",
+         "table": {
+             "name": "Name",
+             "chain": "Chain",
+             "category": "Category",
+             "direction": "Direction",
+             "province": "Province"
+         }
+    },
+    "km" : {
+        "title": "KM Models",
+         "table": {
+             "description": "Description",
+             "km_cost": "Cost per KM",
+             "km_idayvuelta": "Cost per KM round trip",
+             "wait_cost": "Cost per waiting hours"
+         }
+    },
+    "km/h" : {
+        "title": "KM Models",
+         "table": {
+             "description":"Description",
+             "recorrido": "Cost of the tour per km",
+             "hours_cos": "Cost per hour",
+             "km_extras": "Cost per extra km",
+             "hours_extras": "Cost for extra hours"
+         }
+    },
+    "route" : {
+        "title": "Route Models",
+         "table": {
+             "description":"Description",
+             "description_route": "Route description",
+             "route_cost": "Cost per route",
+             "idayvuelta_cost": "Cost for round trip"
+         }
+    },
+    "login" : {
+        "welcome": "Welcome log in with your account",
+         "form": {
+             "username": "User",
+             "user_placeholder": "Enter username",
+             "password": "Password",
+             "password_placeholder": "Enter your password",
+             "button": "Login"
+         },
+         "errors":{
+             "user_error":"Please enter a user",
+             "password_error": "Please enter a password",
+             "success": "Success",
+             "failed": "Incorrect username or password"
+         }
+    },
+    "packages" : {
+        "title": "Paquetes",
+        "table": {
+             "name":"Nombre",
+             "days": "# de Días",
+             "nigths": "# de Noches",
+             "persons": "# de Personas",
+             "hotel_cost": "$ Total Hotel",
+             "hotel_travel": "$ Viaje Hotel - Aeropuerto",
+             "transport": "$ Transporte",
+             "package": "$ Total Paquete",
+             "ganancia": "% de Ganancia"
+        }
+    },
+    "rooms" : {
+        "title": "Habitaciones",
+        "table": {
+            "number": "Numero",
+            "type":"Tipo",
+            "cost":"Costo",
+            "meal_plan": "Plan Alimenticio",
+            "plus": "Recargo"
+        }
+    },
+    "seasons" : {
+        "title": "Temporadas",
+        "table": {
+            "name":"Nombre",
+            "dateStart":"Fecha de Inicio",
+            "dateEnd":"Fecha de Fin"
+        }
+    },
+    "vehicles" : {
+        "title": "Usuarios",
+        "table": {
+            "plate": "Matrícula",
+            "brand": "Marca",
+            "year": "Año",
+            "luggage_capacity": "Capacidad Equipaje",
+            "luggage_without": "Capacidad Sin Equipaje",
+            "total": "Capacidad Total"
+        }
+    }
+}

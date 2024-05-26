@@ -2,7 +2,7 @@
     <div>
      <h1 class="header">Temporadas</h1> 
     </div>
-    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement"@valueEdit="obtenerEdit">
+    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
       <template #formComponent>
         <SeasonForm @value="obtener" :editObject="edit"/>
       </template>

@@ -34,7 +34,7 @@ import ContractForm from '@/components/forms/ContractForm.vue';
     data(){
       return{
         edit: {},
-        headers: ['Fecha de Inicio', 'Fecha de Fin', 'Fecha de Concilación', 'Descripción', 'No. Actividad', 'No. Alojamiento', 'No. Transportación'],
+        //headers: ['Fecha de Inicio', 'Fecha de Fin', 'Fecha de Concilación', 'Descripción', 'No. Actividad', 'No. Alojamiento', 'No. Transportación'],
         data: [ {},
             {}
         ],

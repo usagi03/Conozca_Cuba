@@ -20,19 +20,19 @@
       }"
       style="min-width: 8rem"
     >
-      <a
-        href="#pablo"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+      <button
+        @click="$i18n.locale = 'es'"
+        class="text-sm rounded-lg focus:outline-none hover:bg-gray-100 w-20 h-8 my-2 mx-6 font-normal block whitespace-nowrap bg-transparent text-blueGray-700"
       >
-        Español
-      </a>
+        {{$t('languages.es')}}
+      </button>
       <hr class="mx-4 " />
-      <a
-        href="#pablo"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+      <button
+      @click="$i18n.locale = 'en'"
+        class="text-sm font-normal focus:outline-none rounded-lg block hover:bg-gray-100 w-20 h-8 my-2 mx-6 whitespace-nowrap bg-transparent text-blueGray-700"
       >
-        Ingles
-      </a>
+      {{$t('languages.en')}}
+      </button>
     </div>
 </div>
 </template>

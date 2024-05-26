@@ -1,8 +1,8 @@
 <template>
     <div>
-     <h1 class="header">Usuarios</h1> 
+     <h1 class="header">{{$t('users.title')}}</h1> 
     </div>
-    <DataTable :data="data" :headers="headers" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
+    <DataTable :data="data" :headers="[this.$t('users.table.username'), this.$t('users.table.password'), this.$t('users.table.role')]" @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit">
       <template #formComponent>
         <UsersForm @value="obtener" :editObject="edit"/>
       </template>
@@ -26,7 +26,7 @@
     data(){
       return{
         edit: {},
-        headers: ['Nombre', 'Contraseña', 'Rol'],
+        //headers: [this.$t('users.table.username'), this.$t('users.table.password'), this.$t('users.table.role')],
         data: [ 
             {'name': 'Julio', 'password': 'julito1234', 'rol':'Administrador'},
             {'name': 'Camila','password': 'camila12345', 'rol':'Gerente'}
