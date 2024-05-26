@@ -13,8 +13,6 @@ import { getManager } from "typeorm";
 
 const PDFDocument = require("pdfkit-table");
 
-//const jasper = require("node-jasper")(reportopt);
-
 @Injectable()
 export class ReportsService {
   constructor(

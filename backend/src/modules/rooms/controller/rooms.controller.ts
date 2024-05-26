@@ -24,7 +24,7 @@ export class RoomsController {
   }
 
   @Patch(':id_room')
-  updateRoom(@Param('id_room') id: number, @Body() room: UpdateRoomDto): Promise<Room> {
+  updateRoom(@Param('id_room') id: number, @Body() room: UpdateRoomDto) {
     return this.roomService.updateRoom(id, room);
   }
 

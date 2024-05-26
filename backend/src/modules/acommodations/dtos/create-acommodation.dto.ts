@@ -6,13 +6,13 @@ import { Season } from "src/modules/seasons/seasons.entity";
 export class CreateAcommodationDto {
     @IsObject()
     @IsNotEmpty()
-    readonly room: Partial<Room>;
+    room: Partial<Room>;
 
     @IsObject()
     @IsNotEmpty()
-    readonly season: Partial<Season>;
+    season: Partial<Season>;
 
     @IsObject()
     @IsNotEmpty()
-    readonly hotel: Partial<Hotel>;
+    hotel: Partial<Hotel>;
 }

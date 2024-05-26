@@ -1,11 +1,4 @@
-import {
-  Column,
-  Double,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  Timestamp,
-} from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Acommodation } from "../acommodations/acommodations.entity";
 
 @Entity("hotel")
@@ -25,11 +18,11 @@ export class Hotel {
   @Column({ nullable: false })
   address_hotel: string;
 
-  @Column({ nullable: false })
-  province_hotel: string;
+  @Column('timestamp without time zone', {name: 'date_hotel', nullable: false })
+  date_hotel: Date;
 
   @Column({ nullable: false })
-  date_hotel: Timestamp;
+  province_hotel: string;
 
   @Column({ nullable: false })
   phone: string;
@@ -38,13 +31,13 @@ export class Hotel {
   fax: string;
 
   @Column({ nullable: false })
+  distance_to_city: number;
+
+  @Column({ nullable: false })
+  distance_to_airport: number;
+
+  @Column({ nullable: false })
   email: string;
-
-  @Column({ nullable: false })
-  distance_to_city: Double;
-
-  @Column({ nullable: false })
-  distance_to_airport: Double;
 
   @Column({ nullable: false })
   floor_count: number;
@@ -56,5 +49,5 @@ export class Hotel {
   location_hotel: string;
 
   @OneToMany(() => Acommodation, (acommodation) => acommodation.hotel)
-  hotels: Hotel[];
+  acommodations: Acommodation[];
 }

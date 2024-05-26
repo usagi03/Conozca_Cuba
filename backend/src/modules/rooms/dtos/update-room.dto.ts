@@ -1,24 +1,23 @@
-import { IsNotEmpty, IsObject, IsOptional, IsString } from "class-validator";
-import { Meal_plan } from "src/modules/meal_plans/plans.entity";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class UpdateRoomDto {
     @IsString()
     @IsOptional()
-    readonly room_number?: string;
+    room_number?: string;
 
     @IsOptional()
     @IsNotEmpty()
-    readonly room_type?: string;
+    room_type?: string;
 
     @IsOptional()
     @IsNotEmpty()
-    readonly room_cost?: number;
+    room_cost?: number;
 
     @IsOptional()
     @IsNotEmpty()
-    readonly room_surcharge?: number;
+    room_surcharge?: number;
     
-    @IsObject()
+    @IsString()
     @IsOptional()
-    readonly plan?: Partial<Meal_plan>;
+    plan?: string;
 }

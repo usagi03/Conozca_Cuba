@@ -23,7 +23,7 @@ export class VehiclesController {
   }
 
   @Patch(':id_vehicle')
-  updateVehicle(@Param('id_vehicle') id: number, @Body() vehicle: UpdateVehicleDto): Promise<Vehicle> {
+  updateVehicle(@Param('id_vehicle') id: number, @Body() vehicle: UpdateVehicleDto) {
     return this.vehicleService.updateVehicle(id, vehicle);
   }
 

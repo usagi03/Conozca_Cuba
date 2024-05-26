@@ -1,21 +1,19 @@
-import { Column, Entity, ChildEntity } from "typeorm";
-import { Transportation_model } from "../transportation_models/model.entity";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("km_hours_cost")
-@ChildEntity(Transportation_model)
-export class Km_hours_cost extends Transportation_model {
-  /*@PrimaryGeneratedColumn()
-  id_km_hours_cost: number;*/
+export class Km_hours_cost {
+  @PrimaryGeneratedColumn()
+  id_transp_model: number;
 
-  @Column()
+  @Column({ nullable: false })
   route_km_cost: number;
 
-  @Column()
+  @Column({ nullable: false })
   hours_cost: number;
 
-  @Column()
+  @Column({ nullable: false })
   extra_km_cost: number;
 
-  @Column()
+  @Column({ nullable: false })
   extras_hours_cost: number;
 }

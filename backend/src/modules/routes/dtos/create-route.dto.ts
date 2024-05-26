@@ -1,7 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { CreateModelDto } from "src/modules/transportation_models/dtos/create-model.dto";
 
-export class CreateRouteDto extends CreateModelDto{
+export class CreateRouteDto {
   @IsString()
   @IsNotEmpty()
   readonly description_route: string;

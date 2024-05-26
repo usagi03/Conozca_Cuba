@@ -3,24 +3,23 @@ import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 export class CreateVehicleDto {
   @IsString()
   @IsNotEmpty()
-  readonly license_plate: string;
+  license_plate: string;
 
   @IsString()
-  @IsNotEmpty()
-  readonly brand: string;
+  brand: string;
 
   @IsNumber()
   @IsNotEmpty()
-  readonly luggage_capacity: number;
+  luggage_capacity: number;
 
   @IsNumber()
   @IsNotEmpty()
-  readonly with_luggage: number;
+  with_luggage_capacity: number;
 
   @IsNumber()
   @IsNotEmpty()
-  readonly total_capacity: number;
+  total_capacity: number;
 
   @IsNumber()
-  readonly year_built: number;
+  year_build: number;
 }

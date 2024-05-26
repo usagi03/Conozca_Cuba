@@ -24,7 +24,7 @@ export class RolesController {
   }
 
   @Patch(':id_role')
-  updateRole(@Param('id_role') id: number, @Body() role: UpdateRoleDto): Promise<Role> {
+  updateRole(@Param('id_role') id: number, @Body() role: UpdateRoleDto) {
     return this.roleService.updateRole(id, role);
   }
 

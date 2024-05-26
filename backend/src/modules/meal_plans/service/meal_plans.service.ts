@@ -28,36 +28,32 @@ export class Meal_PlansService {
     }
 
     async createPlan(newPlan: CreatePlanDto): Promise<Meal_plan> {
-        const plan = this.planRepository.create(newPlan);
-        return this.planRepository.save(plan);
+        return await this.planRepository.save({
+            ...newPlan,
+        });
     }
 
     async updatePlan(id_plan: number, newPlan: UpdatePlanDto) {
-        const plan = await this.planRepository.preload({
-            id_plan,
-            plan_type: newPlan.plan_type,
-            plan_cost: newPlan.plan_cost
-        });
-    
-        if (!plan) {
-            throw new NotFoundException('Resource not found');
-        }
-    
-        await this.planRepository.save(plan);
-        return plan;
+        let ok = "Meal plan could not be updated"
+        const affectedRows = await this.planRepository.update(id_plan, {
+            ...newPlan,
+         });
+     
+         if (affectedRows.affected > 0) {
+             ok = "Meal plan updated successfully";
+         } 
+         return ok;
     }
 
     async removePlan(id: number): Promise<string> {
+        let ok = "Meal plan deleted successfully"
         const plan: Meal_plan = await this.planRepository.findOne({ where: { id_plan: id } } as FindOneOptions<Meal_plan>);
-        let ok: string = 'NO ELIMINADO';
-
-        if (!plan) {
-            throw new NotFoundException('Resource not found');
-        } else {
-            ok = 'ELIMINADO';
-        }
     
-        await this.planRepository.remove(plan);
-        return ok;
+         if (!plan) {
+             ok = "User could not be deleted";
+         }
+         
+         await this.planRepository.remove(plan);
+         return ok;
     }
 }

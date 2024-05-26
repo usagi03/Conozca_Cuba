@@ -10,9 +10,9 @@ import { Contract } from "src/modules/contracts/contract.entity";
 export class PackagesService {
   constructor(
     @InjectRepository(Package)
-    private readonly packageRepository: Repository<Package>,
-    @InjectRepository(Contract)
-    private readonly contractRepository: Repository<Contract>
+    private readonly packageRepository: Repository<Package>
+    /*@InjectRepository(Contract)
+        private readonly contractRepository: Repository<Contract>*/
   ) {}
 
   async getPackages(): Promise<Package[]> {
