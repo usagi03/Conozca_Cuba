@@ -18,6 +18,9 @@ export class Hotel {
   @Column({ nullable: false })
   address_hotel: string;
 
+  @Column({ nullable: false})
+  province_hotel: string;
+
   @Column('timestamp without time zone', {name: 'date_hotel', nullable: false })
   date_hotel: Date;
 
