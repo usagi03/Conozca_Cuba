@@ -24,7 +24,7 @@ export class HotelsController {
   }
 
   @Patch(':id_hotel')
-  updateHotel(@Param('id_hotel') id: number, @Body() hotel: UpdateHotelDto): Promise<Hotel> {
+  updateHotel(@Param('id_hotel') id: number, @Body() hotel: UpdateHotelDto) {
     return this.hotelService.updateHotel(id, hotel);
   }
 

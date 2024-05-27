@@ -44,35 +44,28 @@ export class Km_hours_costsService {
   }
 
   async updateKm_hours_cost(id_transp_model: number, newModel: UpdateModelDto, newKm_hours_cost: UpdateKm_hours_costDto) {
+    let ok = "Km and hours cost could not be updated"
+
     await this.modelService.updateModel(id_transp_model, newModel);
-    const km = await this.km_hours_costRepository.preload({
-        id_transp_model,
-        route_km_cost: newKm_hours_cost.route_km_cost,
-        hours_cost: newKm_hours_cost.hours_cost,
-        extra_km_cost: newKm_hours_cost.extra_km_cost, 
-        extras_hours_cost: newKm_hours_cost.extras_hours_cost
+    const affectedRows = await this.km_hours_costRepository.update(id_transp_model, {
+      ...newKm_hours_cost,
     });
-
-    if (!km) {
-        throw new NotFoundException('Resource not found');
-    }
-
-    await this.km_hours_costRepository.save(km);
-    return km;
+     
+    if (affectedRows.affected > 0) {
+        ok = "Km and hours cost updated successfully";
+    } 
+    return ok;
   }
 
   async removeKm_hours_cost(id: number): Promise<string> {
-    const km_hours_cost: Km_hours_cost = await this.km_hours_costRepository.findOne({ where: { id_km_hours_cost: id } } as FindOneOptions<Km_hours_cost>);
-    let ok: string = 'NO ELIMINADO';
-
-    if (!km_hours_cost) {
-        throw new NotFoundException('Resource not found');
-    } else {
-        ok = 'ELIMINADO';
+    let ok = "Km and hours cost deleted successfully"
+    const km: Km_hours_cost = await this.km_hours_costRepository.findOne({ where: { id_transp_model: id } } as FindOneOptions<Km_hours_cost>);
+    
+    if (!km) {
+        ok = "Km and hours cost could not be deleted";
     }
-
-    await this.modelService.removeModel(id);
-    await this.km_hours_costRepository.remove(km_hours_cost);
+         
+    await this.km_hours_costRepository.remove(km);
     return ok;
   }
 }

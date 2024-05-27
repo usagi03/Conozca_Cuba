@@ -24,7 +24,7 @@ export class TransportationsController {
   }
 
   @Patch(':id_transportation')
-  updateTransportation(@Param('id_transportation') id: number, @Body() transportation: UpdateTransportationDto): Promise<Transportation> {
+  updateTransportation(@Param('id_transportation') id: number, @Body() transportation: UpdateTransportationDto) {
     return this.transportationService.updateTransportation(id, transportation);
   }
 

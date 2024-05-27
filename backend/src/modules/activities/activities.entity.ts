@@ -27,6 +27,6 @@ export class Daily_activity {
     @Column({ nullable: false })
     surcharge_activity: number;
 
-    @OneToMany(() => Contract, (contract) => contract.activity)
+    @OneToMany(() => Contract, (contract) => contract.id_contract)
     contracts: Contract[];
 }

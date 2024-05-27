@@ -28,38 +28,32 @@ export class SeasonsService {
     }
 
     async createSeason(newSeason: CreateSeasonDto): Promise<Season> {
-        const season = this.seasonRepository.create(newSeason);
-        return this.seasonRepository.save(season);
+        return await this.seasonRepository.save({
+            ...newSeason,
+        });
     }
 
     async updateSeason(id_season: number, newSeason: UpdateSeasonDto) {
-        const season = await this.seasonRepository.preload({
-            id_season,
-            name_season: newSeason.name_season,
-            start_season: newSeason.start_season,
-            end_season: newSeason.end_season,
-            description_season: newSeason.description_season,
+        let ok = "Season could not be updated"
+        const affectedRows = await this.seasonRepository.update(id_season, {
+            ...newSeason,
         });
-    
-        if (!season) {
-            throw new NotFoundException('Resource not found');
-        }
-    
-        await this.seasonRepository.save(season);
-        return season;
+     
+        if (affectedRows.affected > 0) {
+            ok = "Season updated successfully";
+        } 
+        return ok;
     }
 
     async removeSeason(id: number): Promise<string> {
+        let ok = "Season deleted successfully"
         const season: Season = await this.seasonRepository.findOne({ where: { id_season: id } } as FindOneOptions<Season>);
-        let ok: string = 'NO ELIMINADO';
-
-        if (!season) {
-            throw new NotFoundException('Resource not found');
-        } else {
-            ok = 'ELIMINADO';
-        }
     
-        await this.seasonRepository.remove(season);
-        return ok;
+    if (!season) {
+        ok = "Season could not be deleted";
+    }
+         
+    await this.seasonRepository.remove(season);
+    return ok;
     }
 }

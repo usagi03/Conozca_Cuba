@@ -1,18 +1,15 @@
-import { IsObject, IsOptional } from "class-validator";
-import { Hotel } from "src/modules/hotels/hotels.entity";
-import { Room } from "src/modules/rooms/rooms.entity";
-import { Season } from "src/modules/seasons/seasons.entity";
+import { IsNumber, IsOptional } from "class-validator";
 
 export class UpdateAcommodationDto {
-    @IsObject()
+    @IsNumber()
     @IsOptional()
-    readonly room?: Partial<Room>;
+    room?: number;
 
-    @IsObject()
+    @IsNumber()
     @IsOptional()
-    readonly season?: Partial<Season>;
+    season?: number;
 
-    @IsObject()
+    @IsNumber()
     @IsOptional()
-    readonly hotel?: Partial<Hotel>;
+    hotel?: number;
 }

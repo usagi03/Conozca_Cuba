@@ -3,29 +3,29 @@ import { IsNumber, IsOptional, IsString } from "class-validator";
 export class UpdateActivityDto {
     @IsString()
     @IsOptional()
-    type_activity: string;
+    type_activity?: string;
 
     @IsNumber()
     @IsOptional()
-    day_activity: string;
+    day_activity?: string;
 
     @IsString()
     @IsOptional()
-    time_activity: string;
+    time_activity?: string;
 
     @IsNumber()
     @IsOptional()
-    cost_activity: number;
+    cost_activity?: number;
 
     @IsString()
     @IsOptional()
-    province_activity: string;
+    province_activity?: string;
 
     @IsString()
     @IsOptional()
-    description_activity: string;
+    description_activity?: string;
 
     @IsNumber()
     @IsOptional()
-    surcharge_activity: number;
+    surcharge_activity?: number;
 }

@@ -1,17 +1,15 @@
-import { IsString, IsOptional, IsObject } from "class-validator";
-import { Transportation_model } from "src/modules/transportation_models/model.entity";
-import { Vehicle } from "src/modules/vehicles/vehicle.entity";
+import { IsString, IsOptional, IsNumber } from "class-validator";
 
 export class UpdateTransportationDto {
-  @IsObject()
+  @IsNumber()
   @IsOptional()
-  readonly transportation_model: Partial<Transportation_model>;
+  transportation_model?: number;
 
-  @IsObject()
+  @IsNumber()
   @IsOptional()
-  readonly vehicle: Partial<Vehicle>;
+  vehicle?: number;
 
   @IsString()
   @IsOptional()
-  readonly borrower: string;
+  readonly borrower?: string;
 }

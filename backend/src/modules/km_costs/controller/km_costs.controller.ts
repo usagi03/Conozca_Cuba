@@ -24,7 +24,7 @@ export class Km_costsController {
   }
 
   @Patch(":id_km_cost")
-  updateKm_cost(@Param('id_km_cost') id: number, @Body() model:UpdateModelDto, km_cost: UpdateKm_costDto): Promise<Km_cost> {
+  updateKm_cost(@Param('id_km_cost') id: number, @Body() model:UpdateModelDto, km_cost: UpdateKm_costDto) {
     return this.km_costService.updateKm_cost(id, model, km_cost);
   }
 

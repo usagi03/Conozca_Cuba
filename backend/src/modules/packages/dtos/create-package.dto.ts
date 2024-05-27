@@ -1,32 +1,31 @@
-import { IsNotEmpty, IsObject, IsString } from "class-validator";
-import { Contract } from "src/modules/contracts/contract.entity";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreatePackageDto {
     @IsString()
     @IsNotEmpty()
-    readonly promotional_name: string;
+    promotional_name: string;
 
     @IsString()
     @IsNotEmpty()
-    readonly days_count: number;
+    days_count: number;
 
     @IsString()
     @IsNotEmpty()
-    readonly nigths_count: number;
+    nigths_count: number;
 
     @IsString()
     @IsNotEmpty()
-    readonly pax_count: number;
+    pax_count: number;
 
     @IsString()
     @IsNotEmpty()
-    readonly hotel_airport_ride_cost: number;
+    hotel_airport_ride_cost: number;
 
     @IsString()
     @IsNotEmpty()
-    readonly percent_profit: number;
+    percent_profit: number;
 
-    @IsObject()
+    @IsNumber()
     @IsNotEmpty()
-    readonly contract: Partial<Contract>;
+    contract: number;
 }

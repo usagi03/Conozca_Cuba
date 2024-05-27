@@ -24,7 +24,7 @@ export class ContractsController {
   }
 
   @Patch(":id_contract")
-  async updateContract(@Param('id_contract') id: number, @Body() contract: UpdateContractDto): Promise<Contract> {
+  async updateContract(@Param('id_contract') id: number, @Body() contract: UpdateContractDto) {
     return this.contractService.updateContract(id, contract);
   }
 

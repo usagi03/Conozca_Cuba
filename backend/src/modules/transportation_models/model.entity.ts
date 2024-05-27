@@ -12,6 +12,6 @@ export class Transportation_model {
   @Column()
   description_tm: string;
 
-  @OneToMany(() => Transportation, (transportation) => transportation.transportation_model)
+  @OneToMany(() => Transportation, (transportation) => transportation.id_transportation)
     transportations: Transportation[];
 }
