@@ -14,7 +14,7 @@ export default class AuthService {
 
     async login(username, password){
         try{
-           const res = await fetch('https://fakestoreapi.com/auth/login', {
+           const res = await fetch('http://localhost:3080/auth/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -28,14 +28,17 @@ export default class AuthService {
            console.log(username)
            console.log(password)
            const store = useAuthStore();
-           const response = await res.text();
+           const response = await res.json();
            console.log(response)
-           if(response === 'username or password is incorrect'){
+           if(response.message === 'username is wrong' || response.message === 'password is wrong'){
             this.error = 'Login Failed'
             return false;
            } else {
             this.jwt = response;
-            store.token = response;
+            store.token = response.token;
+            store.username = response.username;
+            store.role = response.rol;
+            console.log(store.token)
             return true
            }
         } catch(error){

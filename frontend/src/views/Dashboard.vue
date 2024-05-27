@@ -31,6 +31,12 @@ export default {
     return {
       date: new Date().getFullYear()
     }
+  },
+  methods:{
+    changeLanguage(lang){
+      console.log(lang)
+      this.$emit('changeLang', lang)
+    }
   }
 };
 </script>

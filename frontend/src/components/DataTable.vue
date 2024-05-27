@@ -115,11 +115,11 @@ import ExportModal from './ExportModal.vue';
         props:{
             headers: Array,
             data: Array,
+            showModal: Boolean,
         },
         data(){
             return{
                 searchQuery: '',
-                showModal: false,
                 showConfirmDelete: false,
                 newObject: {},
                 msg: '',
@@ -135,18 +135,15 @@ import ExportModal from './ExportModal.vue';
         },
         methods:{
           openModalAdd(){
-            this.showModal = true
+            this.$emit('openModal')
             this.msg = 'Añadir'
           },
             addNewObject() {
              this.$emit('add-new-object', this.newObject);
-             this.showModal = false;
-             this.store.isUpdate(-1)
            },
            editObject(item){
             this.store.isUpdate(item);
             console.log(item);
-            this.showModal = true;
             console.log(this.data[this.store.position]);
             this.newObject = Object.assign({}, this.data[this.store.position]);
             this.$emit('valueEdit', this.newObject);
@@ -165,7 +162,7 @@ import ExportModal from './ExportModal.vue';
             this.showConfirmDelete = false;
            },
            closeAddEdit(){
-            this.showModal = false;
+            this.$emit('closeAddEdit')
             if(this.store.position != -1){
               this.store.isUpdate(-1);  
             }

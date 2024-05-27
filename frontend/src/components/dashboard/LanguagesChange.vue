@@ -59,7 +59,8 @@ export default {
           placement: "bottom-end"
         });
       }
-    }
+    },
+    
   },
     components: { WorldIcon, DownIcon }
 }

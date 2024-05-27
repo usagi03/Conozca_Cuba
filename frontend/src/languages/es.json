@@ -151,6 +151,11 @@
             "luggage_without": "Capacidad Sin Equipaje",
             "total": "Capacidad Total"
         }
+    },
+    "errors":{
+        "required": "Este campo es requerido",
+        "number": "Este campo solo admite numeros",
+        "words": "Este campo solo admite letras"
     }
 
 }

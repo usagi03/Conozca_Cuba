@@ -7,6 +7,7 @@ export const useAuthStore = defineStore('auth', {
     usernameError: false,
     passwordError: false,
     role: '',
+    username: '',
  }),
 
  getters: {

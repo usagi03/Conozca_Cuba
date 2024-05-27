@@ -4,7 +4,12 @@ import { defineStore } from 'pinia'
 export const useFormsStore = defineStore('auth', {
  state: () => ({
     position: -1,
-    lang: 'es'
+    lang: 'es',
+    user:{
+      errorUser: '',
+      errorPass: '',
+      errorRol: '',
+    }
  }),
 
  getters: {
