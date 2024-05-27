@@ -1,17 +1,14 @@
-import { IsNotEmpty, IsObject, IsString } from "class-validator";
-import { Transportation_model } from "src/modules/transportation_models/model.entity";
-import { Vehicle } from "src/modules/vehicles/vehicle.entity";
-
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 export class CreateTransportationDto {
-  @IsObject()
+  @IsNumber()
   @IsNotEmpty()
-  readonly transportation_model: Partial<Transportation_model>;
+  transportation_model: number;
 
-  @IsObject()
+  @IsNumber()
   @IsNotEmpty()
-  readonly vehicle: Partial<Vehicle>;
+  vehicle: number;
 
   @IsString()
   @IsNotEmpty()
-  readonly borrower: string;
+  borrower: string;
 }

@@ -30,19 +30,19 @@ export class VehiclesService {
   async createVehicle(newVehicle: CreateVehicleDto): Promise<Vehicle> {
     return await this.vehicleRepository.save({
       ...newVehicle,
-  });
+    });
   }
 
   async updateVehicle(id_vehicle: number, newVehicle: UpdateVehicleDto) {
     let ok = "Vehicle could not be updated"
-        const affectedRows = await this.vehicleRepository.update(id_vehicle, {
-            ...newVehicle,
-         });
+    const affectedRows = await this.vehicleRepository.update(id_vehicle, {
+      ...newVehicle,
+    });
      
-         if (affectedRows.affected > 0) {
-             ok = "Vehicle updated successfully";
-         } 
-         return ok;
+    if (affectedRows.affected > 0) {
+        ok = "Vehicle updated successfully";
+    } 
+    return ok;
   }
 
   async removeVehicle(id: number): Promise<string> {

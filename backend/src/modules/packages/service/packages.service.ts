@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { FindOneOptions, Repository } from "typeorm";
 import { Package } from "../package.entity";
@@ -10,10 +10,9 @@ import { Contract } from "src/modules/contracts/contract.entity";
 export class PackagesService {
   constructor(
     @InjectRepository(Package)
-    private readonly packageRepository: Repository<Package>
-    /*@InjectRepository(Contract)
-        private readonly contractRepository: Repository<Contract>*/
-  ) {}
+    private readonly packageRepository: Repository<Package>,
+    @InjectRepository(Contract)
+    private readonly contractRepository: Repository<Contract>) {}
 
   async getPackages(): Promise<Package[]> {
     return await this.packageRepository.find({ relations: ["contract"] });
@@ -35,47 +34,46 @@ export class PackagesService {
   }
 
   async createPackage(newPackage: CreatePackageDto): Promise<Package> {
-    const pack = this.packageRepository.create(newPackage);
-    pack.contract = {
-      id_contract: newPackage.contract.id_contract,
-    } as Contract;
-    return this.packageRepository.save(pack);
+    const contract = await this.validateContract(newPackage.contract);
+    return await this.packageRepository.save({
+      ...newPackage,
+      contract: contract,
+    });
   }
 
   async updatePackage(id_package: number, newPackage: UpdatePackageDto) {
-    const pack = await this.packageRepository.preload({
-      id_package,
-      promotional_name: newPackage.promotional_name,
-      days_count: newPackage.days_count,
-      nigths_count: newPackage.nigths_count,
-      pax_count: newPackage.pax_count,
-      hotel_airport_ride_cost: newPackage.hotel_airport_ride_cost,
-      percent_profit: newPackage.percent_profit,
-      contract: { id_contract: newPackage.contract.id_contract },
-    });
-
-    if (!pack) {
-      throw new NotFoundException("Resource not found");
-    }
-
-    await this.packageRepository.save(pack);
-    return pack;
+    let ok = "Package could not be updated"
+    const affectedRows = await this.packageRepository.update(id_package, {
+      ...newPackage,
+      contract: newPackage.contract? await this.validateContract(newPackage.contract) : undefined,
+      });
+     
+      if (affectedRows.affected > 0) {
+          ok = "Contract updated successfully";
+      } 
+      return ok;
   }
 
   async removePackage(id: number): Promise<string> {
-    const pack: Package = await this.packageRepository.findOne({
-      where: { id_package: id },
-    } as FindOneOptions<Package>);
-    let ok: string = "NO ELIMINADO";
-
+    let ok = "Package deleted successfully"
+    const pack: Package = await this.packageRepository.findOne({ where: { id_package: id } } as FindOneOptions<Package>);
+    
     if (!pack) {
-      throw new NotFoundException("Resource not found");
-    } else {
-      ok = "ELIMINADO";
+        ok = "Package could not be deleted";
     }
-
+         
     await this.packageRepository.remove(pack);
     return ok;
+  }
+
+  private async validateContract(contract: number) {
+    const contractEntity = await this.contractRepository.findOneBy({ id_contract: contract });
+  
+    if (!contractEntity) {
+      throw new BadRequestException('Contract not found');
+    }
+  
+    return contractEntity;
   }
 
   //Reporte 7

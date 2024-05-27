@@ -24,7 +24,7 @@ export class SeasonsController {
   }
 
   @Patch(':id_season')
-  updateSeason(@Param('id_season') id: number, @Body() season: UpdateSeasonDto): Promise<Season> {
+  updateSeason(@Param('id_season') id: number, @Body() season: UpdateSeasonDto) {
     return this.seasonService.updateSeason(id, season);
   }
 

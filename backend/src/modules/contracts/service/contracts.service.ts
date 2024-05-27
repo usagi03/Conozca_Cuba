@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { Contract } from "../contract.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { FindOneOptions, Repository } from "typeorm";
@@ -12,12 +12,12 @@ export class ContractsService {
   constructor(
     @InjectRepository(Contract)
     private readonly contractRepository: Repository<Contract>,
-    /*@InjectRepository(Transportation)
+    @InjectRepository(Transportation)
     private readonly transportationRepository: Repository<Transportation>,
     @InjectRepository(Acommodation) 
     private readonly acommodationRepository: Repository<Acommodation>,
     @InjectRepository(Daily_activity)
-    private readonly activityRepository: Repository<Daily_activity>*/) {}
+    private readonly activityRepository: Repository<Daily_activity>) {}
 
 
   async getContracts(): Promise<Contract[]> {
@@ -37,44 +37,71 @@ export class ContractsService {
   }
 
   async createContract(newContract: CreateContractDto): Promise<Contract> {
-    const contract: Contract = this.contractRepository.create(newContract);
-    contract.transportation = { id_transportation: newContract.transportation.id_transportation } as Transportation; 
-    contract.acommodation = { id_acommodation: newContract.acommodation.id_acommodation } as Acommodation; 
-    contract.activity = { id_activity: newContract.activity.id_activity } as Daily_activity;
-    return this.contractRepository.save(contract);
+    const transportation = await this.validateTransportation(newContract.transportation);
+    const acommodation = await this.validateAcommodation(newContract.acommodation);
+    const activity = await this.validateActivity(newContract.activity);
+    return await this.contractRepository.save({
+      ...newContract,
+      transportation: transportation,
+      acommodation: acommodation,
+      activity: activity,
+    });
   }
 
   async updateContract(id_contract: number, newContract: UpdateContractDto) {
-    const contract = await this.contractRepository.preload({
-        id_contract,
-        start_contract: newContract.start_contract,
-        end_contract: newContract.end_contract,
-        resolution_contract: newContract.resolution_contract,
-        description: newContract.description,
-        transportation: { id_transportation: newContract.transportation.id_transportation },
-        acommodation: { id_acommodation: newContract.acommodation.id_acommodation },
-        activity: { id_activity: newContract.activity.id_activity }
+    let ok = "Contract could not be updated"
+    const affectedRows = await this.contractRepository.update(id_contract, {
+      ...newContract,
+      transportation: newContract.transportation? await this.validateTransportation(newContract.transportation) : undefined,
+      acommodation: newContract.acommodation? await this.validateAcommodation(newContract.acommodation) : undefined,
+      activity: newContract.activity? await this.validateActivity(newContract.activity) : undefined,
     });
-
-    if (!contract) {
-        throw new NotFoundException('Resource not found');
-    }
-
-    await this.contractRepository.save(contract);
-    return contract;
+     
+    if (affectedRows.affected > 0) {
+        ok = "Contract updated successfully";
+    } 
+    return ok;
 }
 
   async removeContract(id: number): Promise<string> {
+    let ok = "Contract deleted successfully"
     const contract: Contract = await this.contractRepository.findOne({ where: { id_contract: id } } as FindOneOptions<Contract>);
-        let ok: string = 'NO ELIMINADO';
-
-        if (!contract) {
-            throw new NotFoundException('Resource not found');
-        } else {
-            ok = 'ELIMINADO';
-        }
     
-        await this.contractRepository.remove(contract);
-        return ok;
+    if (!contract) {
+        ok = "Contract could not be deleted";
+    }
+         
+    await this.contractRepository.remove(contract);
+    return ok;
+  }
+
+  private async validateTransportation(transportation: number) {
+    const transportationEntity = await this.transportationRepository.findOneBy({ id_transportation: transportation });
+  
+    if (!transportationEntity) {
+      throw new BadRequestException('Transportation not found');
+    }
+  
+    return transportationEntity;
+  }
+
+  private async validateAcommodation(acommodation: number) {
+    const acommodationEntity = await this.acommodationRepository.findOneBy({ id_acommodation: acommodation });
+  
+    if (!acommodationEntity) {
+      throw new BadRequestException('Acommodation not found');
+    }
+  
+    return acommodationEntity;
+  }
+
+  private async validateActivity(activity: number) {
+    const activityEntity = await this.activityRepository.findOneBy({ id_activity: activity });
+  
+    if (!activityEntity) {
+      throw new BadRequestException('Activity not found');
+    }
+  
+    return activityEntity;
   }
 }

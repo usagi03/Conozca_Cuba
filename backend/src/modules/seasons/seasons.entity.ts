@@ -10,14 +10,14 @@ export class Season {
     name_season: string;
 
     @Column('timestamp without time zone', {name: 'start_season', nullable: false })
-    start_season: Date;
+    start_season:string;
 
     @Column('timestamp without time zone', {name: 'end_season', nullable: false })
-    end_season: Date;
+    end_season: string;
 
     @Column()
     description_season: string;
 
-    @OneToMany(() => Acommodation, (acommodation) => acommodation.season)
+    @OneToMany(() => Acommodation, (acommodation) => acommodation.room)
     acommodations: Acommodation[];
 }

@@ -1,18 +1,15 @@
-import { IsNotEmpty, IsObject } from "class-validator";
-import { Hotel } from "src/modules/hotels/hotels.entity";
-import { Room } from "src/modules/rooms/rooms.entity";
-import { Season } from "src/modules/seasons/seasons.entity";
+import { IsNotEmpty, IsNumber } from "class-validator";
 
 export class CreateAcommodationDto {
-    @IsObject()
+    @IsNumber()
     @IsNotEmpty()
-    room: Partial<Room>;
+    room: number;
 
-    @IsObject()
+    @IsNumber()
     @IsNotEmpty()
-    season: Partial<Season>;
+    season: number;
 
-    @IsObject()
+    @IsNumber()
     @IsNotEmpty()
-    hotel: Partial<Hotel>;
+    hotel: number;
 }

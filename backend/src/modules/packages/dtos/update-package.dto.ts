@@ -1,32 +1,31 @@
-import { IsObject, IsOptional, IsString } from "class-validator";
-import { Contract } from "src/modules/contracts/contract.entity";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdatePackageDto {
     @IsString()
     @IsOptional()
-    readonly promotional_name?: string;
+    promotional_name?: string;
 
     @IsString()
     @IsOptional()
-    readonly days_count?: number;
+    days_count?: number;
 
     @IsString()
     @IsOptional()
-    readonly nigths_count?: number;
+    nigths_count?: number;
 
     @IsString()
     @IsOptional()
-    readonly pax_count?: number;
+    pax_count?: number;
 
     @IsString()
     @IsOptional()
-    readonly hotel_airport_ride_cost?: number;
+    hotel_airport_ride_cost?: number;
 
     @IsString()
     @IsOptional()
-    readonly percent_profit?: number;
+    percent_profit?: number;
 
-    @IsObject()
+    @IsNumber()
     @IsOptional()
-    readonly contract?: Partial<Contract>;
+    contract?: number;
 }

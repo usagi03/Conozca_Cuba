@@ -44,34 +44,28 @@ export class RoutesService {
   }
 
   async updateRoute(id_transp_model: number, newModel: UpdateModelDto, newRoute: UpdateRouteDto) {
+    let ok = "Route could not be updated"
+
     await this.modelService.updateModel(id_transp_model, newModel);
-    const route = await this.routeRepository.preload({
-        id_transp_model,
-        description_route: newRoute.description_route,
-        route_cost: newRoute.route_cost,
-        full_ride_cost: newRoute.full_ride_cost
+    const affectedRows = await this.routeRepository.update(id_transp_model, {
+      ...newRoute,
     });
-
-    if (!route) {
-        throw new NotFoundException('Resource not found');
-    }
-
-    await this.routeRepository.save(route);
-    return route;
+     
+    if (affectedRows.affected > 0) {
+        ok = "Route updated successfully";
+    } 
+    return ok;
   } 
 
-async removeRoute(id: number): Promise<string> {
-    const route: Route = await this.routeRepository.findOne({ where: { id_route: id } } as FindOneOptions<Route>);
-    let ok: string = 'NO ELIMINADO';
-
+  async removeRoute(id: number): Promise<string> {
+    let ok = "Route deleted successfully"
+    const route: Route = await this.routeRepository.findOne({ where: { id_transp_model: id } } as FindOneOptions<Route>);
+    
     if (!route) {
-        throw new NotFoundException('Resource not found');
-    } else {
-        ok = 'ELIMINADO';
+        ok = "Route could not be deleted";
     }
-
-    await this.modelService.removeModel(id);
+         
     await this.routeRepository.remove(route);
     return ok;
-}
+  }
 }

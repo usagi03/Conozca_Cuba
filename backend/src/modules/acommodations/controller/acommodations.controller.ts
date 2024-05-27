@@ -24,7 +24,7 @@ export class AcommodationsController {
   }
 
   @Patch(':id_acommodation')
-  updateAcommodation(@Param('id_acommodation') id: number, @Body() acommodation: UpdateAcommodationDto): Promise<Acommodation> {
+  updateAcommodation(@Param('id_acommodation') id: number, @Body() acommodation: UpdateAcommodationDto) {
     return this.acommodationService.updateAcommodation(id, acommodation);
   }
 
