@@ -24,6 +24,6 @@ export class Vehicle {
   @Column()
   year_build: number;
 
-  @OneToMany(() => Transportation, (transportation) => transportation.id_transportation)
+  @OneToMany(() => Transportation, (transportation) => transportation.vehicle)
     transportations: Transportation[];
 }

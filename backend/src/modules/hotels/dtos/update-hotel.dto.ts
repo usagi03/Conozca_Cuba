@@ -1,13 +1,13 @@
-import { IsDate, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdateHotelDto {
     @IsString()
     @IsOptional()
-    readonly name_hotel?: string;
+    name_hotel?: string;
 
     @IsString()
     @IsOptional()
-    readonly category_hotel?: string;
+    category_hotel?: string;
 
     @IsString()
     @IsOptional()
@@ -17,9 +17,9 @@ export class UpdateHotelDto {
     @IsOptional()
     province_hotel?: string;
 
-    @IsDate()
+    @IsString()
     @IsOptional()
-    date_hotel?: Date;
+    date_hotel?: string;
 
     @IsString()
     @IsOptional()

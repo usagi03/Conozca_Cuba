@@ -1,20 +1,17 @@
-import { IsDate, IsNumber, IsObject, IsOptional, IsString } from "class-validator";
-import { Acommodation } from "src/modules/acommodations/acommodations.entity";
-import { Daily_activity } from "src/modules/activities/activities.entity";
-import { Transportation } from "src/modules/transportations/transportation.entity";
+import { IsDate, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdateContractDto {
   @IsNumber()
   @IsOptional()
-  readonly id_contract: number;
+  id_contract?: number;
 
   @IsDate()
   @IsOptional()
-  readonly start_contract: Date;
+  start_contract?: Date;
 
   @IsDate()
   @IsOptional()
-  readonly end_contract: Date;
+  end_contract?: Date;
 
   @IsDate()
   @IsOptional()
@@ -22,17 +19,17 @@ export class UpdateContractDto {
 
   @IsString()
   @IsOptional()
-  readonly description: string;
+  description?: string;
 
-  @IsObject()
+  @IsNumber()
   @IsOptional()
-  readonly transportation: Partial<Transportation>;
+  transportation?: number;
 
-  @IsObject()
+  @IsNumber()
   @IsOptional()
-  readonly acommodation: Partial<Acommodation>;
+  acommodation?: number;
 
-  @IsObject()
+  @IsNumber()
   @IsOptional()
-  readonly activity: Partial<Daily_activity>;
+  activity?: number;
 }

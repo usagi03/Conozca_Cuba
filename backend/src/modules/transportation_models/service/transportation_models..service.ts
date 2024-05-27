@@ -28,34 +28,31 @@ export class TransportationModelsService {
     }
 
     async createModel(newModel: CreateModelDto): Promise<Transportation_model> {
-        const model = this.modelRepository.create(newModel);
-        return this.modelRepository.save(model);
+        return await this.modelRepository.save({
+            ...newModel,
+        });
     }
 
     async updateModel(id_transp_model: number, newModel: UpdateModelDto) {
-        const model = await this.modelRepository.preload({
-            id_transp_model,
-            description_tm: newModel.description_tm,
+        let ok = "Transportation model could not be updated"
+        const affectedRows = await this.modelRepository.update(id_transp_model, {
+            ...newModel,
         });
-    
-        if (!model) {
-            throw new NotFoundException('Resource not found');
-        }
-    
-        await this.modelRepository.save(model);
-        return model;
+     
+        if (affectedRows.affected > 0) {
+            ok = "Transportation model updated successfully";
+        } 
+        return ok;
     }
 
     async removeModel(id: number): Promise<string> {
+        let ok = "Transportation model deleted successfully"
         const model: Transportation_model = await this.modelRepository.findOne({ where: { id_transp_model: id } } as FindOneOptions<Transportation_model>);
-        let ok: string = 'NO ELIMINADO';
-
-        if (!model) {
-            throw new NotFoundException('Resource not found');
-        } else {
-            ok = 'ELIMINADO';
-        }
     
+        if (!model) {
+            ok = "Transportation model could not be deleted";
+        }
+         
         await this.modelRepository.remove(model);
         return ok;
     }

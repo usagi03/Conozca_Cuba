@@ -19,7 +19,7 @@ export class Hotel {
   address_hotel: string;
 
   @Column('timestamp without time zone', {name: 'date_hotel', nullable: false })
-  date_hotel: Date;
+  date_hotel: string;
 
   @Column({ nullable: false })
   province_hotel: string;

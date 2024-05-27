@@ -24,7 +24,7 @@ export class PackagesController {
   }
 
   @Patch(':id_package')
-  updatePackage(@Param('id_package') id: number, @Body() pack: UpdatePackageDto): Promise<Package> {
+  updatePackage(@Param('id_package') id: number, @Body() pack: UpdatePackageDto) {
     return this.packageService.updatePackage(id, pack);
   }
 

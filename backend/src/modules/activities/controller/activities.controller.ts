@@ -24,7 +24,7 @@ export class ActivitiesController {
   }
 
   @Patch(':id_activity')
-  updateActivity(@Param('id_activity') id: number, @Body() activity: UpdateActivityDto): Promise<Daily_activity> {
+  updateActivity(@Param('id_activity') id: number, @Body() activity: UpdateActivityDto) {
     return this.activityService.updateActivity(id, activity);
   }
 

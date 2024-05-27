@@ -1,13 +1,13 @@
-import { IsDate, IsNotEmpty, IsNumber, IsString} from "class-validator";
+import { IsNotEmpty, IsNumber, IsString} from "class-validator";
 
 export class CreateHotelDto {
     @IsString()
     @IsNotEmpty()
-    readonly name_hotel: string;
+    name_hotel: string;
 
     @IsString()
     @IsNotEmpty()
-    readonly category_hotel: string;
+    category_hotel: string;
 
     @IsString()
     @IsNotEmpty()
@@ -17,8 +17,8 @@ export class CreateHotelDto {
     @IsNotEmpty()
     province_hotel: string;
 
-    @IsDate()
-    date_hotel: Date;
+    @IsString()
+    date_hotel: string;
 
     @IsString()
     phone: string;

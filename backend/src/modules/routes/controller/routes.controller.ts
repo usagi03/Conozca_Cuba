@@ -25,7 +25,7 @@ export class RoutesController {
   }
   
   @Patch(":id_route")
-  updateRoute(@Param('id_route') id: number, @Body() model:UpdateModelDto, route: UpdateRouteDto): Promise<Route> {
+  updateRoute(@Param('id_route') id: number, @Body() model:UpdateModelDto, route: UpdateRouteDto) {
     return this.routeService.updateRoute(id, model, route);
   }
 
