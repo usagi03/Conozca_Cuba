@@ -1,8 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 
 @Entity("km_hours_cost")
 export class Km_hours_cost {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id_transp_model: number;
 
   @Column({ nullable: false })

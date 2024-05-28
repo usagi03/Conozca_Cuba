@@ -35,7 +35,9 @@ export class TransportationsService {
 
   async createTransportation(newTransportation: CreateTransportationDto): Promise<Transportation> {
     const model = await this.validateModel(newTransportation.transportation_model);
+    console.log(model)
     const vehicle = await this.validateVehicle(newTransportation.vehicle);
+    console.log(model, vehicle)
     return await this.transportationRepository.save({
       ...newTransportation,
       transportation_model: model,
@@ -71,15 +73,16 @@ export class TransportationsService {
 
   private async validateModel(model: number) {
     const modelEntity = await this.modelRepository.findOneBy({ id_transp_model: model });
+    console.log(modelEntity)
   
     if (!modelEntity) {
       throw new BadRequestException('Transportation model not found');
     }
   
     return modelEntity;
-}
+  }
 
-private async validateVehicle(vehicle: number) {
+  private async validateVehicle(vehicle: number) {
     const vehicleEntity = await this.vehicleRepository.findOneBy({ id_vehicle: vehicle });
   
     if (!vehicleEntity) {
@@ -87,5 +90,5 @@ private async validateVehicle(vehicle: number) {
     }
   
     return vehicleEntity;
-}
+  }
 }

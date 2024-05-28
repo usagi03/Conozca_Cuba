@@ -62,7 +62,7 @@ export class HotelsService {
   }
 
   //Reporte 8
-  async listInactiveHotels(): Promise<
+  /*async listInactiveHotels(): Promise<
     Array<{
       name_hotel: string;
       chain_hotel: string;
@@ -72,8 +72,8 @@ export class HotelsService {
     }>
   > {
     //Si no funciona prueba con esta via es decir solo este codigo
-    /*const inactiveHotels = await this.hotelRepository.find({is_active: false})
-     */
+    //const inactiveHotels = await this.hotelRepository.find({is_active: false})
+    
     const inactiveHotels = await this.hotelRepository
       .createQueryBuilder("h")
       .select([
@@ -88,10 +88,31 @@ export class HotelsService {
       .getMany();
 
     return inactiveHotels;
+  }*/
+  async listInactiveHotels(): Promise<Array<{
+    name_hotel: string;
+    chain_hotel: string;
+    category_hotel: string;
+    address_hotel: string;
+    province_hotel: string;
+  }> > {
+    const inactiveHotels = await this.hotelRepository
+     .createQueryBuilder("h")
+     .select([
+        "h.id_hotel",
+        "h.name_hotel",
+        "h.chain_hotel",
+        "h.category_hotel",
+        "h.address_hotel",
+        "h.province_hotel",
+      ])
+     .where("h.is_active = :isActive", { isActive: 'false' })
+     .getMany();
+  
+    return inactiveHotels;
   }
 
   //Reporte 5
-
   async listOfActiveHotel(
     chainH: string,
     provinceH: string

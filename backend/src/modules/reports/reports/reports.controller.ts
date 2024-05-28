@@ -1,25 +1,18 @@
 import { Controller, Get, Res, Param } from "@nestjs/common";
 import { ReportsService } from "./reports.service";
-import { response } from "express";
+import { HotelsService } from "src/modules/hotels/service/hotels.service";
 
 @Controller("reports")
 export class ReportsController {
-  constructor(private readonly reportsService: ReportsService) {}
+  constructor(
+    private readonly reportsService: ReportsService,
+    private readonly hotelService: HotelsService) {}
 
-  /*  @Get("something")
-    async getPdf(
-        @Res() response: Response,
-        @Request() req,
-        @Body() auxiliar: any
-    ){  const report = await this.reportsService.;
-        response.setHeader('Content-Description', 'File Transfer');
-        response.setHeader('Content-Length', report.length);
-        response.setHeader('Content-type', 'application/octet-stream');
-        response.setHeader('Content-type', 'application/pdf');
-        response.setHeader('Content-Type', 'application/force-download');
-        response.setHeader('Content-disposition', 'attachment;filename=report.pdf');
-        response.send(report);
-    }*/
+  //Report 1
+  @Get("inactive")
+  getInactiveHotels() {
+    return this.hotelService.listInactiveHotels();
+  }
 
   @Get("pdf/Report1")
   async downloadPDFReport1(@Res() res): Promise<void> {
@@ -67,6 +60,11 @@ export class ReportsController {
   }
 
   //Reporte 4
+  @Get("active")
+  getActiveHotels(chainH: string, provinceH: string) {
+    return this.hotelService.listOfActiveHotel(chainH, provinceH);
+  }
+
   @Get("pdf/Report4")
   async downloadPDFReport4(
     @Param("chain") chain: string,

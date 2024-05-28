@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn } from "typeorm";
 
 @Entity("route")
 export class Route {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id_transp_model: number;
 
   @Column()
