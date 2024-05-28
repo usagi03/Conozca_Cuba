@@ -22,14 +22,21 @@ export class ReportsController {
 
   @Get("pdf/Report1")
   async downloadPDFReport1(@Res() res): Promise<void> {
-    const buffer = await this.reportsService.generateListInactiveHotelsPDF();
+    const pdfBuffer = await this.reportsService.generateListInactiveHotelsPDF();
+    try{
+   
 
     res.set({
       "Content-Type": "application/pdf",
       "Content-Disposition": "attachment; filename= inactiveHotels.pdf",
-      "Content-Length": buffer.length,
+     
     });
-    res.end(buffer);
+    res.send(pdfBuffer) }
+    catch(error){
+      console.error(error);
+      
+    };
+    
   }
 
   //Reporte 2

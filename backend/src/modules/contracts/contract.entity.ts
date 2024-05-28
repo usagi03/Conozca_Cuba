@@ -4,19 +4,19 @@ import { Acommodation } from "../acommodations/acommodations.entity";
 import { Daily_activity } from "../activities/activities.entity";
 import { Package } from "../packages/package.entity";
 
-@Entity()
+@Entity("contract")
 export class Contract {
   @PrimaryGeneratedColumn("increment")
   id_contract: number;
 
   @Column('timestamp without time zone', {name: 'start_contract', nullable: false })
-  start_contract: Date;
+  start_contract: string;
 
   @Column('timestamp without time zone', {name: 'end_contract', nullable: false })
-  end_contract: Date;
+  end_contract: string;
 
   @Column('timestamp without time zone', {name: 'resolution_contract', nullable: false })
-  resolution_contract: Date;
+  resolution_contract: string;
 
   @Column()
   description: string;

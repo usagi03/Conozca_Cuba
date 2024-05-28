@@ -48,6 +48,9 @@ export class Hotel {
   @Column({ nullable: false })
   location_hotel: string;
 
+  @Column()
+  is_active: boolean
+
   @OneToMany(() => Acommodation, (acommodation) => acommodation.hotel)
   acommodations: Acommodation[];
 }

@@ -5,7 +5,7 @@ export class UpdateActivityDto {
     @IsOptional()
     type_activity?: string;
 
-    @IsNumber()
+    @IsString()
     @IsOptional()
     day_activity?: string;
 
