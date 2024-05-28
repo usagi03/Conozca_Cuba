@@ -27,14 +27,19 @@ export class TransportationModelsService {
         return model;
     }
 
-    async createModel(newModel: CreateModelDto): Promise<Transportation_model> {
+    async createModel(type: string, descrip: string): Promise<Transportation_model> {
+        const newModel = new CreateModelDto();
+        newModel.type_transp_model = type;
+        newModel.description_tm = descrip;
         return await this.modelRepository.save({
-            ...newModel,
+            ...newModel
         });
     }
 
-    async updateModel(id_transp_model: number, newModel: UpdateModelDto) {
+    async updateModel(id_transp_model: number, descrip: string) {
         let ok = "Transportation model could not be updated"
+        const newModel = new UpdateModelDto();
+        newModel.description_tm = descrip;
         const affectedRows = await this.modelRepository.update(id_transp_model, {
             ...newModel,
         });
