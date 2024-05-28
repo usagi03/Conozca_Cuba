@@ -12,7 +12,6 @@ import { Meal_plan } from "src/modules/meal_plans/plans.entity";
 import { Acommodation } from "src/modules/acommodations/acommodations.entity";
 import { getManager } from "typeorm";
 
-
 const PDFDocument = require("pdfkit-table");
 
 @Injectable()
@@ -22,69 +21,48 @@ export class ReportsService {
     private readonly packageService: PackagesService
   ) {}
 
-  //  Ejemplo de funci'on que corresponde al reporte.Se debe modificar
-  /*async getPdfTransactionreceipt(): Promise<any[]> {
-    try {
-      const data = this.listInactiveHotels();
-      return await this.generatePdf(config.re, data, {});
-    } catch (e) {
-      Logger.log(JSON.stringify(e), `GET_Report_Error`);
-      throw new BadRequestException(e.message || e.response.message);
-    }
-  }
-
-  async generatePDF(reportJasper, data: any, parameter: any) {
-    const report = {
-      report: reportJasper,
-      data: parameter,
-      dataset: data,
-    };
-    return jasper.pdf(report);
-  }*/
   //Reporte 8
   async generateListInactiveHotelsPDF() {
     const inactiveHotels = await this.hotelService.listInactiveHotels();
 
-   
-  return new Promise((resolve) => {
-    const doc = new PDFDocument({
-      size: "LETTER",
-      autoFirstPage: true,
+    return new Promise((resolve) => {
+      const doc = new PDFDocument({
+        size: "LETTER",
+        autoFirstPage: true,
+      });
+
+      const row_inactiveHotels = [];
+
+      inactiveHotels.forEach((element) => {
+        const temp_list = [
+          element.name_hotel,
+          element.chain_hotel,
+          element.category_hotel,
+          element.address_hotel,
+          element.province_hotel,
+        ];
+        row_inactiveHotels.push(temp_list);
+      });
+
+      const table = {
+        title: "Ejemplo",
+        headers: ["Nombre", "Cadena", "Categoria", "Provincia", "Direccion"],
+        rows: row_inactiveHotels,
+      };
+
+      doc.table(table, {
+        columnsSize: [80, 50, 50, 50, 50],
+      });
+
+      const chunks = [];
+      doc.on("data", (chunk) => chunks.push(chunk));
+      doc.on("end", () => {
+        const pdfData = Buffer.concat(chunks);
+        resolve(pdfData);
+      });
+      doc.end();
     });
-
-    const row_inactiveHotels = [];
-
-    inactiveHotels.forEach((element) => {
-      const temp_list = [
-        element.name_hotel,
-        element.chain_hotel,
-        element.category_hotel,
-        element.address_hotel,
-        element.province_hotel,
-      ];
-      row_inactiveHotels.push(temp_list);
-    });
-
-
-    const table = {
-      title: "Ejemplo",
-      headers: [ "Nombre", "Cadena", "Categoria", "Provincia", "Direccion" ],
-      rows: row_inactiveHotels
-    };
-
-    doc.table(table, {
-      columnsSize: [150, 150, 150, 150, 150],
-    });
-
-    const chunks = [];
-    doc.on("data", chunk => chunks.push(chunk));
-    doc.on("end", () => {
-      const pdfData = Buffer.concat(chunks);
-      resolve(pdfData);
-    });
-    doc.end();
-  });
- }
+  }
   //Reporte 7
   async generateListOfPackagesIncomePlanPDF(): Promise<Buffer> {
     const incomePlan =
@@ -93,23 +71,7 @@ export class ReportsService {
     const pdfBuffer: Buffer = await new Promise((resolve) => {
       const doc = new PDFDocument({
         size: "LETTER",
-        bufferPages: true,
-        autoFirstPage: false,
-      });
-
-      let pageNumber = 0;
-      doc.on("pageAdded", () => {
-        pageNumber++;
-
-        const bottom = doc.margins.bottom;
-        doc.margins.bottom = 0;
-        doc.text(
-          "Pag." + pageNumber,
-          (doc.page.width - 100) * 0.5,
-          doc.page.height - 50,
-          { width: 100, align: "center", lineBreak: false }
-        );
-        doc.page.margins.bottom = bottom;
+        autoFirstPage: true,
       });
 
       const row_incomePlan = [];
@@ -124,7 +86,6 @@ export class ReportsService {
         row_incomePlan.push(temp_list);
       });
 
-      doc.addPage();
       //El contenido va aqui
 
       const table = {
@@ -134,19 +95,16 @@ export class ReportsService {
       };
 
       doc.table(table, {
-        columnsSize: [350, 350, 350, 350],
+        columnsSize: [50, 50, 50, 50],
       });
 
-      const buffer = [];
-      doc.on(
-        "data",
-        buffer.push.bind(buffer),
-        doc.on("end", () => {
-          const data = Buffer.concat(buffer);
-          resolve(data);
-        }),
-        doc.end()
-      );
+      const chunks = [];
+      doc.on("data", (chunk) => chunks.push(chunk));
+      doc.on("end", () => {
+        const pdfData = Buffer.concat(chunks);
+        resolve(pdfData);
+      });
+      doc.end();
     });
 
     return pdfBuffer;
@@ -159,23 +117,7 @@ export class ReportsService {
     const pdfBuffer: Buffer = await new Promise((resolve) => {
       const doc = new PDFDocument({
         size: "LETTER",
-        bufferPages: true,
-        autoFirstPage: false,
-      });
-
-      let pageNumber = 0;
-      doc.on("pageAdded", () => {
-        pageNumber++;
-
-        const bottom = doc.margins.bottom;
-        doc.margins.bottom = 0;
-        doc.text(
-          "Pag." + pageNumber,
-          (doc.page.width - 100) * 0.5,
-          doc.page.height - 50,
-          { width: 100, align: "center", lineBreak: false }
-        );
-        doc.page.margins.bottom = bottom;
+        autoFirstPage: true,
       });
 
       const row_itinerary = [];
@@ -187,17 +129,14 @@ export class ReportsService {
           element.nights_count,
           element.pax_count,
           element.day_activity,
-          element.time_activity,
           element.description_activity,
           element.total_activity_cost,
           element.name_hotel,
           element.room_type,
           element.plan_type,
           element.total_hotel_cost,
-          element.hotel_airport_ride_cost,
           element.total_transportation_cost,
           element.package_cost,
-          element.package_price,
         ];
         row_itinerary.push(temp_list);
       });
@@ -213,38 +152,29 @@ export class ReportsService {
           "Noches",
           "Pasajeros",
           "Actividad del Día",
-          "Hora de Actividad",
           "Descripción de la Actividad",
           "Costo Total de Actividad",
           "Nombre del Hotel",
           "Tipo de Habitación",
           "Tipo de Plan",
           "Costo Total del Hotel",
-          "Costo de Transporte Hotele-Aeropuerto",
           "Costo Total de Transporte",
           "Costo del Paquete",
-          "Precio del Paquete",
         ],
         rows: row_itinerary,
       };
 
       doc.table(table, {
-        columnsSize: [
-          350, 350, 350, 350, 350, 350, 350, 350, 350, 350, 350, 350, 350, 350,
-          350, 350,
-        ],
+        columnsSize: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
       });
 
-      const buffer = [];
-      doc.on(
-        "data",
-        buffer.push.bind(buffer),
-        doc.on("end", () => {
-          const data = Buffer.concat(buffer);
-          resolve(data);
-        }),
-        doc.end()
-      );
+      const chunks = [];
+      doc.on("data", (chunk) => chunks.push(chunk));
+      doc.on("end", () => {
+        const pdfData = Buffer.concat(chunks);
+        resolve(pdfData);
+      });
+      doc.end();
     });
 
     return pdfBuffer;
@@ -260,23 +190,7 @@ export class ReportsService {
     const pdfBuffer: Buffer = await new Promise((resolve) => {
       const doc = new PDFDocument({
         size: "LETTER",
-        bufferPages: true,
-        autoFirstPage: false,
-      });
-
-      let pageNumber = 0;
-      doc.on("pageAdded", () => {
-        pageNumber++;
-
-        const bottom = doc.margins.bottom;
-        doc.margins.bottom = 0;
-        doc.text(
-          "Pag." + pageNumber,
-          (doc.page.width - 100) * 0.5,
-          doc.page.height - 50,
-          { width: 100, align: "center", lineBreak: false }
-        );
-        doc.page.margins.bottom = bottom;
+        autoFirstPage: true,
       });
 
       const row_itinerary = [];
@@ -288,19 +202,13 @@ export class ReportsService {
           element.category_hotel,
           element.address_hotel,
           element.province_hotel,
-          element.date_hotel,
           element.phone,
-          element.fax,
           element.email,
           element.distance_to_city,
           element.distance_to_airport,
-          element.location_hotel,
-          element.business_model,
         ];
         row_itinerary.push(temp_list);
       });
-
-      doc.addPage();
       //El contenido va aqui
 
       const table = {
@@ -311,34 +219,25 @@ export class ReportsService {
           "Categoría",
           "Dirección",
           "Provincia",
-          "Fecha",
           "Teléfono",
-          "Dirección Postal",
           "Correo Electrónico",
           "Distancia a la ciudad",
           "Distancia al aeropuerto",
-          "Ubicacion",
-          "Modelo de negocio",
         ],
         rows: row_itinerary,
       };
 
       doc.table(table, {
-        columnsSize: [
-          350, 350, 350, 350, 350, 350, 350, 350, 350, 350, 350, 350, 350,
-        ],
+        columnsSize: [50, 50, 50, 50, 50, 50, 50, 50, 50],
       });
 
-      const buffer = [];
-      doc.on(
-        "data",
-        buffer.push.bind(buffer),
-        doc.on("end", () => {
-          const data = Buffer.concat(buffer);
-          resolve(data);
-        }),
-        doc.end()
-      );
+      const chunks = [];
+      doc.on("data", (chunk) => chunks.push(chunk));
+      doc.on("end", () => {
+        const pdfData = Buffer.concat(chunks);
+        resolve(pdfData);
+      });
+      doc.end();
     });
 
     return pdfBuffer;
@@ -397,7 +296,7 @@ export class ReportsService {
       .innerJoin(Room, "r", "hrs.id_room = r.id_room")
       .innerJoin(Meal_plan, "mp", "r.id_plan = mp.id_plan");
 
-    const results = await queryBuilder.getRawMany();
+    const results = await queryBuilder.getMany();
 
     return results;
   }

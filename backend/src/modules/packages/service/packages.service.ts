@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { FindOneOptions, Repository } from "typeorm";
 import { Package } from "../package.entity";
@@ -12,7 +16,8 @@ export class PackagesService {
     @InjectRepository(Package)
     private readonly packageRepository: Repository<Package>,
     @InjectRepository(Contract)
-    private readonly contractRepository: Repository<Contract>) {}
+    private readonly contractRepository: Repository<Contract>
+  ) {}
 
   async getPackages(): Promise<Package[]> {
     return await this.packageRepository.find({ relations: ["contract"] });
@@ -42,37 +47,43 @@ export class PackagesService {
   }
 
   async updatePackage(id_package: number, newPackage: UpdatePackageDto) {
-    let ok = "Package could not be updated"
+    let ok = "Package could not be updated";
     const affectedRows = await this.packageRepository.update(id_package, {
       ...newPackage,
-      contract: newPackage.contract? await this.validateContract(newPackage.contract) : undefined,
-      });
-     
-      if (affectedRows.affected > 0) {
-          ok = "Contract updated successfully";
-      } 
-      return ok;
+      contract: newPackage.contract
+        ? await this.validateContract(newPackage.contract)
+        : undefined,
+    });
+
+    if (affectedRows.affected > 0) {
+      ok = "Contract updated successfully";
+    }
+    return ok;
   }
 
   async removePackage(id: number): Promise<string> {
-    let ok = "Package deleted successfully"
-    const pack: Package = await this.packageRepository.findOne({ where: { id_package: id } } as FindOneOptions<Package>);
-    
+    let ok = "Package deleted successfully";
+    const pack: Package = await this.packageRepository.findOne({
+      where: { id_package: id },
+    } as FindOneOptions<Package>);
+
     if (!pack) {
-        ok = "Package could not be deleted";
+      ok = "Package could not be deleted";
     }
-         
+
     await this.packageRepository.remove(pack);
     return ok;
   }
 
   private async validateContract(contract: number) {
-    const contractEntity = await this.contractRepository.findOneBy({ id_contract: contract });
-  
+    const contractEntity = await this.contractRepository.findOneBy({
+      id_contract: contract,
+    });
+
     if (!contractEntity) {
-      throw new BadRequestException('Contract not found');
+      throw new BadRequestException("Contract not found");
     }
-  
+
     return contractEntity;
   }
 
@@ -85,7 +96,7 @@ export class PackagesService {
       package_price: number;
     }>
   > {
-    const packages = this.packageRepository
+    const packages = await this.packageRepository
       .createQueryBuilder("p")
       .select([
         "p.promotional_name",

@@ -18,7 +18,10 @@ export class Hotel {
   @Column({ nullable: false })
   address_hotel: string;
 
-  @Column('timestamp without time zone', {name: 'date_hotel', nullable: false })
+  @Column("timestamp without time zone", {
+    name: "date_hotel",
+    nullable: false,
+  })
   date_hotel: string;
 
   @Column({ nullable: false })
@@ -49,7 +52,7 @@ export class Hotel {
   location_hotel: string;
 
   @Column()
-  is_active: boolean
+  is_active: boolean;
 
   @OneToMany(() => Acommodation, (acommodation) => acommodation.hotel)
   acommodations: Acommodation[];

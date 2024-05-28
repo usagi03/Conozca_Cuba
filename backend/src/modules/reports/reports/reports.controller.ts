@@ -1,5 +1,6 @@
 import { Controller, Get, Res, Param } from "@nestjs/common";
 import { ReportsService } from "./reports.service";
+import { response } from "express";
 
 @Controller("reports")
 export class ReportsController {
@@ -23,20 +24,15 @@ export class ReportsController {
   @Get("pdf/Report1")
   async downloadPDFReport1(@Res() res): Promise<void> {
     const pdfBuffer = await this.reportsService.generateListInactiveHotelsPDF();
-    try{
-   
-
-    res.set({
-      "Content-Type": "application/pdf",
-      "Content-Disposition": "attachment; filename= inactiveHotels.pdf",
-     
-    });
-    res.send(pdfBuffer) }
-    catch(error){
-      console.error(error);
-      
-    };
-    
+    try {
+      res.set({
+        "Content-Type": "application/pdf",
+        "Content-Disposition": "attachment; filename= inactiveHotels.pdf",
+      });
+      res.send(pdfBuffer);
+    } catch (error) {
+      res.status(500).send("ERROR OF DOWNLOAD FILE");
+    }
   }
 
   //Reporte 2
@@ -44,26 +40,30 @@ export class ReportsController {
   async downloadPDFReport2(@Res() res): Promise<void> {
     const buffer =
       await this.reportsService.generateListOfPackagesIncomePlanPDF();
-
-    res.set({
-      "Content-Type": "application/pdf",
-      "Content-Disposition": "attachment; filename= incomePlan.pdf",
-      "Content-Length": buffer.length,
-    });
-    res.end(buffer);
+    try {
+      res.set({
+        "Content-Type": "application/pdf",
+        "Content-Disposition": "attachment; filename= incomePlan.pdf",
+      });
+      res.send(buffer);
+    } catch (error) {
+      res.status(500).send("ERROR OF DOWNLOAD FILE");
+    }
   }
   //Reporte 3
   @Get("pdf/Report3")
   async downloadPDFReport3(@Res() res): Promise<void> {
-    const buffer =
-      await this.reportsService.generateListOfPackagesItineraryPDF();
-
-    res.set({
-      "Content-Type": "application/pdf",
-      "Content-Disposition": "attachment; filename= packageItinerary.pdf",
-      "Content-Length": buffer.length,
-    });
-    res.end(buffer);
+    try {
+      const buffer =
+        await this.reportsService.generateListOfPackagesItineraryPDF();
+      res.set({
+        "Content-Type": "application/pdf",
+        "Content-Disposition": "attachment; filename= packageItinerary.pdf",
+      });
+      res.send(buffer);
+    } catch (error) {
+      res.status(500).send("ERROR OF DOWNLOAD FILE");
+    }
   }
 
   //Reporte 4
@@ -73,16 +73,19 @@ export class ReportsController {
     @Param("province") province: string,
     @Res() res
   ): Promise<void> {
-    const buffer = await this.reportsService.generateListOfActiveHotelsPDF(
-      chain,
-      province
-    );
+    try {
+      const buffer = await this.reportsService.generateListOfActiveHotelsPDF(
+        chain,
+        province
+      );
 
-    res.set({
-      "Content-Type": "application/pdf",
-      "Content-Disposition": "attachment; filename= inactiveHotels.pdf",
-      "Content-Length": buffer.length,
-    });
-    res.end(buffer);
+      res.set({
+        "Content-Type": "application/pdf",
+        "Content-Disposition": "attachment; filename= inactiveHotels.pdf",
+      });
+      res.send(buffer);
+    } catch (error) {
+      res.status(500).send("ERROR OF DOWNLOAD FILE");
+    }
   }
 }
