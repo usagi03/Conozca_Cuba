@@ -34,7 +34,8 @@
           <label for="newObjectRecarg" class="block text-gray-700 text-sm font-bold mb-2">{{$t('rooms.table.plus')}}</label>
           <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectRecarg" v-model="newObject.room_surcharge">
           <span class="text-red-600 font-sans text-sm">{{ store.errorPlus }}</span> 
-        </div>  
+        </div>
+          
      </form>
     </div> 
     </template>
@@ -59,7 +60,7 @@
                room_type: '',
                room_cost: 0,
                room_surcharge: 0,
-              plan: ''
+              plan: '',
             },
           }
         },

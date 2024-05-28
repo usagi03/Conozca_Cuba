@@ -2,7 +2,7 @@
     <div>
      <h1 class="header">{{$t('users.title')}}</h1> 
     </div>
-    <DataTable :showModal="showModal" @openModal="openModal" :data="data" :headers="[this.$t('users.table.username'), this.$t('users.table.password'), this.$t('users.table.role')]" 
+    <DataTable :showModal="showModal" @openModal="openModal" :data="data" :headers="[this.$t('users.table.username'), this.$t('users.table.role')]" 
     @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit"
     @closeAddEdit="close">
       <template #formComponent>
@@ -105,9 +105,7 @@ import Servicies from '@/services/Servicies'
               console.log(this.data);
               res.map(element => {
             const user = {
-              //"id_user": element.id_user,
               "user_name": element.user_name,
-              "user_password": element.user_password,
               "nombre_role": element.role.name_role    
             }
               this.data.push(user)

@@ -1,32 +1,35 @@
 <template>
     <div class="mt-2">
-     <form class="grid grid-cols-3 gap-5">
+     <form class="grid grid-cols-3 gap-5 w-500">
         <div class="mb-4">
-          <label for="newObjectMat" class="block text-gray-700 text-sm font-bold mb-2">Matrícula</label>
-          <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectMat" v-model="newObject.mat" >
+          <label for="newObjectMat" class="block text-gray-700 text-sm font-bold mb-2">{{$t('vehicles.table.plate')}}</label>
+          <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectMat" v-model="newObject.license_plate" >
+          <span class="text-red-600 font-sans text-sm">{{ store.errorPlate }}</span>
         </div>
         <div class="mb-4">
-          <label for="newObjectMarc" class="block text-gray-700 text-sm font-bold mb-2">Marca</label>
-          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectMarc" v-model="newObject.marc" >
-            <option>Hyundai</option>
-            <option>Mercedez</option>
-          </select>
+          <label for="newObjectMarc" class="block text-gray-700 text-sm font-bold mb-2">{{$t('vehicles.table.brand')}}</label>
+          <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectMat" v-model="newObject.brand" >
+          <span class="text-red-600 font-sans text-sm">{{ store.errorBrand }}</span>
         </div>
         <div class="mb-4">
-          <label for="newObjectYear" class="block text-gray-700 text-sm font-bold mb-2">Año</label>
-          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectYear" v-model="newObject.year"> 
+          <label for="newObjectYear" class="block text-gray-700 text-sm font-bold mb-2">{{$t('vehicles.table.year')}}</label>
+          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectYear" v-model="newObject.year_build"> 
+          <span class="text-red-600 font-sans text-sm">{{ store.errorYear_build }}</span>
         </div> 
         <div class="mb-4">
-          <label for="newObjectCapacity" class="block text-gray-700 text-sm font-bold mb-2">Capacidad Equipaje</label>
-          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectCapacity" v-model="newObject.capacity"> 
+          <label for="newObjectCapacity" class="block text-gray-700 text-sm font-bold mb-2">{{$t('vehicles.table.luggage_capacity')}}</label>
+          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectCapacity" v-model="newObject.luggage_capacity"> 
+          <span class="text-red-600 font-sans text-sm">{{ store.errorLuggage_capacity }}</span>
         </div> 
         <div class="mb-4">
-          <label for="newObjectCapacityWithout" class="block text-gray-700 text-sm font-bold mb-2">Capacidad Sin Equipaje</label>
-          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectCapacityWithout" v-model="newObject.capacityWithout"> 
+          <label for="newObjectCapacityWithout" class="block text-gray-700 text-sm font-bold mb-2">{{$t('vehicles.table.luggage_without')}}</label>
+          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectCapacityWithout" v-model="newObject.with_luggage_capacity"> 
+          <span class="text-red-600 font-sans text-sm">{{ store.errorWith_luggage_capacity }}</span>
         </div> 
         <div class="mb-4">
-          <label for="newObjectCapacityTotal" class="block text-gray-700 text-sm font-bold mb-2">Capacidad Total</label>
-          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectCapacityTotal" v-model="newObject.capacityTotal"> 
+          <label for="newObjectCapacityTotal" class="block text-gray-700 text-sm font-bold mb-2">{{$t('vehicles.table.total')}}</label>
+          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectCapacityTotal" v-model="newObject.total_capacity"> 
+          <span class="text-red-600 font-sans text-sm">{{ store.errorTotal_capacity }}</span>
         </div> 
      </form>
     </div> 
@@ -48,12 +51,12 @@
         data() {
           return {
             newObject:{
-                mat: '',
-                marc: '',
-                year: '',
-                capacity: '',
-                capacityWithout: '',
-                capacityTotal: '',
+              license_plate: '',
+              brand: '',
+              luggage_capacity: 0,
+              with_luggage_capacity: 0,
+              total_capacity: 0,
+              year_build: 0
             },
           }
         },

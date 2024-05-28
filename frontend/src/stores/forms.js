@@ -4,7 +4,6 @@ import { defineStore } from 'pinia'
 export const useFormsStore = defineStore('forms', {
  state: () => ({
     position: -1,
-    lang: 'es',
     user:{
       errorUser: '',
       errorPass: '',
@@ -23,7 +22,30 @@ export const useFormsStore = defineStore('forms', {
       errorCategory: '',
       errorAddress: '',
       errorProvince: '',
-    }
+      errorDate: '',
+      errorPhone: '',
+      errorFax: '',
+      errorCity: '',
+      errorAirport: '',
+      errorEmail: '',
+      errorFloor: '',
+      errorBusiness: '',
+      errorLocation: '' 
+    },
+    seasons:{
+      errorName_season: '',
+      errorStart_season: '',
+      errorEnd_season: '',
+      errorDescription: ''
+      },
+      km:{
+        errorPlate: '',
+        errorBrand: '',
+        errorLuggage_capacity: '',
+        errorWith_luggage_capacity: '',
+        errorTotal_capacity: '',
+        errorYear_build: ''
+      }
  }),
 
  getters: {

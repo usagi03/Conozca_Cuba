@@ -62,7 +62,16 @@
             "chain": "Cadena",
             "category": "Categoría",
             "direction": "Dirección",
-            "province": "Provincia"
+            "province": "Provincia",
+            "date_hotel": "Fecha del hotel",
+            "phone": "Teléfono",
+              "fax": "Fax",
+              "distance_to_city": "Distancia de la ciudad",
+              "distance_to_airport": "Distancia del aireopuerto",
+              "email": "Correo",
+              "floor_count": "No. de pisos",
+              "business_model": "Modelo de negocio",
+              "location_hotel": "Locación del hotel"
         }
     },
     "km" : {
@@ -138,7 +147,8 @@
         "table": {
             "name":"Nombre",
             "dateStart":"Fecha de Inicio",
-            "dateEnd":"Fecha de Fin"
+            "dateEnd":"Fecha de Fin",
+            "description" : "Descripción"
         }
     },
     "vehicles" : {
