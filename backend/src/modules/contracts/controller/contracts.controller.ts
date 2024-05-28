@@ -4,11 +4,11 @@ import { UpdateContractDto } from "../dtos/update-contract.dto";
 import { Contract } from "../contract.entity";
 import { ContractsService } from "../service/contracts.service";
 
-@Controller("contract")
+@Controller("contracts")
 export class ContractsController {
   constructor(private readonly contractService: ContractsService) {}
 
-  @Get(":all")
+  @Get()
   async getContracts(): Promise<Contract[]> {
     return this.contractService.getContracts();
   }

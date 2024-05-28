@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+
 import { Injectable } from "@nestjs/common";
 import { HotelsService } from "src/modules/hotels/service/hotels.service";
 import { PackagesService } from "src/modules/packages/service/packages.service";
@@ -10,6 +11,7 @@ import { Room } from "src/modules/rooms/rooms.entity";
 import { Meal_plan } from "src/modules/meal_plans/plans.entity";
 import { Acommodation } from "src/modules/acommodations/acommodations.entity";
 import { getManager } from "typeorm";
+
 
 const PDFDocument = require("pdfkit-table");
 
@@ -40,71 +42,49 @@ export class ReportsService {
     return jasper.pdf(report);
   }*/
   //Reporte 8
-  async generateListInactiveHotelsPDF(): Promise<Buffer> {
+  async generateListInactiveHotelsPDF() {
     const inactiveHotels = await this.hotelService.listInactiveHotels();
 
-    const pdfBuffer: Buffer = await new Promise((resolve) => {
-      const doc = new PDFDocument({
-        size: "LETTER",
-        bufferPages: true,
-        autoFirstPage: false,
-      });
-
-      let pageNumber = 0;
-      doc.on("pageAdded", () => {
-        pageNumber++;
-
-        const bottom = doc.margins.bottom;
-        doc.margins.bottom = 0;
-        doc.text(
-          "Pag." + pageNumber,
-          (doc.page.width - 100) * 0.5,
-          doc.page.height - 50,
-          { width: 100, align: "center", lineBreak: false }
-        );
-        doc.page.margins.bottom = bottom;
-      });
-
-      const row_inactiveHotels = [];
-
-      inactiveHotels.forEach((element) => {
-        const temp_list = [
-          element.name_hotel,
-          element.chain_hotel,
-          element.category_hotel,
-          element.address_hotel,
-          element.province_hotel,
-        ];
-        row_inactiveHotels.push(temp_list);
-      });
-
-      doc.addPage();
-      //El contenido va aqui
-
-      const table = {
-        title: "Listado de hoteles inactivos",
-        headers: ["Nombre", "Cadena", "Categoría", "Dirección", "Provincia"],
-        rows: row_inactiveHotels,
-      };
-
-      doc.table(table, {
-        columnsSize: [350, 350, 350, 350, 350],
-      });
-
-      const buffer = [];
-      doc.on(
-        "data",
-        buffer.push.bind(buffer),
-        doc.on("end", () => {
-          const data = Buffer.concat(buffer);
-          resolve(data);
-        }),
-        doc.end()
-      );
+   
+  return new Promise((resolve) => {
+    const doc = new PDFDocument({
+      size: "LETTER",
+      autoFirstPage: true,
     });
 
-    return pdfBuffer;
-  }
+    const row_inactiveHotels = [];
+
+    inactiveHotels.forEach((element) => {
+      const temp_list = [
+        element.name_hotel,
+        element.chain_hotel,
+        element.category_hotel,
+        element.address_hotel,
+        element.province_hotel,
+      ];
+      row_inactiveHotels.push(temp_list);
+    });
+
+
+    const table = {
+      title: "Ejemplo",
+      headers: [ "Nombre", "Cadena", "Categoria", "Provincia", "Direccion" ],
+      rows: row_inactiveHotels
+    };
+
+    doc.table(table, {
+      columnsSize: [150, 150, 150, 150, 150],
+    });
+
+    const chunks = [];
+    doc.on("data", chunk => chunks.push(chunk));
+    doc.on("end", () => {
+      const pdfData = Buffer.concat(chunks);
+      resolve(pdfData);
+    });
+    doc.end();
+  });
+ }
   //Reporte 7
   async generateListOfPackagesIncomePlanPDF(): Promise<Buffer> {
     const incomePlan =

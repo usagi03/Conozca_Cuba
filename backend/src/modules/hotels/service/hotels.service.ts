@@ -72,14 +72,15 @@ export class HotelsService {
     const inactiveHotels = await this.hotelRepository
       .createQueryBuilder("h")
       .select([
+        "h.id_hotel",
         "h.name_hotel",
         "h.chain_hotel",
         "h.category_hotel",
         "h.address_hotel",
         "h.province_hotel",
       ])
-      .where(["h.isActive = :isActive", { isActive: false }])
-      .getRawMany();
+      .where(["h.is_active = :is_active"], {is_active: false})
+      .getMany()
 
     return inactiveHotels;
   }

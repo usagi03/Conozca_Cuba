@@ -4,7 +4,7 @@ import { Daily_activity } from '../activities.entity';
 import { CreateActivityDto } from '../dtos/create-activity.dto';
 import { UpdateActivityDto } from '../dtos/update-activity.dto';
 
-@Controller('activities.')
+@Controller('activities')
 export class ActivitiesController {
   constructor(private readonly activityService: ActivitiesService){}
 
