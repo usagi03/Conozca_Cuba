@@ -13,9 +13,9 @@
         </div>
         <div class="mb-4">
           <label for="newObjectRol" class="block text-gray-700 text-sm font-bold mb-2">{{ $t('users.table.role') }}</label>
-          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectRol" v-model="newObject.role">
+          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectRol" v-model="newObject.nombre_role">
             <option value="Administrador">Administrador</option>
-            <option value="Gestor de Venta">Gestor de venta</option>
+            <option value="Agente de ventas">Agente de ventas</option>
             <option value="Gerente">Gerente</option>
           </select> 
           <span class="text-red-600 font-sans text-sm">{{ store.errorRol }}</span>
@@ -41,9 +41,9 @@
         data() {
           return {
             newObject:{
-              user_name: '',
+                user_name: '',
                 user_password: '',
-                role: ''
+                nombre_role: ''
             },
             errorUser: '',
             errorPass: '',

@@ -7,33 +7,30 @@ export default class Servicies {
            const res = await fetch(URL)
            const response = await res.json();
            const data = []
-           response.map(element => {
-            const user = {
-              "user_name": element.user_name,
-            "user_password": element.user_password,
-            "nombre_role": element.role.name_role    
-            }
-              data.push(user)
-           });
+        //    response.map(element => {
+        //     const user = {
+        //       "id_user": element.id_user,
+        //       "user_name": element.user_name,
+        //       "user_password": element.user_password,
+        //       "nombre_role": element.role.name_role    
+        //     }
+        //       data.push(user)
+        //    });
            console.log(data)
-           return data;
+           return response;
         } catch(error){
             console.log(error)
         }
     }
-    async postUser(username, password, rol){
+    async post(data, URL){
         try{
-           const res = await fetch('http://localhost:3080/auth/login', {
+           const res = await fetch(URL, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                user_name: username,
-                user_password: password,
-                role: rol
-            })
+            body: JSON.stringify(data)
            })
            
            const response = await res.json();
@@ -43,6 +40,48 @@ export default class Servicies {
           }
         } catch(error){
             console.log(error)
+        }
+    }
+    async patch(data, URL, id){
+        try{
+            console.log(id)
+            const res = await fetch(URL+id, {
+             method: 'PATCH',
+             headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json'
+             },
+             body: JSON.stringify(data)
+            })
+            
+            const response = await res.json();
+            console.log(response)
+            if (!response.ok) {
+             throw new Error(`HTTP error status: ${response.status}`);
+           }
+         } catch(error){
+             console.log(error)
+         }
+    }
+    async delete(URL, id){
+        try {
+            const res = await fetch(URL+id, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            });
+            const response = await res.json();
+            if (!res.ok) {
+                throw new Error(`HTTP error status: ${res.status}`);
+            }
+    
+            
+            console.log(response);
+            return response;
+        } catch (error) {
+            console.log(error);
         }
     }
 }
