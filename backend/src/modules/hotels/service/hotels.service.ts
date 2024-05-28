@@ -36,25 +36,27 @@ export class HotelsService {
   }
 
   async updateHotel(id_hotel: number, newHotel: UpdateHotelDto) {
-    let ok = "Hotel could not be updated"
+    let ok = "Hotel could not be updated";
     const affectedRows = await this.hotelRepository.update(id_hotel, {
       ...newHotel,
     });
-     
+
     if (affectedRows.affected > 0) {
-        ok = "Hotel updated successfully";
-    } 
+      ok = "Hotel updated successfully";
+    }
     return ok;
   }
 
   async removeHotel(id: number): Promise<string> {
-    let ok = "Hotel deleted successfully"
-    const hotel: Hotel = await this.hotelRepository.findOne({ where: { id_hotel: id } } as FindOneOptions<Hotel>);
-    
+    let ok = "Hotel deleted successfully";
+    const hotel: Hotel = await this.hotelRepository.findOne({
+      where: { id_hotel: id },
+    } as FindOneOptions<Hotel>);
+
     if (!hotel) {
-        ok = "Hotel could not be deleted";
+      ok = "Hotel could not be deleted";
     }
-         
+
     await this.hotelRepository.remove(hotel);
     return ok;
   }
@@ -69,17 +71,21 @@ export class HotelsService {
       province_hotel: string;
     }>
   > {
+    //Si no funciona prueba con esta via es decir solo este codigo
+    /*const inactiveHotels = await this.hotelRepository.find({is_active: false})
+     */
     const inactiveHotels = await this.hotelRepository
       .createQueryBuilder("h")
       .select([
+        "h.id_hotel",
         "h.name_hotel",
         "h.chain_hotel",
         "h.category_hotel",
         "h.address_hotel",
         "h.province_hotel",
       ])
-      .where(["h.isActive = :isActive", { isActive: false }])
-      .getRawMany();
+      .andWhere(["h.is_active = :is_active"], { is_active: false })
+      .getMany();
 
     return inactiveHotels;
   }
@@ -124,7 +130,7 @@ export class HotelsService {
     // Ejecutar la consulta y obtener los resultados
     const results = await hotels.getMany();
 
-    // Devuelve los resultados o haz algo con ellos según sea necesario
+    // Devuelve los resultados
     return results;
   }
 }

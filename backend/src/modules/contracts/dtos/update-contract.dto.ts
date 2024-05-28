@@ -1,21 +1,21 @@
-import { IsDate, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdateContractDto {
   @IsNumber()
   @IsOptional()
   id_contract?: number;
 
-  @IsDate()
+  @IsString()
   @IsOptional()
-  start_contract?: Date;
+  start_contract?: string;
 
-  @IsDate()
+  @IsString()
   @IsOptional()
-  end_contract?: Date;
+  end_contract?: string;
 
-  @IsDate()
+  @IsString()
   @IsOptional()
-  readonly resolution_contract: Date;
+  resolution_contract?: string;
 
   @IsString()
   @IsOptional()

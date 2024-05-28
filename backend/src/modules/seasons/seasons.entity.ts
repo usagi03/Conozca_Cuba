@@ -18,6 +18,6 @@ export class Season {
     @Column()
     description_season: string;
 
-    @OneToMany(() => Acommodation, (acommodation) => acommodation.room)
+    @OneToMany(() => Acommodation, (acommodation) => acommodation.season)
     acommodations: Acommodation[];
 }
