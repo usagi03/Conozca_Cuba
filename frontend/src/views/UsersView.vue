@@ -30,14 +30,13 @@ import Servicies from '@/services/Servicies'
     data(){
       return{
         edit: {},
-        valided: false,
         showModal: false,
-        active: false,
         //headers: [this.$t('users.table.username'), this.$t('users.table.password'), this.$t('users.table.role')],
         data: [ 
             // {'name': 'Julio', 'password': 'julito1234', 'rol':'Administrador'},
             // {'name': 'Camila','password': 'camila12345', 'rol':'Gerente'}
         ],
+        active: false
       }
     },
     methods:{
@@ -47,13 +46,16 @@ import Servicies from '@/services/Servicies'
       addNewObject(newObject){
         console.log(this.edit)
          if(this.valid(this.edit)){
+          console.log(this.store.position)
           if(this.store.position === -1){
-          this.data.push(this.edit);
+            this.postUser()
+            this.data.push(this.edit);
           this.showModal = false;
           this.active = false;
         } else {
           console.log(newObject)
           this.data.splice(this.store.position, 1, newObject)
+          this.patchUser(newObject, this.store.position)
           this.showModal = false;
           this.store.isUpdate(-1);
         } 
@@ -62,15 +64,15 @@ import Servicies from '@/services/Servicies'
       },
       deleteElement(newObject){
         console.log(newObject)
+        this.deleteUser(newObject)
         const index = this.data.indexOf(newObject);
         console.log(index);
         this.data.splice(index, 1);
       },
       obtenerEdit(newObject){
-        this.edit = newObject
+        this.edit = newObject 
         this.showModal = true;
       },
-      
       obtener(newObject){
         this.edit = newObject;
       },
@@ -82,9 +84,9 @@ import Servicies from '@/services/Servicies'
       valid(object){
             const v = new Validation()
             let ok = false;
-            this.store.errorUser = v.validRequiered(object.name);
-            this.store.errorPass = v.validRequiered(object.password);
-            this.store.errorRol = v.validRequiered(object.rol);
+            this.store.errorUser = v.validRequiered(object.user_name);
+            this.store.errorPass = v.validRequiered(object.user_password);
+            this.store.errorRol = v.validRequiered(object.nombre_role);
             if(this.store.errorUser === '' && this.store.errorPass === '' && this.store.errorRol === ''){
               ok = true;
             }
@@ -101,17 +103,67 @@ import Servicies from '@/services/Servicies'
               const getUsers = new Servicies();
               const res = await getUsers.get('http://localhost:3080/users');
               console.log(this.data);
-              this.data = res
+              res.map(element => {
+            const user = {
+              //"id_user": element.id_user,
+              "user_name": element.user_name,
+              "user_password": element.user_password,
+              "nombre_role": element.role.name_role    
+            }
+              this.data.push(user)
+           });
             } catch (error) {
             console.error("Error fetching users:", error);
            }
           },
-          // postUser(object.user, object.password, object.){
-          //   const post
-          // }
+          postUser: async function(){
+            const postUser = new Servicies();
+            const user = {
+                user_name: this.edit.user_name,
+                user_password: this.edit.user_password,
+                role: this.edit.nombre_role
+            }
+            console.log(user);
+            postUser.post(user, 'http://localhost:3080/users');
+          },
+          patchUser: async function(userData, index){
+            const patchUser = new Servicies();
+            const res = await patchUser.get('http://localhost:3080/users');
+            let id = '';
+            let count = -1;
+            res.map(element => {
+             count++
+              if(index === count) {
+                id = element.id_user;
+                console.log(element.id_user)
+              }
+              
+           });
+           console.log(id)
+           const user = {
+                user_name: userData.user_name,
+                user_password: userData.user_password,
+                role: userData.nombre_role
+            }
+            patchUser.patch(user,'http://localhost:3080/users/', id)
+          },
+          deleteUser: async function(data){
+            const deleteUser = new Servicies();
+            const res = await deleteUser.get('http://localhost:3080/users');
+            let id = '';
+            res.map(element => {
+              if(element.user_name === data.user_name) {
+                id = element.id_user;
+              }
+           });
+           deleteUser.delete('http://localhost:3080/users/',id)
+          }
     },
     mounted(){
       this.getUsers()
+    },
+    updated(){
     }
   }
+
   </script>
