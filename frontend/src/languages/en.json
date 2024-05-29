@@ -62,7 +62,16 @@
              "chain": "Chain",
              "category": "Category",
              "direction": "Direction",
-             "province": "Province"
+             "province": "Province",
+             "date_hotel": "Hotel date",
+             "phone": "Phone",
+               "fax": "Fax",
+               "distance_to_city": "Distance to city",
+               "distance_to_airport": "Distance to airport",
+               "email": "Email",
+               "floor_count": "No. of floors",
+               "business_model": "Business model",
+               "location_hotel": "Hotel location"
          }
     },
     "km" : {
@@ -138,7 +147,8 @@
          "table": {
              "name":"Name",
              "dateStart":"Start Date",
-             "dateEnd":"End Date"
+             "dateEnd":"End Date",
+             "description": "Description"
          }
     },
     "vehicles" : {

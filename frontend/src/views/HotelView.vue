@@ -84,9 +84,20 @@ import Validation from '@/assets/validation';
             this.store.errorCategory = v.validRequiered(object.category_hotel)
             this.store.errorAddress = v.validRequiered(object.address_hotel)
             this.store.errorProvince = v.validRequiered(object.province_hotel)
-            
+            this.store.errorDate = v.validRequiered(object.date_hotel)
+            this.store.errorPhone = v.validRequiered(object.phone)
+            this.store.errorFax = v.validRequiered(object.fax)
+            this.store.errorCity = v.validRequiered(object.distance_to_city)
+            this.store.errorAirport = v.validRequiered(object.distance_to_airport)
+            this.store.errorEmail = v.validRequiered(object.email)
+            this.store.errorFloor = v.validRequiered(object.floor_count)
+            this.store.errorBusiness = v.validRequiered(object.business_model)
+            this.store.errorLocation = v.validRequiered(object.location_hotel) 
             if(this.store.errorNameH === '' && this.store.errorChain === '' && this.store.errorCategory === '' &&
-            this.store.errorAddress === '' && this.store.errorProvince === ''){
+            this.store.errorAddress === '' && this.store.errorProvince === '' && this.store.errorDate === '' &&
+            this.store.errorPhone === '' && this.store.errorFax === '' && this.store.errorCity === '' &&
+            this.store.errorAirport === '' && this.store.errorEmail === '' && this.store.errorFloor === '' &&
+            this.store.errorBusiness === '' && this.store.errorLocation === ''){
               ok = true;
             }
             console.log(ok)
@@ -98,6 +109,15 @@ import Validation from '@/assets/validation';
             this.store.errorCategory = ''
             this.store.errorAddress = ''
             this.store.errorProvince = ''
+            this.store.errorDate = ''
+            this.store.errorPhone = ''
+            this.store.errorFax = ''
+            this.store.errorCity = ''
+            this.store.errorAirport = ''
+            this.store.errorEmail = ''
+            this.store.errorFloor = ''
+            this.store.errorBusiness = ''
+            this.store.errorLocation = ''
           },
           getRooms: async function(){
             try {
