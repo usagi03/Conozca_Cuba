@@ -88,15 +88,13 @@ export class PackagesService {
   }
 
   //Reporte 7
-  async list_of_packages_sales_income_plan(): Promise<
-    Array<{
+  async list_of_packages_sales_income_plan(): Promise<Array<{
       promotional_name: string;
       pax_count: number;
       package_cost: number;
       package_price: number;
-    }>
-  > {
-    const packages = await this.packageRepository
+    }> > {
+      const packages = await this.packageRepository
       .createQueryBuilder("p")
       .select([
         "p.promotional_name",
@@ -104,8 +102,13 @@ export class PackagesService {
         "total_package_cost(p.id_package) AS total_package_cost",
         "total_package_price(p.id_package) AS total_package_price",
       ])
-      .getRawMany();
+      .getRawMany(); // Usa getRawMany() en lugar de getMany() para obtener resultados crudos directamente
 
-    return packages;
+    return packages/*.map(packageData => ({
+        promotional_name: packageData.promotional_name,
+        pax_count: packageData.pax_count,
+        package_cost: packageData.total_package_cost,
+        package_price: packageData.total_package_price,
+    }));*/
   }
 }

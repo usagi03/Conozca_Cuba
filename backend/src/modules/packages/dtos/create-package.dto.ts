@@ -5,23 +5,23 @@ export class CreatePackageDto {
     @IsNotEmpty()
     promotional_name: string;
 
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
     days_count: number;
 
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
-    nigths_count: number;
+    nights_count: number;
 
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
     pax_count: number;
 
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
     hotel_airport_ride_cost: number;
 
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
     percent_profit: number;
 

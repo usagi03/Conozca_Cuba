@@ -67,7 +67,8 @@ export class ReportsService {
   async generateListOfPackagesIncomePlanPDF(): Promise<Buffer> {
     const incomePlan =
       await this.packageService.list_of_packages_sales_income_plan();
-
+      console.log(incomePlan)
+    
     const pdfBuffer: Buffer = await new Promise((resolve) => {
       const doc = new PDFDocument({
         size: "LETTER",
@@ -85,6 +86,8 @@ export class ReportsService {
         ];
         row_incomePlan.push(temp_list);
       });
+
+      console.log(row_incomePlan)
 
       //El contenido va aqui
 

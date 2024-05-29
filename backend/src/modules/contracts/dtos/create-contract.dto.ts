@@ -1,10 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateContractDto {
-  @IsNumber()
-  @IsNotEmpty()
-  id_contract: number;
-
   @IsString()
   @IsNotEmpty()
   start_contract: string;
@@ -18,7 +14,7 @@ export class CreateContractDto {
   resolution_contract: string;
 
   @IsString()
-  description: string;
+  description_contract: string;
 
   @IsNumber()
   @IsNotEmpty()

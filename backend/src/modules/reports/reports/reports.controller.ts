@@ -1,12 +1,14 @@
 import { Controller, Get, Res, Param } from "@nestjs/common";
 import { ReportsService } from "./reports.service";
 import { HotelsService } from "src/modules/hotels/service/hotels.service";
+import { PackagesService } from "src/modules/packages/service/packages.service";
 
 @Controller("reports")
 export class ReportsController {
   constructor(
     private readonly reportsService: ReportsService,
-    private readonly hotelService: HotelsService) {}
+    private readonly hotelService: HotelsService, 
+    private readonly packageService: PackagesService) {}
 
   //Report 1
   @Get("inactive")
@@ -29,6 +31,11 @@ export class ReportsController {
   }
 
   //Reporte 2
+  @Get("plan")
+  getPackagesIncomePlanPDF() {
+    return this.packageService.list_of_packages_sales_income_plan();
+  }
+
   @Get("pdf/Report2")
   async downloadPDFReport2(@Res() res): Promise<void> {
     const buffer =
@@ -43,6 +50,7 @@ export class ReportsController {
       res.status(500).send("ERROR OF DOWNLOAD FILE");
     }
   }
+
   //Reporte 3
   @Get("pdf/Report3")
   async downloadPDFReport3(@Res() res): Promise<void> {

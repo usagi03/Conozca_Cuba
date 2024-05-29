@@ -13,7 +13,7 @@ export class Package {
     days_count: number;
 
     @Column({ nullable: false })
-    nigths_count: number;
+    nights_count: number;
 
     @Column({ nullable: false })
     pax_count: number;

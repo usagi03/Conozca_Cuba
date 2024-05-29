@@ -1,10 +1,6 @@
 import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdateContractDto {
-  @IsNumber()
-  @IsOptional()
-  id_contract?: number;
-
   @IsString()
   @IsOptional()
   start_contract?: string;
@@ -19,7 +15,7 @@ export class UpdateContractDto {
 
   @IsString()
   @IsOptional()
-  description?: string;
+  description_contract?: string;
 
   @IsNumber()
   @IsOptional()
