@@ -3,25 +3,26 @@
      <h1 class="header">{{this.$t('mealplan.title')}}</h1> 
     </div>
     <DataTable :data="data" :showModal="showModal" @openModal="openModal"
-    :headers="[this.$t('mealplan.table.plan_type'),this.$t('meal.table.plan_cost')]" 
+    :headers="[this.$t('mealplan.table.plan_type'),this.$t('mealplan.table.plan_cost')]" 
     @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit" 
     @closeAddEdit="close"
     >
       <template #formComponent>
-        <SeasonForm @value="obtener" :editObject="edit"/>
+        <MealPlanForm @value="obtener" :editObject="edit"/>
       </template>
     </DataTable>
   </template>
   <script>
   import DataTable from '@/components/DataTable.vue';
   import { useFormsStore } from '@/stores/forms';
-  import SeasonForm from '@/components/forms/SeasonForm.vue';
+  
 import Validation from '@/assets/validation';
 import Servicies from '@/services/Servicies';
+import MealPlanForm from '@/components/forms/MealPlanForm.vue'
   export default{
     components:{
       DataTable,
-      SeasonForm
+      MealPlanForm,
   },
     setup(){
          const store = useFormsStore();
@@ -47,14 +48,14 @@ import Servicies from '@/services/Servicies';
          if(this.valid(this.edit)){
           console.log(this.store.position)
           if(this.store.position === -1){
-            this.postSeasons()
+            this.postPlan()
             this.data.push(this.edit);
           this.showModal = false;
           this.active = false;
         } else {
           console.log(newObject)
           this.data.splice(this.store.position, 1, newObject)
-          this.patchSeasons(newObject, this.store.position)
+          this.patchPlan(newObject, this.store.position)
           this.showModal = false;
           this.store.isUpdate(-1);
         } 
@@ -63,7 +64,7 @@ import Servicies from '@/services/Servicies';
       deleteElement(newObject){
         console.log(newObject)
         const index = this.data.indexOf(newObject);
-        this.deleteSeasons(newObject)
+        this.deletePlan(newObject)
         console.log(index);
         this.data.splice(index, 1);
       },
@@ -85,34 +86,28 @@ import Servicies from '@/services/Servicies';
             
             this.store.errorPlan_type = v.validRequiered(object.plan_type)
             this.store.errorPlan_cost = v.validRequiered(object.plan_cost)
-            this.store.errorEnd_season = v.validRequiered(object.end_season)
-            this.store.errorDescription = v.validRequiered(object.description_season)
 
-            if(this.store.errorPlan_type === '' &&  this.store.errorPlan_cost === '' && 
-            this.store.errorEnd_season === '' && this.store.errorDescription === ''){
+            if(this.store.errorPlan_type === '' &&  this.store.errorPlan_cost === ''){
               ok = true;
             }
             console.log(ok)
             return ok; 
           },
           resetErrors(){
-            this.store.errorName_season = '',
-            this.store.errorStart_season = '',
-            this.store.errorEnd_season = '',
-            this.store.errorDescription = ''
+            this.store.errorPlan_type = ''
+            this.store.errorPlan_cost = ''
           },
-          getSeasons: async function(){
+          getPlan: async function(){
             try {
-              const getSeasons = new Servicies();
-              const res = await getSeasons.get('http://localhost:3080/seasons');
+              const getPlan = new Servicies();
+              const res = await getPlan.get('http://localhost:3080/meal_plans');
               console.log(this.data);
               res.map(element => {
             const season = {
               
               
-              "name_season": element.name_hotel,
-              "start_season": element.start_season,
-              "end_season": element.end_season,
+              "plan_type": element.plan_type,
+              "plan_cost": element.plan_cost
               
                 
             }
@@ -122,20 +117,18 @@ import Servicies from '@/services/Servicies';
             console.error("Error fetching users:", error);
            }
           },
-          postSeasons: async function(){
+          postPlan: async function(){
             const postSeasons = new Servicies();
-            const hotel = {
-              "name_season": this.edit.name_hotel,
-              "start_season": this.edit.start_season,
-              "end_season": this.edit.end_season,
-              "description_season": this.edit.description_season
+            const plan = {
+              "plan_type": this.edit.plan_type,
+              "plan_cost": this.edit.plan_cost
             }
-            console.log(hotel);
-            postSeasons.post(hotel, 'http://localhost:3080/seasons');
+            console.log(plan);
+            postSeasons.post(plan, 'http://localhost:3080/meal_plans');
           },
-          patchSeasons: async function(data, index){
+          patchPlan: async function(data, index){
             const patchSeasons = new Servicies();
-            const res = await patchSeasons.get('http://localhost:3080/seasons');
+            const res = await patchSeasons.get('http://localhost:3080/meal_plans');
             let id = '';
             let count = -1;
             res.map(element => {
@@ -148,27 +141,25 @@ import Servicies from '@/services/Servicies';
            });
            console.log(id)
            const user = {
-            "name_season": data.name_hotel,
-              "start_season": data.start_season,
-              "end_season": data.end_season,
-              "description_season": data.description_season
+            "plan_type": data.plan_type,
+            "plan_cost": data.plan_cost
             }
-            patchSeasons.patch(user,'http://localhost:3080/seasons/', id)
+            patchSeasons.patch(user,'http://localhost:3080/meal_plans/', id)
           },
-          deleteSeasons: async function(data){
-            const deleteSeasons = new Servicies();
-            const res = await deleteSeasons.get('http://localhost:3080/seasons');
+          deletePlan: async function(data){
+            const deletePlan = new Servicies();
+            const res = await deletePlan.get('http://localhost:3080/meal_plans');
             let id = '';
             res.map(element => {
               if(element.name_hotel === data.name_hotel) {
                 id = element.id_hotel;
               }
            });
-           deleteSeasons.delete('http://localhost:3080/seasons/',id)
+           deletePlan.delete('http://localhost:3080/meal_plans/',id)
           }
     },
     mounted(){
-      this.getSeasons()
+      this.getPlan()
     },
   }
   </script>

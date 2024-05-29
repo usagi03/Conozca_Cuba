@@ -13,6 +13,7 @@ import KmView from '@/views/kmView.vue'
 import Km_hView from '@/views/km_hView.vue'
 import RutaView from '@/views/RouteView.vue'
 import ContractView from '@/views/ContractView.vue'
+import MealPlanView from '@/views/MealPlanView.vue'
 
 
 const router = createRouter({
@@ -87,6 +88,11 @@ const router = createRouter({
       path: '/contratos',
       name: 'contracts',
       component: ContractView
+    },
+    {
+      path: '/mealplans',
+      name: 'mealplans',
+      component: MealPlanView
     },
   ]
 })

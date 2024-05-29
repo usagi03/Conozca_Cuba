@@ -4,18 +4,22 @@
         <div class="mb-4 col-span-3">
           <label for="newObjectName" class="block text-gray-700 text-sm font-bold mb-2">Descripción</label>
           <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectName" v-model="newObject.description" >
+          <span class="text-red-600 font-sans text-sm">{{ store.errorPlan_type }}</span>
         </div>
         <div class="mb-4">
           <label for="newObjectName" class="block text-gray-700 text-sm font-bold mb-2">Fecha de Inicio</label>
           <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectName" v-model="newObject.startDay" >
+          <span class="text-red-600 font-sans text-sm">{{ store.errorPlan_type }}</span>
         </div>
         <div class="mb-4">
           <label for="newObjectName" class="block text-gray-700 text-sm font-bold mb-2">Fecha de Fin</label>
           <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectName" v-model="newObject.lastDay" >
+          <span class="text-red-600 font-sans text-sm">{{ store.errorPlan_type }}</span>
         </div>
         <div class="mb-4">
           <label for="newObjectName" class="block text-gray-700 text-sm font-bold mb-2">Fecha de Conciliación</label>
           <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectName" v-model="newObject.conciliacion" >
+          <span class="text-red-600 font-sans text-sm">{{ store.errorPlan_type }}</span>
         </div>
         
         <!-- Agrega más campos según sea necesario -->
