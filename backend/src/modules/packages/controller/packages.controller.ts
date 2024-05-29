@@ -4,7 +4,7 @@ import { Package } from '../package.entity';
 import { UpdatePackageDto } from '../dtos/update-package.dto';
 import { CreatePackageDto } from '../dtos/create-package.dto';
 
-@Controller('packages.')
+@Controller('packages')
 export class PackagesController {
   constructor(private readonly packageService: PackagesService){}
 

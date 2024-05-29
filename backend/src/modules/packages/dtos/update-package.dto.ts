@@ -5,23 +5,23 @@ export class UpdatePackageDto {
     @IsOptional()
     promotional_name?: string;
 
-    @IsString()
+    @IsNumber()
     @IsOptional()
     days_count?: number;
 
-    @IsString()
+    @IsNumber()
     @IsOptional()
-    nigths_count?: number;
+    nights_count?: number;
 
-    @IsString()
+    @IsNumber()
     @IsOptional()
     pax_count?: number;
 
-    @IsString()
+    @IsNumber()
     @IsOptional()
     hotel_airport_ride_cost?: number;
 
-    @IsString()
+    @IsNumber()
     @IsOptional()
     percent_profit?: number;
 

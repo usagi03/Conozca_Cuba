@@ -19,7 +19,7 @@ export class Contract {
   resolution_contract: string;
 
   @Column()
-  description: string;
+  description_contract: string;
 
   @ManyToOne(() => Transportation, (transportation) => transportation.id_transportation, {
       eager: true,

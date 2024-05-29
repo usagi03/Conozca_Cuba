@@ -18,7 +18,7 @@ export class ContractsController {
     return this.contractService.getContract(id);
   }
 
-  @Post(":id_contract")
+  @Post()
   async createContract(@Body() contract: CreateContractDto): Promise<Contract> {
     return this.contractService.createContract(contract);
   }

@@ -21,12 +21,12 @@ export class ContractsService {
 
 
   async getContracts(): Promise<Contract[]> {
-    return await this.contractRepository.find({relations: ['transportation', 'acommodation', 'daily_activity']});
+    return await this.contractRepository.find({relations: ['transportation', 'acommodation', 'activity']});
   }
 
   async getContract(id: number): Promise<Contract> {
     console.log(id);
-    const contract = await this.contractRepository.findOne({ relations: ['transportation', 'acommodation', 'daily_activity'], where: { id_contract: id } } as FindOneOptions<Contract>);
+    const contract = await this.contractRepository.findOne({ relations: ['transportation', 'acommodation', 'activity'], where: { id_contract: id } } as FindOneOptions<Contract>);
     console.log(contract);
 
     if (!contract) {
