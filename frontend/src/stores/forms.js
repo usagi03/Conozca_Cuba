@@ -38,13 +38,17 @@ export const useFormsStore = defineStore('forms', {
       errorEnd_season: '',
       errorDescription: ''
       },
-      km:{
+      vehicle:{
         errorPlate: '',
         errorBrand: '',
         errorLuggage_capacity: '',
         errorWith_luggage_capacity: '',
         errorTotal_capacity: '',
         errorYear_build: ''
+      },
+      mealplan:{
+        errorPlan_type: '',
+        errorPlan_cost: ''
       }
  }),
 

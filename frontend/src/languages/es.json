@@ -162,6 +162,14 @@
             "total": "Capacidad Total"
         }
     },
+    "mealplan":{
+        "title": "Plan Alimenticio",
+        "table":{
+          "plan_type": "Tipo de plan",
+          "plan_cost": "Costo del plan"  
+        }
+        
+    },
     "errors":{
         "required": "Este campo es requerido",
         "number": "Este campo solo admite numeros",
