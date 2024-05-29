@@ -108,15 +108,17 @@ import Validation from '@/assets/validation';
           getSeasons: async function(){
             try {
               const getSeasons = new Servicies();
-              const res = await getSeasons.get('http://localhost:3080/seasons');
+              const res = await getSeasons.get('http://localhost:3080/km_costs');
               console.log(this.data);
               res.map(element => {
             const season = {
               
               
-              "name_season": element.name_hotel,
-              "start_season": element.start_season,
-              "end_season": element.end_season,
+              
+            "description_tm": element.description_tm,
+            "km_cost": element.km_cost,
+            "full_ride_km_cost": element.full_ride_km_cost,
+            "waiting_hours_cost": element.waiting_hours_cost
               
                 
             }
@@ -129,17 +131,17 @@ import Validation from '@/assets/validation';
           postSeasons: async function(){
             const postSeasons = new Servicies();
             const hotel = {
-              "name_season": this.edit.name_hotel,
-              "start_season": this.edit.start_season,
-              "end_season": this.edit.end_season,
-              "description_season": this.edit.description_season
+              "description_tm": this.edit.description_tm,
+            "km_cost": this.edit.km_cost,
+            "full_ride_km_cost": this.edit.full_ride_km_cost,
+            "waiting_hours_cost": this.edit.waiting_hours_cost
             }
             console.log(hotel);
-            postSeasons.post(hotel, 'http://localhost:3080/seasons');
+            postSeasons.post(hotel, 'http://localhost:3080/km_costs');
           },
           patchSeasons: async function(data, index){
             const patchSeasons = new Servicies();
-            const res = await patchSeasons.get('http://localhost:3080/seasons');
+            const res = await patchSeasons.get('http://localhost:3080/km_costs');
             let id = '';
             let count = -1;
             res.map(element => {
@@ -152,23 +154,23 @@ import Validation from '@/assets/validation';
            });
            console.log(id)
            const user = {
-            "name_season": data.name_hotel,
-              "start_season": data.start_season,
-              "end_season": data.end_season,
-              "description_season": data.description_season
+            "description_tm": data.description_tm,
+            "km_cost": data.km_cost,
+            "full_ride_km_cost": data.full_ride_km_cost,
+            "waiting_hours_cost": data.waiting_hours_cost
             }
-            patchSeasons.patch(user,'http://localhost:3080/seasons/', id)
+            patchSeasons.patch(user,'http://localhost:3080/km_costs/', id)
           },
           deleteSeasons: async function(data){
             const deleteSeasons = new Servicies();
-            const res = await deleteSeasons.get('http://localhost:3080/seasons');
+            const res = await deleteSeasons.get('http://localhost:3080/km_costs');
             let id = '';
             res.map(element => {
               if(element.name_hotel === data.name_hotel) {
                 id = element.id_hotel;
               }
            });
-           deleteSeasons.delete('http://localhost:3080/seasons/',id)
+           deleteSeasons.delete('http://localhost:3080/km_costs/',id)
           }
     },
     mounted(){

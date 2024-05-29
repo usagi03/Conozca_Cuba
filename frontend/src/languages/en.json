@@ -118,6 +118,13 @@
              "failed": "Incorrect username or password"
          }
     },
+    "mealplan":{
+        "title": "Meal Plan",
+        "table":{
+           "plan_type": "Plan type",
+           "plan_cost": "Plan cost" 
+        }
+    },
     "packages" : {
         "title": "Packages",
         "table": {
