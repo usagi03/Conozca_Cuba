@@ -3,14 +3,7 @@
 import { Injectable } from "@nestjs/common";
 import { HotelsService } from "src/modules/hotels/service/hotels.service";
 import { PackagesService } from "src/modules/packages/service/packages.service";
-import { Package } from "src/modules/packages/package.entity";
-import { Contract } from "src/modules/contracts/contract.entity";
-import { Daily_activity } from "src/modules/activities/activities.entity";
 import { Hotel } from "src/modules/hotels/hotels.entity";
-import { Room } from "src/modules/rooms/rooms.entity";
-import { Meal_plan } from "src/modules/meal_plans/plans.entity";
-import { Acommodation } from "src/modules/acommodations/acommodations.entity";
-import { getManager } from "typeorm";
 
 const PDFDocument = require("pdfkit-table");
 
@@ -45,7 +38,7 @@ export class ReportsService {
       });
 
       const table = {
-        title: "Ejemplo",
+        title: "Listado de hoteles inactivos",
         headers: ["Nombre", "Cadena", "Categoria", "Provincia", "Direccion"],
         rows: row_inactiveHotels,
       };
@@ -67,8 +60,8 @@ export class ReportsService {
   async generateListOfPackagesIncomePlanPDF(): Promise<Buffer> {
     const incomePlan =
       await this.packageService.list_of_packages_sales_income_plan();
-      console.log(incomePlan)
-    
+    console.log(incomePlan);
+
     const pdfBuffer: Buffer = await new Promise((resolve) => {
       const doc = new PDFDocument({
         size: "LETTER",
@@ -80,14 +73,14 @@ export class ReportsService {
       incomePlan.forEach((element) => {
         const temp_list = [
           element.promotional_name,
-          element.pax_count,
-          element.package_cost,
-          element.package_price,
+          element.pax_count.toString(),
+          element.package_cost.toString(),
+          element.package_price.toString(),
         ];
         row_incomePlan.push(temp_list);
       });
 
-      console.log(row_incomePlan)
+      console.log(row_incomePlan);
 
       //El contenido va aqui
 
@@ -115,7 +108,7 @@ export class ReportsService {
 
   //Reporte 6
   async generateListOfPackagesItineraryPDF(): Promise<Buffer> {
-    const itinerary = await this.listOfPackageItinerary();
+    const itinerary = await this.packageService.listOfPackageItinerary();
 
     const pdfBuffer: Buffer = await new Promise((resolve) => {
       const doc = new PDFDocument({
@@ -128,18 +121,18 @@ export class ReportsService {
       itinerary.forEach((element) => {
         const temp_list = [
           element.promotional_name,
-          element.days_count,
-          element.nights_count,
-          element.pax_count,
-          element.day_activity,
+          element.days_count.toString(),
+          element.nights_count.toString(),
+          element.pax_count.toString(),
+          element.day_activity.toUTCString(),
           element.description_activity,
-          element.total_activity_cost,
+          element.total_activity_cost.toString(),
           element.name_hotel,
           element.room_type,
           element.plan_type,
-          element.total_hotel_cost,
-          element.total_transportation_cost,
-          element.package_cost,
+          element.total_hotel_cost.toString(),
+          element.total_transportation_cost.toString(),
+          element.package_cost.toString(),
         ];
         row_itinerary.push(temp_list);
       });
@@ -184,11 +177,8 @@ export class ReportsService {
   }
 
   //Reporte 5
-  async generateListOfActiveHotelsPDF(
-    chainH: string,
-    provinceH: string
-  ): Promise<Buffer> {
-    const hotels = await this.hotelService.listOfActiveHotel(chainH, provinceH);
+  async generateListOfActiveHotelsPDF(): Promise<Buffer> {
+    const hotels = await this.hotelService.listOfActiveHotel();
 
     const pdfBuffer: Buffer = await new Promise((resolve) => {
       const doc = new PDFDocument({
@@ -196,7 +186,7 @@ export class ReportsService {
         autoFirstPage: true,
       });
 
-      const row_itinerary = [];
+      const rows = [];
 
       hotels.forEach((element: Hotel) => {
         const temp_list = [
@@ -207,15 +197,15 @@ export class ReportsService {
           element.province_hotel,
           element.phone,
           element.email,
-          element.distance_to_city,
-          element.distance_to_airport,
+          element.distance_to_city.toString(),
+          element.distance_to_airport.toString(),
         ];
-        row_itinerary.push(temp_list);
+        rows.push(temp_list);
       });
       //El contenido va aqui
 
       const table = {
-        title: "Itinerario establecio en cada paquete",
+        title: "Listado de hoteles activos",
         headers: [
           "Nombre",
           "Cadena",
@@ -227,7 +217,7 @@ export class ReportsService {
           "Distancia a la ciudad",
           "Distancia al aeropuerto",
         ],
-        rows: row_itinerary,
+        rows: rows,
       };
 
       doc.table(table, {
@@ -244,63 +234,5 @@ export class ReportsService {
     });
 
     return pdfBuffer;
-  }
-
-  //Funciones referentes para los reportes
-
-  //Reporte 6 en el proyecto original Itinerario de los paquetes
-  async listOfPackageItinerary(): Promise<
-    Array<{
-      promotional_name: string;
-      days_count: number;
-      nights_count: number;
-      pax_count: number;
-      day_activity: Date;
-      time_activity: Date;
-      description_activity: string;
-      total_activity_cost: number;
-      name_hotel: string;
-      room_type: string;
-      plan_type: string;
-      total_hotel_cost: number;
-      hotel_airport_ride_cost: number;
-      total_transportation_cost: number;
-      package_cost: number;
-      package_price: number;
-    }>
-  > {
-    const manager = getManager();
-    const queryBuilder = manager.createQueryBuilder();
-
-    queryBuilder
-      .select([
-        "p.promotional_name",
-        "p.days_count",
-        "p.nights_count",
-        "p.pax_count",
-        "d.day_activity",
-        "d.time_activity",
-        "d.description_activity",
-        "total_activity_cost(p.id_package) AS total_activity_cost",
-        "h.name_hotel",
-        "r.room_type",
-        "mp.plan_type",
-        "total_hotel_cost(p.id_package) AS total_hotel_cost",
-        "p.hotel_airport_ride_cost",
-        "total_transportation_cost(p.id_package) AS total_transportation_cost",
-        "total_package_cost(p.id_package) AS total_package_cost",
-        "total_package_price(p.id_package) AS total_package_price",
-      ])
-      .from(Package, "p")
-      .innerJoin(Contract, "c", "p.id_package = c.id_package")
-      .innerJoin(Daily_activity, "d", "c.id_activity = d.id_activity")
-      .innerJoin(Acommodation, "hrs", "hrs.id_acomodation = c.id_acomodation")
-      .innerJoin(Hotel, "h", "hrs.id_hotel = h.id_hotel")
-      .innerJoin(Room, "r", "hrs.id_room = r.id_room")
-      .innerJoin(Meal_plan, "mp", "r.id_plan = mp.id_plan");
-
-    const results = await queryBuilder.getMany();
-
-    return results;
   }
 }

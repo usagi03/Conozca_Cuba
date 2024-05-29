@@ -89,16 +89,18 @@ export class HotelsService {
 
     return inactiveHotels;
   }*/
-  async listInactiveHotels(): Promise<Array<{
-    name_hotel: string;
-    chain_hotel: string;
-    category_hotel: string;
-    address_hotel: string;
-    province_hotel: string;
-  }> > {
+  async listInactiveHotels(): Promise<
+    Array<{
+      name_hotel: string;
+      chain_hotel: string;
+      category_hotel: string;
+      address_hotel: string;
+      province_hotel: string;
+    }>
+  > {
     const inactiveHotels = await this.hotelRepository
-     .createQueryBuilder("h")
-     .select([
+      .createQueryBuilder("h")
+      .select([
         "h.id_hotel",
         "h.name_hotel",
         "h.chain_hotel",
@@ -106,29 +108,17 @@ export class HotelsService {
         "h.address_hotel",
         "h.province_hotel",
       ])
-     .where("h.is_active = :isActive", { isActive: 'false' })
-     .getMany();
-  
+      .where("h.is_active = :isActive", { isActive: "false" })
+      .getMany();
+
     return inactiveHotels;
   }
 
   //Reporte 5
-  async listOfActiveHotel(
-    chainH: string,
-    provinceH: string
-  ): Promise<Array<Hotel>> {
+  async listOfActiveHotel(): Promise<Array<Hotel>> {
     const hotels = this.hotelRepository.createQueryBuilder("h");
 
-    if (chainH !== undefined && chainH !== null) {
-      hotels.andWhere("h.chain_hotel = :chainH", { chainH });
-    }
-
-    if (provinceH !== undefined && provinceH !== null) {
-      hotels.andWhere("h.province_hotel = :provinceH", { provinceH });
-    }
-
     hotels.where("h.is_active = true");
-
     // Agregar otros campos requeridos para la consulta
     hotels.select([
       "h.name_hotel",

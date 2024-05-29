@@ -1,4 +1,4 @@
-import { Controller, Get, Res, Param } from "@nestjs/common";
+import { Controller, Get, Res } from "@nestjs/common";
 import { ReportsService } from "./reports.service";
 import { HotelsService } from "src/modules/hotels/service/hotels.service";
 import { PackagesService } from "src/modules/packages/service/packages.service";
@@ -7,8 +7,9 @@ import { PackagesService } from "src/modules/packages/service/packages.service";
 export class ReportsController {
   constructor(
     private readonly reportsService: ReportsService,
-    private readonly hotelService: HotelsService, 
-    private readonly packageService: PackagesService) {}
+    private readonly hotelService: HotelsService,
+    private readonly packageService: PackagesService
+  ) {}
 
   //Report 1
   @Get("inactive")
@@ -69,21 +70,14 @@ export class ReportsController {
 
   //Reporte 4
   @Get("active")
-  getActiveHotels(chainH: string, provinceH: string) {
-    return this.hotelService.listOfActiveHotel(chainH, provinceH);
+  getActiveHotels() {
+    return this.hotelService.listOfActiveHotel();
   }
 
   @Get("pdf/Report4")
-  async downloadPDFReport4(
-    @Param("chain") chain: string,
-    @Param("province") province: string,
-    @Res() res
-  ): Promise<void> {
+  async downloadPDFReport4(@Res() res): Promise<void> {
     try {
-      const buffer = await this.reportsService.generateListOfActiveHotelsPDF(
-        chain,
-        province
-      );
+      const buffer = await this.reportsService.generateListOfActiveHotelsPDF();
 
       res.set({
         "Content-Type": "application/pdf",
