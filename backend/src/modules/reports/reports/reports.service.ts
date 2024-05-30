@@ -56,11 +56,17 @@ export class ReportsService {
       doc.end();
     });
   }
+
   //Reporte 7
   async generateListOfPackagesIncomePlanPDF(): Promise<Buffer> {
-    const incomePlan =
-      await this.packageService.list_of_packages_sales_income_plan();
-    console.log(incomePlan);
+    const incomePlan = await this.packageService.list_of_packages_sales_income_plan();
+    console.log(incomePlan)
+    incomePlan.forEach((element) => {
+      console.log(element.promotional_name),
+      console.log(element.pax_count),
+      console.log(element.package_cost),
+      console.log(element.package_price)
+    });
 
     const pdfBuffer: Buffer = await new Promise((resolve) => {
       const doc = new PDFDocument({
@@ -73,9 +79,9 @@ export class ReportsService {
       incomePlan.forEach((element) => {
         const temp_list = [
           element.promotional_name,
-          element.pax_count.toString(),
-          element.package_cost.toString(),
-          element.package_price.toString(),
+          element.pax_count,
+          element.package_cost,
+          element.package_price,
         ];
         row_incomePlan.push(temp_list);
       });
@@ -112,8 +118,9 @@ export class ReportsService {
 
     const pdfBuffer: Buffer = await new Promise((resolve) => {
       const doc = new PDFDocument({
-        size: "LETTER",
+        size: "A4",
         autoFirstPage: true,
+        layout: 'landscape'
       });
 
       const row_itinerary = [];
@@ -121,27 +128,26 @@ export class ReportsService {
       itinerary.forEach((element) => {
         const temp_list = [
           element.promotional_name,
-          element.days_count.toString(),
-          element.nights_count.toString(),
-          element.pax_count.toString(),
-          element.day_activity.toUTCString(),
+          element.days_count,
+          element.nights_count,
+          element.pax_count,
+          element.day_activity,
           element.description_activity,
-          element.total_activity_cost.toString(),
+          element.total_activity_cost,
           element.name_hotel,
           element.room_type,
           element.plan_type,
-          element.total_hotel_cost.toString(),
-          element.total_transportation_cost.toString(),
-          element.package_cost.toString(),
+          element.total_hotel_cost,
+          element.total_transportation_cost,
+          element.package_cost,
         ];
         row_itinerary.push(temp_list);
       });
 
-      doc.addPage();
-      //El contenido va aqui
+      //doc.addPage();
 
       const table = {
-        title: "Itinerario establecio en cada paquete",
+        title: "Itinerario de paquetes",
         headers: [
           "Paquete Promocional",
           "Días",
@@ -161,7 +167,7 @@ export class ReportsService {
       };
 
       doc.table(table, {
-        columnsSize: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+        columnsSize: [50, 40, 40, 40, 50, 60, 50, 50, 50, 50, 50, 50, 50],
       });
 
       const chunks = [];
