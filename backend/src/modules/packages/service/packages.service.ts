@@ -104,10 +104,10 @@ export class PackagesService {
     const packages = await this.packageRepository
       .createQueryBuilder("p")
       .select([
-        "p.promotional_name",
-        "p.pax_count",
-        "total_package_cost(p.id_package) AS total_package_cost",
-        "total_package_price(p.id_package) AS total_package_price",
+        "p.promotional_name AS promotional_name",
+        "p.pax_count AS pax_count",
+        "total_package_cost(p.id_package) AS package_cost",
+        "total_package_price(p.id_package) AS package_price",
       ])
       .getRawMany(); // Usa getRawMany() en lugar de getMany() para obtener resultados crudos directamente
 
@@ -144,26 +144,26 @@ export class PackagesService {
 
     queryBuilder
       .select([
-        "p.promotional_name",
-        "p.days_count",
-        "p.nights_count",
-        "p.pax_count",
-        "d.day_activity",
-        "d.time_activity",
-        "d.description_activity",
+        "p.promotional_name AS promotional_name",
+        "p.days_count AS days_count",
+        "p.nights_count AS nights_count",
+        "p.pax_count AS pax_count",
+        "d.day_activity AS day_activity",
+        "d.time_activity AS time_activity",
+        "d.description_activity AS description_activity",
         "total_activity_cost(p.id_package) AS total_activity_cost",
-        "h.name_hotel",
-        "r.room_type",
-        "mp.plan_type",
+        "h.name_hotel AS name_hotel",
+        "r.room_type AS room_type",
+        "mp.plan_type AS plan_type",
         "total_hotel_cost(p.id_package) AS total_hotel_cost",
-        "p.hotel_airport_ride_cost",
+        "p.hotel_airport_ride_cost AS hotel_airport_ride_cost",
         "total_transportation_cost(p.id_package) AS total_transportation_cost",
-        "total_package_cost(p.id_package) AS total_package_cost",
-        "total_package_price(p.id_package) AS total_package_price",
+        "total_package_cost(p.id_package) AS package_cost",
+        "total_package_price(p.id_package) AS package_price",
       ])
-      .innerJoin(Contract, "c", "p.id_package = c.id_package")
+      .innerJoin(Contract, "c", "p.id_contract = c.id_contract")
       .innerJoin(Daily_activity, "d", "c.id_activity = d.id_activity")
-      .innerJoin(Acommodation, "hrs", "hrs.id_acomodation = c.id_acomodation")
+      .innerJoin(Acommodation, "hrs", "hrs.id_acommodation = c.id_acommodation")
       .innerJoin(Hotel, "h", "hrs.id_hotel = h.id_hotel")
       .innerJoin(Room, "r", "hrs.id_room = r.id_room")
       .innerJoin(Meal_plan, "mp", "r.id_plan = mp.id_plan");

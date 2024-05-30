@@ -33,14 +33,15 @@ export class ReportsController {
 
   //Reporte 2
   @Get("plan")
-  getPackagesIncomePlanPDF() {
+  getPackagesIncomePlan() {
     return this.packageService.list_of_packages_sales_income_plan();
   }
 
   @Get("pdf/Report2")
   async downloadPDFReport2(@Res() res): Promise<void> {
-    const buffer =
-      await this.reportsService.generateListOfPackagesIncomePlanPDF();
+
+    const buffer = await this.reportsService.generateListOfPackagesIncomePlanPDF();
+
     try {
       res.set({
         "Content-Type": "application/pdf",
@@ -55,9 +56,10 @@ export class ReportsController {
   //Reporte 3
   @Get("pdf/Report3")
   async downloadPDFReport3(@Res() res): Promise<void> {
+    
+    const buffer = await this.reportsService.generateListOfPackagesItineraryPDF();
+
     try {
-      const buffer =
-        await this.reportsService.generateListOfPackagesItineraryPDF();
       res.set({
         "Content-Type": "application/pdf",
         "Content-Disposition": "attachment; filename= packageItinerary.pdf",
@@ -81,7 +83,7 @@ export class ReportsController {
 
       res.set({
         "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment; filename= inactiveHotels.pdf",
+        "Content-Disposition": "attachment; filename= activeHotels.pdf",
       });
       res.send(buffer);
     } catch (error) {
