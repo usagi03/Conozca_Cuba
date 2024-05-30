@@ -33,9 +33,12 @@
         </thead>
         <tbody>
             <tr class="bg-white border-b  hover:bg-indigo-100" v-for="(items, index) in filteredData" :key="items">
-                <td v-for="item in items" :key="item" class="px-6 py-4">
+              <template v-for="(item, key) in items" :key="key">
+                <td  v-if="!key.startsWith('id', 0)" class="px-6 py-4">
                     {{ item }}
                 </td>
+              </template>  
+                
                 <td class="px-6 py-4">
                     <div class="relative flex">
                         <div class="px-3">
