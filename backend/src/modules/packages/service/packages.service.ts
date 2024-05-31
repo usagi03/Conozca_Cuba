@@ -24,8 +24,19 @@ export class PackagesService {
     private readonly contractRepository: Repository<Contract>
   ) {}
 
-  async getPackages(): Promise<Package[]> {
-    return await this.packageRepository.find({ relations: ["contract"] });
+  async getPackages() {
+    const packages = await this.packageRepository.find({ relations: ["contract"] });
+    const costs = await this.listOfPaackagesCosts();
+  
+    const enhancedPackages = await Promise.all(packages.map(async (pack) => {
+      const packCost = costs.find(cost => cost.id_package === pack.id_package); 
+      return {
+       ...pack,
+        total_package_cost: packCost.package_cost,
+      };
+    }));
+  
+    return enhancedPackages;
   }
 
   async getPackage(id: number): Promise<Package> {
@@ -90,6 +101,22 @@ export class PackagesService {
     }
 
     return contractEntity;
+  }
+
+  async listOfPaackagesCosts(): Promise<
+    Array<{
+      id_package: number;
+      package_cost: number;
+    }> > {
+    const queryBuilder = this.packageRepository.createQueryBuilder("p");
+
+    queryBuilder
+      .select([
+        "p.id_package AS id_package",
+        "total_package_cost(p.id_package) AS package_cost"
+      ]);
+
+    return await queryBuilder.getRawMany();
   }
 
   //Reporte 7
