@@ -52,7 +52,7 @@ const router = createRouter({
       component: UsersView,
       meta: {
         requiredAuth: true,
-        role:'admin,gerente,agente de ventas,cliente'
+        role: 'admin,gerente,agente de ventas,cliente'
       }
     },
     {
@@ -124,7 +124,7 @@ const router = createRouter({
       component: Km_hView,
       meta: {
         requiredAuth: true,
-        role:'admin,gerente,agente de ventas,cliente'
+        role: 'admin,gerente,agente de ventas,cliente'
       }
     },
     {
@@ -142,7 +142,7 @@ const router = createRouter({
       component: ContractView,
       meta: {
         requiredAuth: true,
-        role:'admin,gerente,agente de ventas,cliente'
+        role: 'admin,gerente,agente de ventas,cliente'
       }
     },
     {
@@ -151,7 +151,7 @@ const router = createRouter({
       component: MealPlanView,
       meta: {
         requiredAuth: true,
-        role:'admin,gerente,agente de ventas,cliente'
+        role: 'admin,gerente,agente de ventas,cliente'
       }
     }
   ]
@@ -160,14 +160,13 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const auth = useAuthStore()
   const needAuth = to.meta.requiredAuth
-  const role = to.meta.role.split(',')
+  const allowedRoles = to.meta.role.split(',')
 
-  if (needAuth && !auth.token && ) {
+  if (needAuth && !auth.token) {
     next('Login')
-  }else if(needAuth &&!allowedRoles.includes(auth.role)){
+  } else if (needAuth && !allowedRoles.includes(auth.role)) {
     next('Login')
-  }
-   else {
+  } else {
     next()
   }
 })
