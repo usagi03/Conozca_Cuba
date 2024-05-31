@@ -77,7 +77,7 @@ import Validation from '@/assets/validation';
           if(element.id_contract === newObject.id){
             console.log(element)
             this.edit = {
-              "id": element.id_contracts,
+              "id": element.id_contract,
               "start_contract": this.date.convertDateFormat(element.start_contract),
               "end_contract": this.date.convertDateFormat(element.end_contract),
               "resolution_contract": this.date.convertDateFormat(element.resolution_contract),
@@ -107,7 +107,7 @@ import Validation from '@/assets/validation';
             this.store.errorResolution_contract = v.validRequiered(object.resolution_contract)
             this.store.errorDescription_contract = v.validRequiered(object.description_contract)
             this.store.errorTransportation = v.validRequiered(object.id_transportation)
-            this.store.errorAcommodation = v.validRequiered(object.id_housing)
+            this.store.errorAcommodation = v.validRequiered(object.id_acommodation)
             this.store.errorActivity = v.validRequiered(object.id_activity)
              
             if(this.store.errorStart_contract === '' && this.store.errorActivity  === '' &&
@@ -159,11 +159,11 @@ import Validation from '@/assets/validation';
               "end_contract": this.edit.end_contract,
               "resolution_contract": this.edit.resolution_contract,
               "description_contract": this.edit.description_contract,
-              "id_housing": this.edit.id_acommodation,
-              "id_activity": this.edit.id_activity,
-              "id_transportation": this.edit.id_transportation,
+              "acommodation": this.edit.id_acommodation,
+              "activity": this.edit.id_activity,
+              "transportation": this.edit.id_transportation,
             }
-            console.log(hotel);
+            console.log(hotel.acommodation);
             await post.post(hotel, 'http://localhost:3080/contracts');
           this.getContracts()
           },
@@ -174,10 +174,11 @@ import Validation from '@/assets/validation';
               "end_contract": data.end_contract,
               "resolution_contract": data.resolution_contract,
               "description_contract": data.description_contract,
-              "id_housing": data.id_acommodation,
-              "id_activity": data.id_activity,
-              "id_transportation": data.id_transportation,
+              "acommodation": data.id_acommodation,
+              "activity": data.id_activity,
+              "transportation": data.id_transportation,
             }
+            console.log(data.id)
             await patch.patch(user,'http://localhost:3080/contracts/', data.id)
             this.getContracts()
           },

@@ -10,8 +10,6 @@
          
         }
       },
-      methods:{
-          
-      },
+  
  }
 </script>

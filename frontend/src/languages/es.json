@@ -167,9 +167,17 @@
         "title": "Plan Alimenticio",
         "table":{
           "plan_type": "Tipo de plan",
-          "plan_cost": "Costo del plan"  
+          "plan_cost": "Costo del plan"
         }
         
+    },
+    "housing":{
+        "title": "Alojamientos",
+        "table":{
+            "hotel":"Hotel",
+            "season":"Temporada",
+            "room":"Habitación"  
+        }
     },
     "errors":{
         "required": "Este campo es requerido",

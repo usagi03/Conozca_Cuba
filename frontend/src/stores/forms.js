@@ -1,9 +1,11 @@
 
 import { defineStore } from 'pinia'
+import { useI18n } from 'vue-i18n';
 
 export const useFormsStore = defineStore('forms', {
  state: () => ({
     position: -1,
+    lang: 'es',
     user:{
       errorUser: '',
       errorPass: '',
@@ -104,17 +106,23 @@ export const useFormsStore = defineStore('forms', {
       },
 
  }),
-
+ persist: {
+  storage:localStorage,
+  paths: ['lang']
+ },
  getters: {
-    
+    get(){
+      return this.lang
+    }
  },
 
  actions: {
     isUpdate(index){
       this.position = index;
     },
-    setLocale(l){
-      this.lang = l;
+    setLocale(lang){
+      this.lang = lang;
+      useI18n().locale.value = this.lang
     }
  }
 

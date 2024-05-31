@@ -27,25 +27,36 @@
       }"
       style="min-width: 8rem"
     >
-    <span class="text-sm py-2 px-10 font-normal block w-full whitespace-nowrap bg-transparent ">
-      username
+    <span class="text-sm py-2 px-10 font-normal text-center block w-full whitespace-nowrap bg-transparent ">
+      {{ store.username }} 
     </span>
+    <span class="text-sm py-2 px-10 font-normal block w-full whitespace-nowrap bg-transparent ">
+     {{ store.role }} 
+    </span>
+    
     <hr class="mx-4 " />
-      <a
-        href="#pablo"
-        class="text-sm py-2 px-4 font-normal flex w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
+      <button
+        class="text-sm text-center py-2 px-4 font-normal flex w-full whitespace-nowrap bg-transparent text-blueGray-700"
+      @click="cerrarSesion()"
+        >
       {{ $t('dashboard.exit') }}
         <LogoutIcon/>
-      </a>
+      </button>
     </div>
   </div>
 </template>
 <script>
 import { createPopper } from "@popperjs/core";
 import LogoutIcon from "../icons/LogoutIcon.vue";
+import { useAuthStore } from "@/stores/auth";
 
 export default {
+  setup(){
+    const store = useAuthStore();
+    return{
+      store,
+    }
+  },
     data() {
         return {
             dropdownPopoverShow: false
@@ -63,6 +74,10 @@ export default {
                     placement: "bottom-end"
                 });
             }
+        },
+        cerrarSesion(){
+          this.store.clearToken(),
+          this.$router.push({name: 'Login'})
         }
     },
     components: { LogoutIcon }

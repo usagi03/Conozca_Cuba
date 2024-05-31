@@ -37,12 +37,19 @@
 </div>
 </template>
 <script>
+import { useFormsStore } from '@/stores/forms';
 import DownIcon from '../icons/DownIcon.vue';
 import WorldIcon from '../icons/WorldIcon.vue';
 
 import { createPopper } from "@popperjs/core";
 
 export default {
+  setup(){
+           const store = useFormsStore();
+           return{
+             store,
+            }
+        },
   data() {
     return {
       dropdownPopoverShow: false

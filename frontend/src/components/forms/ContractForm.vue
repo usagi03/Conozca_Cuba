@@ -36,7 +36,7 @@
         
         <div class="mb-4">
           <label  class="block text-gray-700 text-sm font-bold mb-3">{{$t('contracts.table.housing')}}</label>
-          <select class="shadow overflow-x-auto appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  size="5" v-model="newObject.id_housing" >
+          <select class="shadow overflow-x-auto appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  size="5" v-model="newObject.id_acommodation" >
           <template v-for="(item, key) in this.itemsHousing" :key="key">
             <option v-if="key != 'id'" :value="item.id" >{{ item.info }}</option>
           </template>
@@ -81,7 +81,7 @@ import { useFormsStore } from '@/stores/forms';
               end_contract: '',
               resolution_contract: '',
               description_contract: '',
-                id_housing: 0,
+                id_acommodation: 0,
                 id_transportation: 0,
                 id_activity: 0,
             },

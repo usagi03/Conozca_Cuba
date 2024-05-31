@@ -159,6 +159,14 @@
              "description": "Description"
          }
     },
+    "housing":{
+        "title": "Acommodations",
+        "table":{
+            "hotel":"Hotel",
+            "season":"Season",
+            "room":"Room"  
+        }
+    },
     "vehicles" : {
         "title": "Vehicles",
          "table": {

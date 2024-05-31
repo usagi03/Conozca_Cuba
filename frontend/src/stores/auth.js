@@ -8,12 +8,18 @@ export const useAuthStore = defineStore('auth', {
     role: '',
     username: ''
   }),
-
+  persist: {
+    storage: sessionStorage,
+    paths: ['token','role','username']
+  },
   getters: {},
 
   actions: {
     isActive() {
       this.isAuth = true
+    },
+   clearToken(){
+    this.token = '';
+   }
     }
-  }
 })

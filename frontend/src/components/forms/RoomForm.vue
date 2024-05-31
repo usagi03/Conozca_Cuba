@@ -12,12 +12,14 @@
           <span class="text-red-600 font-sans text-sm">{{ store.errorType }}</span>
         </div> 
         <div class="mb-4 col-span-4">
-          <label for="newObjectMealPlan" class="block text-gray-700 text-sm font-bold mb-2">{{$t('rooms.table.meal_plan')}}</label>
-          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectMealPlan" v-model="newObject.plan">
-            <option value="Solo desayuno">Solo desayuno</option>
-            <option value="Todo incluído">Almuerzo-Cena</option>
-            <option value="Solo alojamiento">Solo alojamiento</option>
+          <label for="newObjectName" class="block text-gray-700 text-sm font-bold mb-2">{{$t('rooms.table.meal_plan')}}</label>
+          <select class="shadow overflow-x-auto appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectName"  v-model="newObject.id_contract" >
+          <template v-for="(item, key) in this.itemsPlan" :key="key">
+            <option :value="item.plan" >{{ item.plan }}</option>
+          </template>
+            
           </select>
+          
           <span class="text-red-600 font-sans text-sm">{{ store.errorMeal }}</span>
         </div>
         <div class="mb-4 col-span-2">
@@ -40,7 +42,8 @@
     </div> 
     </template>
     <script>
-    import { useFormsStore } from '@/stores/forms';
+    import Servicies from '@/services/Servicies';
+import { useFormsStore } from '@/stores/forms';
        export default{
         props:{
           editObject: Object,
@@ -62,6 +65,7 @@
                room_surcharge: 0,
               plan: '',
             },
+            itemsPlan:[]
           }
         },
     
@@ -69,7 +73,20 @@
           value(){
             console.log(this.newObject)
             this.$emit('value', this.newObject);
-          }
+          },
+          getPlan: async function(){
+            try {
+              const getPlan = new Servicies();
+              const res = await getPlan.get('http://localhost:3080/meal_plans');
+              this.itemsPlan = res.map(element => {
+            return {
+              "plan": element.plan_type,
+            }
+           });
+            } catch (error) {
+            console.error("Error fetching users:", error);
+           }
+          },
         },
        
         mounted(){
@@ -77,6 +94,7 @@
           this.newObject = this.editObject;
         }
         this.value();
+        this.getPlan()
         }
     }
     </script>

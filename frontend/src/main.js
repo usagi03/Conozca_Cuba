@@ -3,24 +3,28 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import './style.css'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate' 
 import { createI18n } from "vue-i18n";
 import es from "@/languages/es.json";
 import en from "@/languages/en.json";
-import {useFormsStore} from './stores/forms';
 
 const app = createApp(App)
 
-app.use(createPinia())
-const store = useFormsStore()
+
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+app.use(pinia)
 
 const i18n = createI18n({
-    locale: store.lang,
+    locale: 'es',
     fallbackLocale: 'en',
     messages: {
-        es: es,
-        en: en
+        es,
+        en
     }
 })
+
+
 app.use(i18n)
 app.use(router)
 

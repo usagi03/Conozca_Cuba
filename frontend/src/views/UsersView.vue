@@ -16,6 +16,7 @@
   import UsersForm from '@/components/forms/UsersForm.vue';
 import Validation from '@/assets/validation';
 import Servicies from '@/services/Servicies'
+import { useAuthStore } from '@/stores/auth';
   export default{
     components:{
       DataTable,
@@ -23,8 +24,10 @@ import Servicies from '@/services/Servicies'
   },
     setup(){
          const store = useFormsStore();
+         const user = useAuthStore();
          return{
            store,
+           user
           }
         },
     data(){
@@ -122,14 +125,17 @@ import Servicies from '@/services/Servicies'
               const getUsers = new Servicies();
               this.allData = await getUsers.get('http://localhost:3080/users');
               
+    
               this.data = this.allData.map(element => {
-            return {
+                 return {
               "id": element.id_user,
               "user_name": element.user_name,
               "role": element.role.name_role    
-            }
-             
+            
+                }
+ 
            });
+          this.data = this.data.filter(element => element.user_name !== this.user.username)
            console.log(this.data); 
             } catch (error) {
             console.error("Error fetching users:", error);

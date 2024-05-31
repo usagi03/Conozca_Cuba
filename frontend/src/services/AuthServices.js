@@ -18,7 +18,7 @@ export default class AuthService {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 username: username,
@@ -34,10 +34,10 @@ export default class AuthService {
             this.error = 'Login Failed'
             return false;
            } else {
-            this.jwt = response;
-            store.token = response.token;
+            this.jwt = response.token;
+            store.token = response.token
             store.username = response.username;
-            store.role = response.rol;
+            store.role = response.role;
             console.log(store.token)
             return true
            }

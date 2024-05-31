@@ -127,6 +127,9 @@ export default{
         } 
       } 
     }
+  },
+  mounted(){
+    this.store.clearToken()
   }
 }
 </script>

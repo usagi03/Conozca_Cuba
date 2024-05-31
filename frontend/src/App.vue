@@ -1,6 +1,6 @@
 <template>
   <div v-if="this.$route.name != 'Login'">
-    <Dashboard @changeLang="changeLang">
+    <Dashboard>
         <main>
          <div >
         <RouterView />
@@ -20,18 +20,5 @@ export default {
     RouterView,
     Dashboard
   },
-  data(){
-    return{
-      lang: 'es'
-    }
-  },
-  mounted(){
-     this.$i18n.locale = this.lang
-  },
-  methods:{
-    changeLang(lang){
-      this.lang = lang;
-    }
-  }
 }
 </script>

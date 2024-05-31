@@ -15,6 +15,7 @@ import RutaView from '@/views/RouteView.vue'
 import ContractView from '@/views/ContractView.vue'
 import MealPlanView from '@/views/MealPlanView.vue'
 import { useAuthStore } from '@/stores/auth.js'
+import AcommodationsView from '@/views/AcommodationsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,7 +26,7 @@ const router = createRouter({
       component: LogInView,
       meta: {
         requiredAuth: false,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador,Gerente,Agente de ventas'
       }
     },
     {
@@ -33,7 +34,7 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       meta: {
-        requiredAuth: false,
+        requiredAuth: true,
         role: 'admin,gerente,agente de ventas,cliente'
       }
     },
@@ -52,7 +53,7 @@ const router = createRouter({
       component: UsersView,
       meta: {
         requiredAuth: true,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador'
       }
     },
     {
@@ -61,7 +62,7 @@ const router = createRouter({
       component: DailyActivitiesView,
       meta: {
         requiredAuth: true,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador,Gerente,Agente de ventas'
       }
     },
     {
@@ -70,7 +71,7 @@ const router = createRouter({
       component: HotelView,
       meta: {
         requiredAuth: true,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador,Gerente,Agente de ventas'
       }
     },
     {
@@ -79,7 +80,7 @@ const router = createRouter({
       component: RoomView,
       meta: {
         requiredAuth: true,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador,Gerente,Agente de ventas'
       }
     },
     {
@@ -88,7 +89,7 @@ const router = createRouter({
       component: SeasonView,
       meta: {
         requiredAuth: true,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador,Gerente,Agente de ventas'
       }
     },
     {
@@ -97,7 +98,7 @@ const router = createRouter({
       component: VehiclesView,
       meta: {
         requiredAuth: true,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador,Gerente,Agente de ventas'
       }
     },
     {
@@ -106,7 +107,7 @@ const router = createRouter({
       component: PackagesView,
       meta: {
         requiredAuth: true,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador,Gerente,Agente de ventas'
       }
     },
     {
@@ -115,7 +116,7 @@ const router = createRouter({
       component: KmView,
       meta: {
         requiredAuth: true,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador,Gerente,Agente de ventas'
       }
     },
     {
@@ -124,7 +125,7 @@ const router = createRouter({
       component: Km_hView,
       meta: {
         requiredAuth: true,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador,Gerente,Agente de ventas'
       }
     },
     {
@@ -133,7 +134,7 @@ const router = createRouter({
       component: RutaView,
       meta: {
         requiredAuth: true,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador,Gerente,Agente de ventas'
       }
     },
     {
@@ -142,7 +143,7 @@ const router = createRouter({
       component: ContractView,
       meta: {
         requiredAuth: true,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador,Gerente,Agente de ventas'
       }
     },
     {
@@ -151,7 +152,16 @@ const router = createRouter({
       component: MealPlanView,
       meta: {
         requiredAuth: true,
-        role: 'admin,gerente,agente de ventas,cliente'
+        role: 'Administrador,Gerente,Agente de ventas'
+      }
+    },
+    {
+      patch: '/alojamientos',
+      name: 'alojamientos',
+      component: AcommodationsView,
+      meta: {
+        requiredAuth: true,
+        role: 'Administrador,Gerente,Agente de ventas'
       }
     }
   ]
@@ -160,13 +170,13 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const auth = useAuthStore()
   const needAuth = to.meta.requiredAuth
-  const allowedRoles = to.meta.role.split(',')
-
-  if (needAuth && !auth.token) {
-    next('Login')
-  } else if (needAuth && !allowedRoles.includes(auth.role)) {
-    next('Login')
+  //const allowedRoles = to.meta.role.split(',')
+  console.log(auth.token);
+  if (needAuth && auth.token === '') {
+    console.log('aqui')
+    next('/')
   } else {
+    console.log("aculla")
     next()
   }
 })

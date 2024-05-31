@@ -37,7 +37,7 @@
             > 
             </div>
           </li>
-          <li class="items-center">
+          <li v-if="store.role === 'Administrador'" class="items-center">
             <div class="hover:border-indigo-300 bg-transparent hover:border-2 rounded-3xl h-10">
              <a
               class="inline-flex items-center font-semibold leading-6 text-white hover:text-gray-300 text-lg py-1"
@@ -94,6 +94,13 @@
                       {{ $t('rooms.title') }}
                     </a>
                   </li>
+                  <li
+                    class="px-2 py-1 transition-colors duration-150"
+                  >
+                    <a class="w-full" href="/mealplans">
+                      {{ $t('mealplan.title') }}
+                    </a>
+                  </li>
                 </ul>
               </template>
           </li>
@@ -121,27 +128,7 @@
                   class="p-2 mt-2 mb-2 space-y-2 overflow-hidden text-sm font-medium text-white rounded-md shadow-inner bg-indigo-500 "
                   aria-label="submenu"
                 >
-                  <li
-                    class="px-2 py-1 transition-colors duration-150"
-                  >
-                    <a class="w-full" href="/km_cost">
-                      {{ $t('km.title') }}
-                    </a>
-                  </li>
-                  <li
-                    class="px-2 py-1 transition-colors duration-150"
-                  >
-                    <a class="w-full" href="/hours_cost">
-                      {{ $t('km/h.title') }}
-                    </a>
-                  </li>
-                  <li
-                    class="px-2 py-1 transition-colors duration-150"
-                  >
-                    <a class="w-full" href="/route_cost">
-                      {{ $t('route.title') }}
-                    </a>
-                  </li>
+                  
                   <li
                     class="px-2 py-1 transition-colors duration-150"
                   >
@@ -202,9 +189,16 @@ import HotelIcon from '../icons/HotelIcon.vue';
 import PkyIcon from '../icons/PkyIcon.vue';
 import UsersIcon from '../icons/UsersIcon.vue';
 import TopIcon from '../icons/TopIcon.vue';
+import { useAuthStore } from '@/stores/auth';
 
 
 export default {
+  setup(){
+    const store = useAuthStore();
+    return{
+      store,
+    }
+  },
   data() {
     return {
       collapseShow: "hidden",

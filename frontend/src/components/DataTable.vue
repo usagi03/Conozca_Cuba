@@ -10,17 +10,13 @@
             </div>
             <input type="text" v-model="searchQuery" id="table-search" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500" :placeholder="$t('data_table.search')">
         </div>
-        <div class="relative" >
+        <div v-if="permisions()" class="relative" >
             <button @click="openModalAdd" class="w-full inline-flex items-center text-white bg-green-600 border border-transparent shadow-sm focus:outline-none hover:bg-green-700 font-medium rounded-md text-base px-3 py-1.5 focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm " 
             type="button"> 
             <AddIcon/>
             {{ $t('data_table.addNew') }}
           </button>
-          <button @click="exportModal = true" class="w-full inline-flex items-center text-white bg-indigo-600 border border-transparent shadow-sm focus:outline-none hover:bg-indigo-700 font-medium rounded-md text-base px-3 py-1.5 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm " 
-            type="button"> 
-            <DownloadIcon/>
-            {{ $t('data_table.export') }}
-          </button>
+          
         </div>
     </div>
     <div class="relative overflow-x-auto max-h-100 border sm:rounded-xl shadow-md">
@@ -39,7 +35,7 @@
                 </td>
               </template>  
                 
-                <td class="px-6 py-4">
+                <td class="px-6 py-4" v-if="permisions()">
                     <div class="relative flex">
                         <div class="px-3">
                            <EditIcon @click="editObject(index)"/>  
@@ -96,8 +92,9 @@ import EditIcon from './icons/EditIcon.vue';
 import DeleteIcon from './icons/DeleteIcon.vue';
 import {useFormsStore} from '@/stores/forms.js';
 import ConfirmDelete from '@/components/ConfirmDelete.vue';
-import DownloadIcon from './icons/DownloadIcon.vue';
+
 import ExportModal from './ExportModal.vue';
+import { useAuthStore } from '@/stores/auth';
 
     export default {
         components:{
@@ -106,13 +103,14 @@ import ExportModal from './ExportModal.vue';
     EditIcon,
     DeleteIcon,
     ConfirmDelete,
-    DownloadIcon,
     ExportModal
 },
         setup(){
        const store = useFormsStore();
+       const user = useAuthStore()
        return{
          store,
+         user
         }
       },
         props:{
@@ -175,8 +173,21 @@ import ExportModal from './ExportModal.vue';
            this.newObject = newObject;
            console.log(this.newObject)
           },
-          exportData(){
+          permisions(){
+            let ok = false;
+            if (this.user.role === 'Administrador'){
+              ok=true
+            } else if(this.user.role === 'Agente de ventas'){
+              if(this.$route.name === 'paquetes' 
+            || this.$route.name === 'contratos'){
+              ok = true;
+            } 
+            }
+           
             
+            
+            
+            return ok;
           }
         }
     }
