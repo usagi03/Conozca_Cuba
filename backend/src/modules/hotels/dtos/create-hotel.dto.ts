@@ -47,5 +47,5 @@ export class CreateHotelDto {
     location_hotel: string;
 
     @IsBoolean()
-    is_active: boolean = false;
+    is_active: boolean;
 }
