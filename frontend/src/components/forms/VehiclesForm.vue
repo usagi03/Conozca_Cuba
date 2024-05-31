@@ -13,7 +13,7 @@
         </div>
         <div class="mb-4">
           <label for="newObjectYear" class="block text-gray-700 text-sm font-bold mb-2">{{$t('vehicles.table.year')}}</label>
-          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectYear" v-model="newObject.year_build"> 
+          <input type="year" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectYear" v-model="newObject.year_build"> 
           <span class="text-red-600 font-sans text-sm">{{ store.errorYear_build }}</span>
         </div> 
         <div class="mb-4">

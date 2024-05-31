@@ -3,7 +3,7 @@
      <h1 class="header">{{this.$t('seasons.title')}}</h1> 
     </div>
     <DataTable :data="data" :showModal="showModal" @openModal="openModal"
-    :headers="[this.$t('seasons.table.name'),this.$t('seasons.table.dateStart'), this.$t('seasons.table.dateEnd')]" 
+    :headers="[this.$t('seasons.table.name'),this.$t('seasons.table.dateStart'), this.$t('seasons.table.description'), this.$t('seasons.table.dateEnd')]" 
     @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit" 
     @closeAddEdit="close"
     >
@@ -32,10 +32,12 @@ import Servicies from '@/services/Servicies';
     data(){
       return{
         edit: {},
-        headers: ['Nombre', 'Fecha Inicio', 'Fecha Fin'],
+        //headers: ['Nombre', 'Fecha Inicio', 'Fecha Fin'],
         data: [],
         showModal: false,
-        active: false
+        active: false,
+        allData: [],
+        exists: true
       }
     },
     methods:{
@@ -48,12 +50,12 @@ import Servicies from '@/services/Servicies';
           console.log(this.store.position)
           if(this.store.position === -1){
             this.postSeasons()
-            this.data.push(this.edit);
+            //this.data.push(this.edit);
           this.showModal = false;
           this.active = false;
         } else {
           console.log(newObject)
-          this.data.splice(this.store.position, 1, newObject)
+          //this.data.splice(this.store.position, 1, newObject)
           this.patchSeasons(newObject, this.store.position)
           this.showModal = false;
           this.store.isUpdate(-1);
@@ -62,10 +64,7 @@ import Servicies from '@/services/Servicies';
       },
       deleteElement(newObject){
         console.log(newObject)
-        const index = this.data.indexOf(newObject);
         this.deleteSeasons(newObject)
-        console.log(index);
-        this.data.splice(index, 1);
       },
       obtenerEdit(newObject){
         this.edit = newObject
@@ -87,8 +86,17 @@ import Servicies from '@/services/Servicies';
             this.store.errorEnd_season = v.validRequiered(object.end_season)
             this.store.errorDescription = v.validRequiered(object.description_season)
 
+            this.allData.map(element => {
+              if(this.edit.name_season === element.name_season){
+                alert('La temporada ya existe');
+                this.exists = true;
+              } else{
+                this.exists = false;
+              }
+            });
+
             if(this.store.errorName_season === '' && this.store.errorStart_season === '' && 
-            this.store.errorEnd_season === '' && this.store.errorDescription === ''){
+            this.store.errorEnd_season === '' && this.store.errorDescription === '' && this.exists === false){
               ok = true;
             }
             console.log(ok)
@@ -103,19 +111,19 @@ import Servicies from '@/services/Servicies';
           getSeasons: async function(){
             try {
               const getSeasons = new Servicies();
-              const res = await getSeasons.get('http://localhost:3080/seasons');
-              console.log(this.data);
-              res.map(element => {
-            const season = {
+              this.allData = await getSeasons.get('http://localhost:3080/seasons');
               
+              this.data = this.allData.map(element => {
+            return {
               
-              "name_season": element.name_hotel,
+              "id": element.id_season,
+              "name_season": element.name_season,
+              "description_season": element.description_season,
               "start_season": element.start_season,
               "end_season": element.end_season,
               
                 
             }
-              this.data.push(season)
            });
             } catch (error) {
             console.error("Error fetching users:", error);
@@ -124,46 +132,33 @@ import Servicies from '@/services/Servicies';
           postSeasons: async function(){
             const postSeasons = new Servicies();
             const hotel = {
-              "name_season": this.edit.name_hotel,
+              "name_season": this.edit.name_season,
               "start_season": this.edit.start_season,
               "end_season": this.edit.end_season,
               "description_season": this.edit.description_season
             }
             console.log(hotel);
-            postSeasons.post(hotel, 'http://localhost:3080/seasons');
+            await postSeasons.post(hotel, 'http://localhost:3080/seasons');
+          this.getSeasons()
           },
-          patchSeasons: async function(data, index){
+          patchSeasons: async function(data){
             const patchSeasons = new Servicies();
-            const res = await patchSeasons.get('http://localhost:3080/seasons');
-            let id = '';
-            let count = -1;
-            res.map(element => {
-             count++
-              if(index === count) {
-                id = element.id_hotel;
-                console.log(element.id_hotel)
-              }
-              
-           });
-           console.log(id)
+            await patchSeasons.get('http://localhost:3080/seasons');
+            
            const user = {
             "name_season": data.name_hotel,
               "start_season": data.start_season,
               "end_season": data.end_season,
               "description_season": data.description_season
             }
-            patchSeasons.patch(user,'http://localhost:3080/seasons/', id)
+            await patchSeasons.patch(user,'http://localhost:3080/seasons/', data.id)
+          this.getSeasons()
           },
           deleteSeasons: async function(data){
             const deleteSeasons = new Servicies();
-            const res = await deleteSeasons.get('http://localhost:3080/seasons');
-            let id = '';
-            res.map(element => {
-              if(element.name_hotel === data.name_hotel) {
-                id = element.id_hotel;
-              }
-           });
-           deleteSeasons.delete('http://localhost:3080/seasons/',id)
+            
+           await deleteSeasons.delete('http://localhost:3080/seasons/',data.id)
+          this.getSeasons()
           }
     },
     mounted(){

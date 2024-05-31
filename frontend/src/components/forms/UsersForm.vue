@@ -13,7 +13,7 @@
         </div>
         <div class="mb-4">
           <label for="newObjectRol" class="block text-gray-700 text-sm font-bold mb-2">{{ $t('users.table.role') }}</label>
-          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectRol" v-model="newObject.nombre_role">
+          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectRol" v-model="newObject.role">
             <option value="Administrador">Administrador</option>
             <option value="Agente de ventas">Agente de ventas</option>
             <option value="Gerente">Gerente</option>
@@ -25,7 +25,6 @@
     </template>
     <script>
     import { useFormsStore } from '@/stores/forms';
-    import Validation from '@/assets/validation';
        export default{
         props:{
           editObject: Object,
@@ -41,9 +40,10 @@
         data() {
           return {
             newObject:{
+                id: '',
                 user_name: '',
                 user_password: '',
-                nombre_role: ''
+                role: ''
             },
             errorUser: '',
             errorPass: '',
@@ -56,20 +56,7 @@
             console.log(this.newObject)
             this.$emit('value', this.newObject);
           },
-          valid(){
-            const v = new Validation()
-            let ok = false;
-            this.errorUser = v.validRequiered(this.name);
-            this.errorPass = v.validRequiered(this.password);
-            this.errorRol = v.validRequiered(this.rol);
-            if(!this.errorUser && !this.errorPass && !this.errorRol){
-              ok = true;
-            }
-            
-            this.$emit('valid', ok);
-            console.log(ok)
-            return ok; 
-          }
+          
         },
        
         mounted(){

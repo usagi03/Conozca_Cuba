@@ -38,9 +38,9 @@
               "dateEnd": "End Date",
               "dateConc": "Conciliation Date",
               "description": "Description",
-              "activitie": "No. Activity",
-              "housing": "No. Accommodation",
-              "transport": "No. Transportation"
+              "activitie": "Activity",
+              "housing": "Accommodation",
+              "transport": "Transportation"
         }
     },
     "dailyActivities" : {
@@ -132,11 +132,12 @@
              "days": "# of Days",
              "nights": "# of Nights",
              "persons": "# of People",
-             "hotel_cost": "$Total Hotel",
-             "hotel_travel": "$ Trip Hotel - Airport",
-             "transport": "$Transport",
-             "package": "$ Total Package",
-             "profit": "% of Profit"
+             "travel_cost": "Travel Cost",
+             "hotel": "Hotel",
+             "transport": "Vehicle",
+             "activity": "Activity",
+             "profit": "% of Profit",
+             "contract": "Select a contract"
         }
     },
     "rooms" : {

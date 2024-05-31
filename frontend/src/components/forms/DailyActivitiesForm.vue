@@ -3,37 +3,37 @@
      <form class="grid grid-cols-3 gap-4 w-800 h-96">
         <div class="mb-4 ">
           <label for="newObjectType" class="label">{{$t('dailyActivities.table.type')}}</label>
-          <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectType" v-model="newObject.type" >
+          <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectType" v-model="newObject.type_activity" >
           <span class="text-red-600 font-sans text-sm">{{ store.errorType_activity }}</span>
         </div>
         <div class="mb-4">
           <label for="newObjectDay" class="label">{{$t('dailyActivities.table.day')}}</label>
-          <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectDay" v-model="newObject.day" >
+          <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectDay" v-model="newObject.day_activity" >
           <span class="text-red-600 font-sans text-sm">{{ store.errorDay_activity }}</span>
         </div>
         <div class="mb-4">
           <label for="newObjectTime" class="block text-gray-700 text-sm font-bold mb-2">{{$t('dailyActivities.table.time')}}</label>
-          <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectTime" v-model="newObject.time"> 
+          <input type="time" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectTime" v-model="newObject.time_activity"> 
           <span class="text-red-600 font-sans text-sm">{{ store.errorTime_activity }}</span>
         </div> 
         <div class="mb-4">
           <label for="newObjectProvince" class="block text-gray-700 text-sm font-bold mb-2">{{$t('dailyActivities.table.province')}}</label>
-          <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectProvince" v-model="newObject.province"> 
+          <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectProvince" v-model="newObject.province_activity"> 
           <span class="text-red-600 font-sans text-sm">{{ store.errorProvince_activity }}</span>
         </div> 
         <div class="mb-4">
           <label for="newObjectCost" class="block text-gray-700 text-sm font-bold mb-2">{{$t('dailyActivities.table.cost')}}</label>
-          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectCost" v-model="newObject.cost"> 
+          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectCost" v-model="newObject.cost_activity"> 
           <span class="text-red-600 font-sans text-sm">{{ store.erroCost_activity }}</span>
         </div> 
         <div class="mb-4">
           <label for="newObjectRecarg" class="block text-gray-700 text-sm font-bold mb-2">{{$t('dailyActivities.table.recar')}}</label>
-          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectRecarg" v-model="newObject.recarg"> 
+          <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectRecarg" v-model="newObject.surcharge_activity"> 
           <span class="text-red-600 font-sans text-sm">{{ store.errorSurcharge_activity }}</span>
         </div> 
         <div class="mb-4 col-span-3">
           <label for="newObjectDescription" class="block text-gray-700 text-sm font-bold mb-2">{{$t('dailyActivities.table.description')}}</label>
-          <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectDescription" v-model="newObject.description"></textarea>
+          <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newObjectDescription" v-model="newObject.description_activity"></textarea>
           <span class="text-red-600 font-sans text-sm">{{ store.errorDescription_activity }}</span>
         </div> 
      </form>

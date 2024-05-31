@@ -94,14 +94,14 @@ export const useFormsStore = defineStore('forms', {
         errorHotel: ''
       },
       packages:{
-        eroroPromotional_name: '"PRUEBA"',
-    "days_count": 3,
-    "nights_count": 2,
-    "pax_count": 4,
-    "hotel_airport_ride_cost": 25,
-    "percent_profit": 10,
-    "contract": 4
-      }
+        errorPromotional_name: '',
+        errorDays_count: '',
+        errorNights_count: '',
+        errorPax_count: '',
+        errorHotel_airport_ride_cost: '',
+        errorPercent_profit: '',
+        errorContract: ''
+      },
 
  }),
 

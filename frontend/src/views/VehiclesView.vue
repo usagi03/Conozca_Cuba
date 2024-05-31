@@ -3,7 +3,7 @@
      <h1 class="header">{{this.$t('vehicles.title')}}</h1> 
     </div>
     <DataTable :data="data" :showModal="showModal" @openModal="openModal"
-     :headers="[this.$t('vehicles.table.plate'),this.$t('vehicles.table.brand'),this.$t('vehicles.table.year'),this.$t('vehicles.table.luggage_capacity'), this.$t('vehicles.table.luggage_without'),this.$t('vehicles.table.total')]"
+     :headers="[this.$t('vehicles.table.plate'),this.$t('vehicles.table.brand'),this.$t('vehicles.table.luggage_capacity'), this.$t('vehicles.table.luggage_without'),this.$t('vehicles.table.total'), this.$t('vehicles.table.year')]"
     @add-new-object="addNewObject" @confirm="deleteElement" @valueEdit="obtenerEdit"
     @closeAddEdit="close"
     >
@@ -35,7 +35,8 @@ import Servicies from '@/services/Servicies';
         //headers: ['Matrícula', 'Marca', 'Año', 'Capacidad Equipaje', 'Capacidad Sin Equipaje', 'Capacidad Total'],
         data: [],
         showModal: false,
-        active: false
+        allData: [],
+        exists: false
       }
     },
     methods:{
@@ -62,10 +63,7 @@ import Servicies from '@/services/Servicies';
       },
       deleteElement(newObject){
         console.log(newObject)
-        const index = this.data.indexOf(newObject);
-        //this.deleteVehicles(newObject)
-        console.log(index);
-        this.data.splice(index, 1);
+        this.deleteVehicles(newObject)
       },
       obtenerEdit(newObject){
         this.edit = newObject
@@ -88,10 +86,17 @@ import Servicies from '@/services/Servicies';
             this.store.errorWith_luggage_capacity = v.validRequiered(object.with_luggage_capacity)
             this.store.errorTotal_capacity = v.validRequiered(object.total_capacity)
             this.store.errorYear_build = v.validRequiered(object.year_build)
-
-            if(this.store.errorName_season === '' && this.store.errorPlate === '' && this.store.errorBrand === '' &&
+            this.allData.map(element => {
+              if(this.edit.license_plate === element.license_plate){
+                alert('La matrícula ya existe');
+                this.exists = true;
+              } else{
+                this.exists = false;
+              }
+            });
+            if(this.store.errorPlate === '' && this.store.errorBrand === '' &&
             this.store.errorLuggage_capacity === '' && this.store.errorWith_luggage_capacity === '' &&
-            this.store.errorTotal_capacity === '' && this.store.errorYear_build ===''){
+            this.store.errorTotal_capacity === '' && this.store.errorYear_build ==='' && this.exists === false){
               ok = true;
             }
             console.log(ok)
@@ -108,21 +113,18 @@ import Servicies from '@/services/Servicies';
           getVehicles: async function(){
             try {
               const getVehicles = new Servicies();
-              const res = await getVehicles.get('http://localhost:3080/vehicles');
-              console.log(this.data);
-              res.map(element => {
-            const vehicle = {
+              this.allData = await getVehicles.get('http://localhost:3080/vehicles');
               
+              this.data = this.allData.map(element => {
+            return {
+              "id": element.id_vehicle,
               "license_plate": element.license_plate,
               "brand": element.brand,
               "luggage_capacity": element.luggage_capacity,
               "with_luggage_capacity": element.with_luggage_capacity,
               "total_capacity": element.total_capacity,
               "year_build": element.year_build
-              
-                
             }
-              this.data.push(vehicle)
            });
             } catch (error) {
             console.error("Error fetching users:", error);
@@ -139,40 +141,26 @@ import Servicies from '@/services/Servicies';
               "year_build": this.edit.year_build
             }
             console.log(vehicle);
-            postVehicles.post(vehicle, 'http://localhost:3080/vehicles');
+            await postVehicles.post(vehicle, 'http://localhost:3080/vehicles');
+            this.getVehicles()
           },
-          patchVehicles: async function(data, index){
+          patchVehicles: async function(data){
             const patchVehicles = new Servicies();
-            const res = await patchVehicles.get('http://localhost:3080/vehicles');
-            let id = '';
-            let count = -1;
-            res.map(element => {
-             count++
-              if(index === count) {
-                id = element.id_hotel;
-                console.log(element.id_hotel)
-              }
-              
-           });
-           console.log(id)
            const user = {
-            "name_season": data.name_hotel,
-              "start_season": data.start_season,
-              "end_season": data.end_season,
-              "description_season": data.description_season
-            }
-            patchVehicles.patch(user,'http://localhost:3080/vehicles/', id)
+            "license_plate": data.license_plate,
+              "brand": data.brand,
+              "luggage_capacity": data.luggage_capacity,
+              "with_luggage_capacity": data.with_luggage_capacity,
+              "total_capacity": data.total_capacity,
+              "year_build": data.year_build  
+          }
+            await patchVehicles.patch(user,'http://localhost:3080/vehicles/', data.id)
+            this.getVehicles()
           },
           deleteVehicles: async function(data){
             const deleteVehicles = new Servicies();
-            const res = await deleteVehicles.get('http://localhost:3080/vehicles');
-            let id = '';
-            res.map(element => {
-              if(element.name_hotel === data.name_hotel) {
-                id = element.id_hotel;
-              }
-           });
-           deleteVehicles.delete('http://localhost:3080/vehicles/',id)
+            await deleteVehicles.delete('http://localhost:3080/vehicles/',data.id)
+            this.getVehicles()
           }
     },
     mounted(){

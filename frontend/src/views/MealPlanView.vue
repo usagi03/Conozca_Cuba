@@ -36,7 +36,9 @@ import MealPlanForm from '@/components/forms/MealPlanForm.vue'
         //headers: ['Nombre', 'Fecha Inicio', 'Fecha Fin'],
         data: [],
         showModal: false,
-        active: false
+        active: false,
+        allData: [],
+        exists: true
       }
     },
     methods:{
@@ -49,13 +51,13 @@ import MealPlanForm from '@/components/forms/MealPlanForm.vue'
           console.log(this.store.position)
           if(this.store.position === -1){
             this.postPlan()
-            this.data.push(this.edit);
+            
           this.showModal = false;
           this.active = false;
         } else {
           console.log(newObject)
-          this.data.splice(this.store.position, 1, newObject)
-          this.patchPlan(newObject, this.store.position)
+          //this.data.splice(this.store.position, 1, newObject)
+          this.patchPlan(newObject)
           this.showModal = false;
           this.store.isUpdate(-1);
         } 
@@ -63,10 +65,7 @@ import MealPlanForm from '@/components/forms/MealPlanForm.vue'
       },
       deleteElement(newObject){
         console.log(newObject)
-        const index = this.data.indexOf(newObject);
         this.deletePlan(newObject)
-        console.log(index);
-        this.data.splice(index, 1);
       },
       obtenerEdit(newObject){
         this.edit = newObject
@@ -86,8 +85,18 @@ import MealPlanForm from '@/components/forms/MealPlanForm.vue'
             
             this.store.errorPlan_type = v.validRequiered(object.plan_type)
             this.store.errorPlan_cost = v.validRequiered(object.plan_cost)
-
-            if(this.store.errorPlan_type === '' &&  this.store.errorPlan_cost === ''){
+            this.allData.map(element => {
+              if(this.edit.plan_type === element.plan_type){
+                alert('La temporada ya existe');
+                this.exists = true;
+              } else{
+                this.exists = false;
+              }
+            });
+            console.log(this.store.errorPlan_type) 
+            console.log(this.store.errorPlan_cost)
+            console.log(this.exists)
+            if(this.store.errorPlan_type === '' &&  this.store.errorPlan_cost === '' && this.exists === false){
               ok = true;
             }
             console.log(ok)
@@ -100,18 +109,16 @@ import MealPlanForm from '@/components/forms/MealPlanForm.vue'
           getPlan: async function(){
             try {
               const getPlan = new Servicies();
-              const res = await getPlan.get('http://localhost:3080/meal_plans');
-              console.log(this.data);
-              res.map(element => {
-            const season = {
+              this.allData = await getPlan.get('http://localhost:3080/meal_plans');
+              this.data = this.allData.map(element => {
+            return {
               
-              
+              "id": element.id_plan,
               "plan_type": element.plan_type,
               "plan_cost": element.plan_cost
               
                 
             }
-              this.data.push(season)
            });
             } catch (error) {
             console.error("Error fetching users:", error);
@@ -124,38 +131,23 @@ import MealPlanForm from '@/components/forms/MealPlanForm.vue'
               "plan_cost": this.edit.plan_cost
             }
             console.log(plan);
-            postSeasons.post(plan, 'http://localhost:3080/meal_plans');
+            await postSeasons.post(plan, 'http://localhost:3080/meal_plans');
+            this.getPlan()
           },
-          patchPlan: async function(data, index){
+          patchPlan: async function(data){
             const patchSeasons = new Servicies();
-            const res = await patchSeasons.get('http://localhost:3080/meal_plans');
-            let id = '';
-            let count = -1;
-            res.map(element => {
-             count++
-              if(index === count) {
-                id = element.id_hotel;
-                console.log(element.id_hotel)
-              }
-              
-           });
-           console.log(id)
-           const user = {
+          const user = {
             "plan_type": data.plan_type,
             "plan_cost": data.plan_cost
             }
-            patchSeasons.patch(user,'http://localhost:3080/meal_plans/', id)
+            await patchSeasons.patch(user,'http://localhost:3080/meal_plans/', data.id)
+           this.getPlan()
           },
           deletePlan: async function(data){
             const deletePlan = new Servicies();
-            const res = await deletePlan.get('http://localhost:3080/meal_plans');
-            let id = '';
-            res.map(element => {
-              if(element.name_hotel === data.name_hotel) {
-                id = element.id_hotel;
-              }
-           });
-           deletePlan.delete('http://localhost:3080/meal_plans/',id)
+            
+           await deletePlan.delete('http://localhost:3080/meal_plans/',data.id)
+           this.getPlan()
           }
     },
     mounted(){

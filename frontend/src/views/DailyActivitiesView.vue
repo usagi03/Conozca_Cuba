@@ -34,7 +34,9 @@ import Validation from '@/assets/validation';
         //headers: ['Tipo', 'Día', 'Tiempo', 'Provincia', 'Costo', 'Recargo', 'Descripción'],
         data: [],
         showModal: false,
-        active: false
+        active: false,
+        allData: [],
+        exists: false
       }
     },
     methods:{
@@ -47,13 +49,11 @@ import Validation from '@/assets/validation';
           console.log(this.store.position)
           if(this.store.position === -1){
             this.postActivity()
-            this.data.push(this.edit);
           this.showModal = false;
           this.active = false;
         } else {
           console.log(newObject)
-          this.data.splice(this.store.position, 1, newObject)
-          this.patchActivity(newObject, this.store.position)
+          this.patchActivity(newObject)
           this.showModal = false;
           this.store.isUpdate(-1);
         } 
@@ -61,10 +61,7 @@ import Validation from '@/assets/validation';
       },
       deleteElement(newObject){
         console.log(newObject)
-        const index = this.data.indexOf(newObject);
         this.deleteActivity(newObject)
-        console.log(index);
-        this.data.splice(index, 1);
       },
       obtenerEdit(newObject){
         this.edit = newObject
@@ -90,12 +87,19 @@ import Validation from '@/assets/validation';
             this.store.errorDescription_activity = v.validRequiered(object.description_activity)
             this.store.errorSurcharge_activity = v.validRequiered(object.surcharge_activity)
 
-
+            this.allData.map(element => {
+              if(this.edit.type_activity === element.type_activity && this.store.position === -1){
+                alert('La actividad ya existe');
+                this.exists = true;
+              } else{
+                this.exists = false;
+              }
+            })
 
             if(this.store.errorType_activity === '' && this.store.errorDay_activity  === '' && 
              this.store.errorTime_activity === '' && this.store.erroCost_activity === '' && 
              this.store.errorProvince_activity === '' && this.store.errorDescription_activity === '' &&
-            this.store.errorSurcharge_activity === ''){
+            this.store.errorSurcharge_activity === '' && this.exists === false){
               ok = true;
             }
             console.log(ok)
@@ -113,12 +117,11 @@ import Validation from '@/assets/validation';
           getActivity: async function(){
             try {
               const getPlan = new Servicies();
-              const res = await getPlan.get('http://localhost:3080/activities');
-              console.log(this.data);
-              res.map(element => {
-            const season = {
+              this.allData = await getPlan.get('http://localhost:3080/activities');
+              this.data = this.allData.map(element => {
+            return {
               
-              
+              "id": element.id_activity,
               "type_activity": element.type_activity,
               "day_activity": element.day_activity,
               "time_activity": element.time_activity,
@@ -128,7 +131,6 @@ import Validation from '@/assets/validation';
               "description_activity": element.description_activity,
                 
             }
-              this.data.push(season)
            });
             } catch (error) {
             console.error("Error fetching users:", error);
@@ -146,22 +148,11 @@ import Validation from '@/assets/validation';
               "description_activity": this.edit.description_activity
             }
             console.log(plan);
-            postActivity.post(plan, 'http://localhost:3080/activities');
+            await postActivity.post(plan, 'http://localhost:3080/activities');
+            this.getActivity()
           },
-          patchActivity: async function(data, index){
+          patchActivity: async function(data){
             const patchActivity = new Servicies();
-            const res = await patchActivity.get('http://localhost:3080/activities');
-            let id = '';
-            let count = -1;
-            res.map(element => {
-             count++
-              if(index === count) {
-                id = element.id_hotel;
-                console.log(element.id_hotel)
-              }
-              
-           });
-           console.log(id)
            const user = {
             "type_activity": data.type_activity,
               "day_activity": data.day_activity,
@@ -171,18 +162,15 @@ import Validation from '@/assets/validation';
               "surcharge_activity": data.surcharge_activity,
               "description_activity": data.description_activity,
             }
-            patchActivity.patch(user,'http://localhost:3080/activities/', id)
+            await patchActivity.patch(user,'http://localhost:3080/activities/', data.id)
+          this.getActivity()
           },
           deleteActivity: async function(data){
             const deleteActivity = new Servicies();
-            const res = await deleteActivity.get('http://localhost:3080/activities');
-            let id = '';
-            res.map(element => {
-              if(element.type_activity === data.type_activity) {
-                id = element.id_hotel;
-              }
-           });
-           deleteActivity.delete('http://localhost:3080/activities/',id)
+             
+            
+          await deleteActivity.delete('http://localhost:3080/activities/',data.id)
+          this.getActivity()
           }
     },
     mounted(){

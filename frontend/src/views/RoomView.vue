@@ -34,7 +34,9 @@ import Validation from '@/assets/validation';
         //headers: ['Numero', 'Tipo', 'Costo', 'Plan Alimenticio', 'Recargo'],
         data: [],
         showModal: false,
-        active: false
+        active: false,
+        allData: [],
+        exists: false
       }
     },
     methods:{
@@ -47,13 +49,12 @@ import Validation from '@/assets/validation';
           console.log(this.store.position)
           if(this.store.position === -1){
             this.postRooms()
-            this.data.push(this.edit);
           this.showModal = false;
           this.active = false;
         } else {
           console.log(newObject)
-          this.data.splice(this.store.position, 1, newObject)
-          this.patchRooms(newObject, this.store.position)
+          //this.data.splice(this.store.position, 1, newObject)
+          this.patchRooms(newObject)
           this.showModal = false;
           this.store.isUpdate(-1);
         } 
@@ -62,9 +63,6 @@ import Validation from '@/assets/validation';
       deleteElement(newObject){
         console.log(newObject)
         this.deleteRooms(newObject)
-        const index = this.data.indexOf(newObject);
-        console.log(index);
-        this.data.splice(index, 1);
       },
       obtenerEdit(newObject){
         this.edit = newObject;
@@ -103,11 +101,11 @@ import Validation from '@/assets/validation';
           getRooms: async function(){
             try {
               const getRooms = new Servicies();
-              const res = await getRooms.get('http://localhost:3080/rooms');
+              this.allData = await getRooms.get('http://localhost:3080/rooms');
               console.log(this.data);
-              res.map(element => {
-            const user = {
-              
+              this.data = this.allData.map(element => {
+            return {
+               "id": element.id_room,
                "room_number": element.room_number,
                "room_type": element.room_type,
                "room_cost": element.room_cost,
@@ -115,7 +113,6 @@ import Validation from '@/assets/validation';
                "room_surcharge": element.room_surcharge
                 
             }
-              this.data.push(user)
            });
             } catch (error) {
             console.error("Error fetching users:", error);
@@ -131,22 +128,12 @@ import Validation from '@/assets/validation';
                "room_surcharge": this.edit.room_surcharge
             }
             console.log(room);
-            postRoom.post(room, 'http://localhost:3080/rooms');
+            await postRoom.post(room, 'http://localhost:3080/rooms');
+          this.getRooms()
           },
-          patchRooms: async function(data, index){
+          patchRooms: async function(data){
             const patchRoom = new Servicies();
-            const res = await patchRoom.get('http://localhost:3080/rooms');
-            let id = '';
-            let count = -1;
-            res.map(element => {
-             count++
-              if(index === count) {
-                id = element.id_room;
-                console.log(element.id_room)
-              }
-              
-           });
-           console.log(id)
+
            const user = {
               "room_number": data.room_number.toString(),
                "room_type": data.room_type,
@@ -154,18 +141,14 @@ import Validation from '@/assets/validation';
                "plan": data.plan, 
                "room_surcharge": data.room_surcharge
             }
-            patchRoom.patch(user,'http://localhost:3080/rooms/', id)
+            await patchRoom.patch(user,'http://localhost:3080/rooms/', data.id)
+          this.getRooms()
           },
           deleteRooms: async function(data){
             const deleteUser = new Servicies();
-            const res = await deleteUser.get('http://localhost:3080/rooms');
-            let id = '';
-            res.map(element => {
-              if(element.room_number === data.room_number) {
-                id = element.id_room;
-              }
-           });
-           deleteUser.delete('http://localhost:3080/rooms/',id)
+            
+           await deleteUser.delete('http://localhost:3080/rooms/', data.id)
+          this.getRooms()
           }
     },
     mounted(){

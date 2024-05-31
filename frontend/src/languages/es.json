@@ -38,9 +38,9 @@
              "dateEnd": "Fecha de Fin",
              "dateConc": "Fecha de Concilación",
              "description": "Descripción",
-             "activitie": "No. Actividad",
-             "housing": "No. Alojamiento",
-             "transport": "No. Transportación"
+             "activitie": "Actividad",
+             "housing": "Alojamiento",
+             "transport": "Transportación"
         }
     },
     "dailyActivities" : {
@@ -65,13 +65,13 @@
             "province": "Provincia",
             "date_hotel": "Fecha del hotel",
             "phone": "Teléfono",
-              "fax": "Fax",
-              "distance_to_city": "Distancia de la ciudad",
-              "distance_to_airport": "Distancia del aireopuerto",
-              "email": "Correo",
-              "floor_count": "No. de pisos",
-              "business_model": "Modelo de negocio",
-              "location_hotel": "Locación del hotel"
+            "fax": "Fax",
+            "distance_to_city": "Distancia de la ciudad",
+            "distance_to_airport": "Distancia del aireopuerto",
+            "email": "Correo",
+            "floor_count": "No. de pisos",
+            "business_model": "Modelo de negocio",
+            "location_hotel": "Locación del hotel"
         }
     },
     "km" : {
@@ -125,11 +125,12 @@
              "days": "# de Días",
              "nights": "# de Noches",
              "persons": "# de Personas",
-             "hotel_cost": "$ Total Hotel",
-             "hotel_travel": "$ Viaje Hotel - Aeropuerto",
-             "transport": "$ Transporte",
-             "package": "$ Total Paquete",
-             "profit": "% de Ganancia"
+             "travel_cost": "$ Viaje Hotel Aeropuerto",
+             "hotel": "Hotel",
+             "transport": "Vehiculo",
+             "activity": "Actividad",
+             "profit": "% de Ganancia",
+             "contract": "Selecciona un contrato"
         }
     },
     "rooms" : {
